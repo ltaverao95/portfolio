@@ -36,33 +36,32 @@ export function ExperienceSection() {
             <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">Experiencia Profesional</h2>
         </div>
         <div className="relative">
-          <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-border" aria-hidden="true"></div>
-          <div className="space-y-12">
+          {/* Timeline line */}
+          <div className="absolute left-0 md:left-1/2 w-0.5 h-full bg-border -translate-x-1/2" aria-hidden="true"></div>
+
+          <div className="relative flex flex-col gap-12">
             {experiences.map((exp, index) => (
               <div key={index} className="grid md:grid-cols-2 gap-8 items-start">
-                <div className={`flex items-start ${index % 2 === 0 ? 'md:order-1 md:justify-end' : 'md:order-2 md:justify-start'}`}>
-                  <p className="font-semibold text-accent mt-1">{exp.dates}</p>
-                </div>
-                <div className={`relative ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
-                  <div className={`absolute -top-1 h-8 w-8 rounded-full bg-primary flex items-center justify-center ${index % 2 === 0 ? '-left-4 md:hidden' : 'hidden'}`}>
-                    <Briefcase className="h-4 w-4 text-primary-foreground" />
+                  {/* Dates */}
+                  <div className={`flex items-start ${index % 2 === 0 ? 'md:order-2 md:text-left' : 'md:order-1 md:text-right'} pl-8 md:pl-0 md:pr-0`}>
+                      <p className="font-semibold text-accent mt-1">{exp.dates}</p>
                   </div>
-                  <div className={`absolute -top-1 h-8 w-8 rounded-full bg-primary hidden items-center justify-center md:flex ${index % 2 === 0 ? 'left-1/2 -translate-x-1/2' : 'left-1/2 -translate-x-1/2'}`}>
-                     <Briefcase className="h-4 w-4 text-primary-foreground" />
+                  
+                  {/* Card */}
+                  <div className={`relative ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'} pl-8 md:pl-0`}>
+                      <Card className="w-full">
+                          <div className={`absolute -top-3 h-8 w-8 rounded-full bg-primary flex items-center justify-center
+                              ${index % 2 === 0 ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`}>
+                              <Briefcase className="h-4 w-4 text-primary-foreground" />
+                          </div>
+                          <CardHeader>
+                              <CardTitle className="text-xl font-semibold">{exp.role} en {exp.company}</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                              <p className="text-muted-foreground">{exp.description}</p>
+                          </CardContent>
+                      </Card>
                   </div>
-
-                  <Card className="ml-8 md:ml-0">
-                     <div className={`absolute -top-2 h-8 w-8 rounded-full bg-primary hidden items-center justify-center md:flex ${index % 2 === 0 ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`}>
-                        <Briefcase className="h-4 w-4 text-primary-foreground" />
-                     </div>
-                    <CardHeader>
-                      <CardTitle className="text-xl font-semibold">{exp.role} en {exp.company}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{exp.description}</p>
-                    </CardContent>
-                  </Card>
-                </div>
               </div>
             ))}
           </div>
