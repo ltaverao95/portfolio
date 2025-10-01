@@ -7,6 +7,14 @@
     "contact": "Contact",
     "codeAnalyzer": "Code Analyzer"
   },
+  "routes": {
+    "home": "/#home",
+    "about": "/#about-me",
+    "experience": "/#experience",
+    "projects": "/#projects",
+    "contact": "/#contact",
+    "codeAnalyzer": "/analyzer"
+  },
   "hero": {
     "greeting": "Hello, I'm Luis Felipe Tavera Orozco",
     "role": "Senior Software Engineer",

@@ -4,22 +4,22 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useLanguage } from '@/context/language-context';
+import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { translate } = useLanguage();
 
   const navLinks = [
-    { href: '/#inicio', label: translate('header.home') },
-    { href: '/#sobre-mi', label: translate('header.about') },
-    { href: '/#experiencia', label: translate('header.experience') },
-    { href: '/#proyectos', label: translate('header.projects') },
-    { href: '/#contacto', label: translate('header.contact') },
-    { href: '/analyzer', label: translate('header.codeAnalyzer') },
+    { href: translate('routes.home'), label: translate('header.home') },
+    { href: translate('routes.about'), label: translate('header.about') },
+    { href: translate('routes.experience'), label: translate('header.experience') },
+    { href: translate('routes.projects'), label: translate('header.projects') },
+    { href: translate('routes.contact'), label: translate('header.contact') },
+    { href: translate('routes.codeAnalyzer'), label: translate('header.codeAnalyzer') },
   ];
-
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
@@ -29,7 +29,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
-          <Link href="#inicio" className="mr-6 flex items-center space-x-2">
+          <Link href={translate('routes.home')} className="mr-6 flex items-center space-x-2">
             <Code2 className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline sm:inline-block">
               Luis Felipe Tavera
@@ -49,11 +49,12 @@ export function AppHeader() {
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex items-center space-x-2">
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="/analyzer">{navLinks[5].label}</Link>
+              <Link href={translate('routes.codeAnalyzer')}>{navLinks[5].label}</Link>
             </Button>
+            <ThemeToggleButton />
           </nav>
           
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -68,12 +69,17 @@ export function AppHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
+                <SheetHeader>
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                    <SheetDescription className="sr-only">A mobile menu with navigation links.</SheetDescription>
+                </SheetHeader>
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between pb-4 border-b">
-                    <Link href="#inicio" className="flex items-center space-x-2" onClick={handleLinkClick}>
+                    <Link href={translate('routes.home')} className="flex items-center space-x-2" onClick={handleLinkClick}>
                         <Code2 className="h-6 w-6 text-primary" />
                         <span className="font-bold font-headline">Luis Felipe Tavera</span>
                     </Link>
+                    <ThemeToggleButton />
                 </div>
                 <nav className="flex flex-col space-y-4 mt-6">
                   {navLinks.map(({ href, label }) => (
