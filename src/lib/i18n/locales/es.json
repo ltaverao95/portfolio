@@ -1,0 +1,85 @@
+{
+  "header": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "codeAnalyzer": "Analizador de Código"
+  },
+  "hero": {
+    "greeting": "Hola, soy Luis Felipe Tavera Orozco",
+    "role": "Ingeniero de Software Senior",
+    "description": "Con más de 8 años de experiencia construyendo soluciones de software robustas, escalables y eficientes. Mi pasión es transformar ideas complejas en aplicaciones intuitivas y potentes utilizando tecnologías como .Net, React y Angular.",
+    "contactButton": "Contactar",
+    "projectsButton": "Ver mis proyectos"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "paragraph1": "Soy un desarrollador enfocado en la calidad y las buenas prácticas. Creo firmemente que un buen software no solo debe funcionar, sino que debe ser mantenible y escalable. Por eso, aplico patrones de diseño, arquitecturas limpias y los principios SOLID en cada proyecto que lidero o en el que participo. Mi objetivo es siempre entregar valor real a través de código limpio y bien estructurado.",
+    "paragraph2": "Me considero un eterno aprendiz, siempre explorando nuevas tecnologías y metodologías para mejorar mis habilidades. Disfruto de los desafíos técnicos y de colaborar en equipos dinámicos para alcanzar objetivos comunes. Actualmente, aporto mi experiencia en el equipo de Flyr, donde contribuyo al desarrollo de soluciones innovadoras.",
+    "favoriteTools": "Mis Herramientas Favoritas",
+    "skills": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "databases": "Bases de Datos",
+      "principles": "Principios y Arquitecturas",
+      "tools": "Herramientas"
+    }
+  },
+  "experience": {
+    "title": "Experiencia Profesional",
+    "job1": {
+      "role": "Ingeniero de Software",
+      "dates": "Actualidad",
+      "description": "Desarrollo y mantenimiento de aplicaciones críticas para el sector aeronáutico, utilizando un stack tecnológico moderno basado en .Net y React. Colaboro en la definición de arquitecturas y en la implementación de nuevas funcionalidades, asegurando el rendimiento y la escalabilidad del sistema."
+    },
+    "job2": {
+      "role": "Desarrollador de Software",
+      "description": "Participé en el desarrollo de soluciones de software para aerolíneas, enfocado en sistemas de reservas y gestión de pasajeros. Implementé integraciones complejas y trabajé en la optimización de procesos clave del negocio."
+    },
+    "job3": {
+      "role": "Desarrollador",
+      "description": "Contribuí al desarrollo de sistemas de información internos para la gestión académica y administrativa, mejorando la eficiencia de los procesos universitarios a través de la tecnología."
+    },
+    "job4": {
+      "role": "Desarrollador .Net",
+      "description": "Fui responsable del desarrollo de componentes y funcionalidades para productos de software de gestión de proyectos, trabajando principalmente con tecnologías .Net en un entorno ágil."
+    }
+  },
+  "projects": {
+    "title": "Proyectos que me enorgullecen",
+    "project1": {
+      "description": "Una API RESTful desarrollada en .NET Core que integra servicios de reconocimiento facial de Microsoft Azure. Permite gestionar, entrenar y reconocer rostros a través de endpoints seguros y eficientes."
+    },
+    "project2": {
+      "description": "Un proyecto personal para explorar el poder de las APIs de Google Chrome. Esta extensión demuestra cómo interactuar con las funcionalidades nativas del navegador, como la gestión de pestañas, almacenamiento y notificaciones."
+    },
+    "project3": {
+      "description": "Un proyecto como parte de un concurso de programación para simular operaciones bancarias."
+    },
+    "viewOnGithub": "Ver en GitHub"
+  },
+  "contact": {
+    "title": "Hablemos",
+    "description": "Estoy siempre abierto a conectar, colaborar en proyectos interesantes o explorar nuevas oportunidades profesionales. Si mi perfil te parece interesante, no dudes en contactarme."
+  },
+  "footer": {
+    "designedWithPassion": "Diseñado y desarrollado con pasión.",
+    "language": "Idioma"
+  },
+  "analyzer": {
+    "title": "Análisis Estilístico de Código",
+    "description": "Pega tu código, selecciona el lenguaje y deja que la IA te dé sugerencias para mejorar su calidad y formato.",
+    "form": {
+      "languageLabel": "Lenguaje de Programación",
+      "languagePlaceholder": "Selecciona un lenguaje",
+      "snippetLabel": "Fragmento de Código",
+      "snippetPlaceholder": "Pega tu código aquí...",
+      "analyzeButton": "Analizar Código",
+      "analyzingButton": "Analizando...",
+      "errorTitle": "Error",
+      "suggestionsTitle": "Sugerencias de la IA"
+    }
+  }
+}

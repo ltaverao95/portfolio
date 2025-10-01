@@ -1,22 +1,25 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-
-const navLinks = [
-  { href: '/#inicio', label: 'Inicio' },
-  { href: '/#sobre-mi', label: 'Sobre Mí' },
-  { href: '/#experiencia', label: 'Experiencia' },
-  { href: '/#proyectos', label: 'Proyectos' },
-  { href: '/#contacto', label: 'Contacto' },
-  { href: '/analyzer', label: 'Code Analyzer' },
-];
+import { useLanguage } from '@/context/language-context';
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { href: '/#inicio', label: t('header.home') },
+    { href: '/#sobre-mi', label: t('header.about') },
+    { href: '/#experiencia', label: t('header.experience') },
+    { href: '/#proyectos', label: t('header.projects') },
+    { href: '/#contacto', label: t('header.contact') },
+    { href: '/analyzer', label: t('header.codeAnalyzer') },
+  ];
+
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
@@ -49,7 +52,7 @@ export function AppHeader() {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="hidden md:flex items-center space-x-2">
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="/analyzer">Code Analyzer</Link>
+              <Link href="/analyzer">{navLinks[5].label}</Link>
             </Button>
           </nav>
           

@@ -1,0 +1,85 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About Me",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "codeAnalyzer": "Code Analyzer"
+  },
+  "hero": {
+    "greeting": "Hello, I'm Luis Felipe Tavera Orozco",
+    "role": "Senior Software Engineer",
+    "description": "With over 8 years of experience building robust, scalable, and efficient software solutions. My passion is transforming complex ideas into intuitive and powerful applications using technologies like .Net, React, and Angular.",
+    "contactButton": "Contact Me",
+    "projectsButton": "See my projects"
+  },
+  "about": {
+    "title": "About Me",
+    "paragraph1": "I am a developer focused on quality and best practices. I firmly believe that good software should not only work, but also be maintainable and scalable. That's why I apply design patterns, clean architectures, and SOLID principles in every project I lead or participate in. My goal is always to deliver real value through clean and well-structured code.",
+    "paragraph2": "I consider myself a lifelong learner, always exploring new technologies and methodologies to improve my skills. I enjoy technical challenges and collaborating in dynamic teams to achieve common goals. Currently, I contribute my experience to the Flyr team, where I help develop innovative solutions.",
+    "favoriteTools": "My Favorite Tools",
+    "skills": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "databases": "Databases",
+      "principles": "Principles & Architectures",
+      "tools": "Tools"
+    }
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "job1": {
+      "role": "Software Engineer",
+      "dates": "Present",
+      "description": "Development and maintenance of critical applications for the aviation sector, using a modern technology stack based on .Net and React. I collaborate in defining architectures and implementing new features, ensuring system performance and scalability."
+    },
+    "job2": {
+      "role": "Software Developer",
+      "description": "I participated in the development of software solutions for airlines, focusing on reservation and passenger management systems. I implemented complex integrations and worked on optimizing key business processes."
+    },
+    "job3": {
+      "role": "Developer",
+      "description": "I contributed to the development of internal information systems for academic and administrative management, improving the efficiency of university processes through technology."
+    },
+    "job4": {
+      "role": ".Net Developer",
+      "description": "I was responsible for developing components and features for project management software products, working mainly with .Net technologies in an agile environment."
+    }
+  },
+  "projects": {
+    "title": "Projects I'm Proud Of",
+    "project1": {
+      "description": "A RESTful API developed in .NET Core that integrates Microsoft Azure's facial recognition services. It allows managing, training, and recognizing faces through secure and efficient endpoints."
+    },
+    "project2": {
+      "description": "A personal project to explore the power of Google Chrome APIs. This extension demonstrates how to interact with the browser's native functionalities, such as tab management, storage, and notifications."
+    },
+    "project3": {
+      "description": "A project as part of a programming contest to simulate banking operations."
+    },
+    "viewOnGithub": "View on GitHub"
+  },
+  "contact": {
+    "title": "Let's Talk",
+    "description": "I am always open to connecting, collaborating on interesting projects, or exploring new professional opportunities. If my profile seems interesting to you, do not hesitate to contact me."
+  },
+  "footer": {
+    "designedWithPassion": "Designed and developed with passion.",
+    "language": "Language"
+  },
+  "analyzer": {
+    "title": "Code Stylistic Analysis",
+    "description": "Paste your code, select the language, and let the AI give you suggestions to improve its quality and format.",
+    "form": {
+      "languageLabel": "Programming Language",
+      "languagePlaceholder": "Select a language",
+      "snippetLabel": "Code Snippet",
+      "snippetPlaceholder": "Paste your code here...",
+      "analyzeButton": "Analyze Code",
+      "analyzingButton": "Analyzing...",
+      "errorTitle": "Error",
+      "suggestionsTitle": "AI Suggestions"
+    }
+  }
+}
