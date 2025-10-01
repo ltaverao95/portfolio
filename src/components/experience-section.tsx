@@ -58,8 +58,8 @@ export function ExperienceSection() {
                               <CardTitle className="text-xl font-semibold">{exp.role} en {exp.company}</CardTitle>
                             </div>
                           </CardHeader>
-                          <CardContent className="pl-16">
-                              <p className="text-muted-foreground">{exp.description}</p>
+                          <CardContent>
+                              <p className="text-muted-foreground text-justify">{exp.description}</p>
                           </CardContent>
                       </Card>
                   </div>
