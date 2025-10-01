@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
 
 export function ContactSection() {
-  const { t } = useLanguage();
+  const { translate } = useLanguage();
   const contactInfo = [
     {
       icon: Mail,
@@ -30,9 +30,9 @@ export function ContactSection() {
       <div className="container px-4 md:px-6">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{t('contact.title')}</h2>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{translate('contact.title')}</h2>
             <p className="text-muted-foreground text-lg">
-              {t('contact.description')}
+              {translate('contact.description')}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-4 pt-4">

@@ -7,15 +7,15 @@ import { SkillIcon } from '@/components/skill-icon';
 import { useLanguage } from '@/context/language-context';
 
 export function AboutSection() {
-  const { t } = useLanguage();
+  const { translate } = useLanguage();
   const profileImage = PlaceHolderImages.find(p => p.id === 'profile-picture');
   
   const skills = {
-    [t('about.skills.backend')]: ['.NET Core', 'ASP.NET', 'C#', 'Web API', 'Entity Framework'],
-    [t('about.skills.frontend')]: ['React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
-    [t('about.skills.databases')]: ['SQL Server', 'PostgreSQL', 'MongoDB'],
-    [t('about.skills.principles')]: ['SOLID', 'Clean Architecture', 'DDD', 'Microservicios'],
-    [t('about.skills.tools')]: ['Git', 'Docker', 'Azure'],
+    [translate('about.skills.backend')]: ['.NET Core', 'ASP.NET', 'C#', 'Web API', 'Entity Framework'],
+    [translate('about.skills.frontend')]: ['React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
+    [translate('about.skills.databases')]: ['SQL Server', 'PostgreSQL', 'MongoDB'],
+    [translate('about.skills.principles')]: ['SOLID', 'Clean Architecture', 'DDD', 'Microservicios'],
+    [translate('about.skills.tools')]: ['Git', 'Docker', 'Azure'],
   };
 
   return (
@@ -24,13 +24,13 @@ export function AboutSection() {
         <div className="grid gap-12 lg:grid-cols-3">
           <div className="lg:col-span-2 space-y-8">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{t('about.title')}</h2>
+              <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{translate('about.title')}</h2>
               <div className="space-y-4 text-muted-foreground text-lg">
                 <p>
-                  {t('about.paragraph1')}
+                  {translate('about.paragraph1')}
                 </p>
                 <p>
-                  {t('about.paragraph2')}
+                  {translate('about.paragraph2')}
                 </p>
               </div>
             </div>
@@ -50,7 +50,7 @@ export function AboutSection() {
         </div>
 
         <div className="mt-16">
-          <h3 className="text-2xl font-bold font-headline tracking-tighter sm:text-3xl text-center text-primary mb-8">{t('about.favoriteTools')}</h3>
+          <h3 className="text-2xl font-bold font-headline tracking-tighter sm:text-3xl text-center text-primary mb-8">{translate('about.favoriteTools')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(skills).map(([category, items]) => (
               <Card key={category}>

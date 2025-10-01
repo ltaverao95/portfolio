@@ -11,7 +11,7 @@ const translations = { es, en };
 interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
-  t: (key: string) => string;
+  translate: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -19,7 +19,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('es');
 
-  const t = useMemo(() => (key: string): string => {
+  const translate = useMemo(() => (key: string): string => {
     const keys = key.split('.');
     let result: any = translations[language];
     for (const k of keys) {
@@ -32,7 +32,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, translate }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -5,32 +5,32 @@ import { Briefcase } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 
 export function ExperienceSection() {
-  const { t } = useLanguage();
+  const { translate } = useLanguage();
 
   const experiences = [
     {
-      role: t('experience.job1.role'),
+      role: translate('experience.job1.role'),
       company: 'Flyr',
-      dates: t('experience.job1.dates'),
-      description: t('experience.job1.description')
+      dates: translate('experience.job1.dates'),
+      description: translate('experience.job1.description')
     },
     {
-      role: t('experience.job2.role'),
+      role: translate('experience.job2.role'),
       company: 'Newshore',
       dates: '2021 - 2022',
-      description: t('experience.job2.description')
+      description: translate('experience.job2.description')
     },
     {
-      role: t('experience.job3.role'),
+      role: translate('experience.job3.role'),
       company: 'Universidad de Manizales',
       dates: '2019 - 2021',
-      description: t('experience.job3.description')
+      description: translate('experience.job3.description')
     },
     {
-      role: t('experience.job4.role'),
+      role: translate('experience.job4.role'),
       company: 'IT-ROI Solutions',
       dates: '2018 - 2019',
-      description: t('experience.job4.description')
+      description: translate('experience.job4.description')
     }
   ];
 
@@ -38,7 +38,7 @@ export function ExperienceSection() {
     <section id="experiencia" className="w-full py-16 md:py-24 lg:py-32 bg-secondary/50">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{t('experience.title')}</h2>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{translate('experience.title')}</h2>
         </div>
         <div className="relative">
           {/* Timeline line */}

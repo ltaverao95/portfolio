@@ -9,15 +9,15 @@ import { useLanguage } from '@/context/language-context';
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t } = useLanguage();
+  const { translate } = useLanguage();
 
   const navLinks = [
-    { href: '/#inicio', label: t('header.home') },
-    { href: '/#sobre-mi', label: t('header.about') },
-    { href: '/#experiencia', label: t('header.experience') },
-    { href: '/#proyectos', label: t('header.projects') },
-    { href: '/#contacto', label: t('header.contact') },
-    { href: '/analyzer', label: t('header.codeAnalyzer') },
+    { href: '/#inicio', label: translate('header.home') },
+    { href: '/#sobre-mi', label: translate('header.about') },
+    { href: '/#experiencia', label: translate('header.experience') },
+    { href: '/#proyectos', label: translate('header.projects') },
+    { href: '/#contacto', label: translate('header.contact') },
+    { href: '/analyzer', label: translate('header.codeAnalyzer') },
   ];
 
 
