@@ -16,6 +16,12 @@ const projects = [
     description: 'Un proyecto personal para explorar el poder de las APIs de Google Chrome. Esta extensión demuestra cómo interactuar con las funcionalidades nativas del navegador, como la gestión de pestañas, almacenamiento y notificaciones.',
     technologies: ['JavaScript', 'HTML5', 'CSS3', 'Chrome Extension APIs'],
     link: 'https://github.com/ltaverao95/Google-Chrome-APIs-Extension'
+  },
+  {
+    title: 'Telegram ChatBot Hackaton - Kodefest',
+    description: 'Un proyecto como parte de un concurso de programación para simular operaciones bancarias.',
+    technologies: ['JavaScript', 'HTML5', 'CSS3', 'Node.js'],
+    link: 'https://github.com/ltaverao95/kodefest8'
   }
 ];
 
