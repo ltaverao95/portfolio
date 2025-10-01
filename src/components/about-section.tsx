@@ -8,7 +8,7 @@ const skills = {
   Frontend: ['React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
   'Bases de Datos': ['SQL Server', 'PostgreSQL', 'MongoDB'],
   'Principios y Arquitecturas': ['SOLID', 'Clean Architecture', 'DDD', 'Microservicios'],
-  Herramientas: ['Git', 'Docker', 'Azure', 'Jenkins'],
+  Herramientas: ['Git', 'Docker', 'Azure'],
 };
 
 export function AboutSection() {
