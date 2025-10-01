@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { handleCodeAnalysis, FormState } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,7 +26,7 @@ function SubmitButton() {
 }
 
 export function AnalyzerForm() {
-  const [state, formAction] = useFormState(handleCodeAnalysis, initialState);
+  const [state, formAction] = useActionState(handleCodeAnalysis, initialState);
 
   return (
     <form action={formAction} className="space-y-8">
