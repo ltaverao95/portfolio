@@ -49,9 +49,9 @@ export function ExperienceSection() {
                   
                   {/* Card */}
                   <div className={`relative ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
-                      <Card className="w-full">
-                          <div className={`absolute top-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center
-                              ${index % 2 === 0 ? 'md:-right-4' : 'md:-left-4'}`}>
+                      <Card className="w-full relative">
+                          <div className={`absolute top-4 h-8 w-8 rounded-full bg-primary flex items-center justify-center
+                              ${index % 2 === 0 ? 'right-4' : 'left-4'}`}>
                               <Briefcase className="h-4 w-4 text-primary-foreground" />
                           </div>
                           <CardHeader>
