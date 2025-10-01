@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 const contactInfo = [
   {
     icon: Mail,
-    text: 'luisf.taverao@gmail.com',
-    href: 'mailto:luisf.taverao@gmail.com',
+    text: 'felipetavera0412@gmail.com',
+    href: 'mailto:felipetavera0412@gmail.com',
   },
   {
     icon: Linkedin,
