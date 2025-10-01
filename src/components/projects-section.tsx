@@ -37,7 +37,7 @@ export function ProjectsSection() {
             <Card key={index} className="flex flex-col">
               <CardHeader>
                 <CardTitle className="text-xl font-semibold">{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardDescription className="text-justify">{project.description}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <div className="flex flex-wrap gap-2">
