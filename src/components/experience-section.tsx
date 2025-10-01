@@ -37,21 +37,21 @@ export function ExperienceSection() {
         </div>
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 w-0.5 h-full bg-border -translate-x-1/2" aria-hidden="true"></div>
+          <div className="absolute left-1/2 w-0.5 h-full bg-border -translate-x-1/2" aria-hidden="true"></div>
 
           <div className="relative flex flex-col gap-12">
             {experiences.map((exp, index) => (
               <div key={index} className="grid md:grid-cols-2 gap-8 items-start">
                   {/* Dates */}
-                  <div className={`flex items-start ${index % 2 === 0 ? 'md:order-2 md:text-left' : 'md:order-1 md:text-right'} pl-8 md:pl-0 md:pr-0`}>
+                  <div className={`text-center md:text-left ${index % 2 === 0 ? 'md:order-2 md:text-left' : 'md:order-1 md:text-right'}`}>
                       <p className="font-semibold text-accent mt-1">{exp.dates}</p>
                   </div>
                   
                   {/* Card */}
-                  <div className={`relative ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'} pl-8 md:pl-0`}>
+                  <div className={`relative ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
                       <Card className="w-full">
-                          <div className={`absolute -top-3 h-8 w-8 rounded-full bg-primary flex items-center justify-center
-                              ${index % 2 === 0 ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`}>
+                          <div className={`absolute top-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center
+                              ${index % 2 === 0 ? 'md:-right-4' : 'md:-left-4'}`}>
                               <Briefcase className="h-4 w-4 text-primary-foreground" />
                           </div>
                           <CardHeader>
