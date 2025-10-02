@@ -14,12 +14,24 @@ interface BlogPost {
   tags: string[];
 }
 
+// Función de validación para asegurar que el objeto es de tipo BlogPost[]
+function isBlogPostArray(data: any): data is BlogPost[] {
+  return Array.isArray(data) && data.every(item => 
+    typeof item.title === 'string' &&
+    typeof item.description === 'string' &&
+    typeof item.image === 'string' &&
+    typeof item.url === 'string' &&
+    Array.isArray(item.tags)
+  );
+}
+
 export function BlogSection() {
   const { translate } = useLanguage();
-  const blogTitle = translate('blog.title');
-  const readPostText = translate('blog.readPost');
-  // Aserción de tipo para asegurar que posts es un array de BlogPost
-  const posts = translate('blog.posts') as BlogPost[];
+  const blogTitle = translate('blog.title') as string;
+  const readPostText = translate('blog.readPost') as string;
+  const postsData = translate('blog.posts');
+
+  const posts = isBlogPostArray(postsData) ? postsData : [];
 
   return (
     <section id="blog" className="pt-0 md:pt-0 lg:pt-0 pb-12 md:pb-24 lg:pb-32">

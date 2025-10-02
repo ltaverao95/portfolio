@@ -8,10 +8,13 @@ type Language = 'es' | 'en';
 
 const translations = { es, en };
 
+// Definimos un tipo más flexible para el valor de retorno de la traducción
+type TranslationValue = string | object | any[];
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
-  translate: (key: string) => string;
+  translate: (key: string) => TranslationValue;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -19,16 +22,16 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('es');
 
-  const translate = useMemo(() => (key: string): string => {
+  const translate = useMemo(() => (key: string): TranslationValue => {
     const keys = key.split('.');
     let result: any = translations[language];
     for (const k of keys) {
       result = result?.[k];
       if (result === undefined) {
-        return key;
+        return key; // Devuelve la clave si no se encuentra la traducción
       }
     }
-    return result as string;
+    return result;
   }, [language]);
 
   return (
