@@ -23,7 +23,7 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
+import { useFirestore, errorEmitter, FirestorePermissionError } from '@/firebase';
 import { useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 
@@ -70,7 +70,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
     }
   }, [post, reset]);
 
-  const onSubmit: SubmitHandler<BlogPostFormData> = async (data) => {
+  const onSubmit: SubmitHandler<BlogPostFormData> = (data) => {
     if (!userId) {
         alert('You must be logged in to create or edit a post.');
         return;
@@ -83,16 +83,29 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
     };
 
     if (post) {
-      // Update existing post
-      await setDoc(doc(firestore, 'blogPosts', post.id), {
+      const docRef = doc(firestore, 'blogPosts', post.id);
+      setDoc(docRef, {
         ...postData,
         publicationDate: post.publicationDate,
-      }, { merge: true });
+      }, { merge: true }).catch(error => {
+        errorEmitter.emit('permission-error', new FirestorePermissionError({
+            path: docRef.path,
+            operation: 'update',
+            requestResourceData: postData,
+        }));
+      });
     } else {
-      // Create new post
-      await addDoc(collection(firestore, 'blogPosts'), {
+      const colRef = collection(firestore, 'blogPosts');
+      const newPostData = {
         ...postData,
         publicationDate: serverTimestamp(),
+      };
+      addDoc(colRef, newPostData).catch(error => {
+        errorEmitter.emit('permission-error', new FirestorePermissionError({
+            path: colRef.path,
+            operation: 'create',
+            requestResourceData: newPostData,
+        }));
       });
     }
     onClose();

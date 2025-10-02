@@ -35,7 +35,7 @@ import {
   doc,
   writeBatch,
 } from 'firebase/firestore';
-import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useCollection, useMemoFirebase, errorEmitter, FirestorePermissionError } from '@/firebase';
 import { BlogPost } from '@/lib/types';
 import { columns } from './blog-columns';
 import { PlusCircle, Trash2 } from 'lucide-react';
@@ -79,21 +79,34 @@ export function BlogDataTable() {
         setSelectedPost(post);
         setIsFormOpen(true);
       },
-      deletePost: async (postId: string) => {
+      deletePost: (postId: string) => {
         if(window.confirm('Are you sure you want to delete this post?')){
-            await deleteDoc(doc(firestore, 'blogPosts', postId));
+            const docRef = doc(firestore, 'blogPosts', postId);
+            deleteDoc(docRef).catch(error => {
+                errorEmitter.emit('permission-error', new FirestorePermissionError({
+                    path: docRef.path,
+                    operation: 'delete',
+                }));
+            });
         }
       },
     },
   });
 
-  const deleteSelectedRows = async () => {
+  const deleteSelectedRows = () => {
     if (window.confirm(`Are you sure you want to delete ${table.getFilteredSelectedRowModel().rows.length} posts?`)) {
       const batch = writeBatch(firestore);
       table.getFilteredSelectedRowModel().rows.forEach(row => {
         batch.delete(doc(firestore, 'blogPosts', row.original.id));
       });
-      await batch.commit();
+      batch.commit().catch(error => {
+         // Emitting a generic error for the batch operation.
+         // For more detailed, per-document errors, a more complex handler would be needed.
+         errorEmitter.emit('permission-error', new FirestorePermissionError({
+            path: 'blogPosts',
+            operation: 'delete',
+        }));
+      });
       table.resetRowSelection();
     }
   };
