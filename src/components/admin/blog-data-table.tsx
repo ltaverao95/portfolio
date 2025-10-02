@@ -1,5 +1,5 @@
 'use client';
-import * a React from 'react';
+import * as React from 'react';
 import {
   ColumnDef,
   flexRender,
@@ -35,7 +35,7 @@ import {
   doc,
   writeBatch,
 } from 'firebase/firestore';
-import { useFirestore, useCollection } from '@/firebase';
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { BlogPost } from '@/lib/types';
 import { columns } from './blog-columns';
 import { PlusCircle, Trash2 } from 'lucide-react';
@@ -46,9 +46,8 @@ import { useLanguage } from '@/context/language-context';
 export function BlogDataTable() {
   const firestore = useFirestore();
   const { user } = useUser();
-  const { data: blogPosts, isLoading } = useCollection<BlogPost>(
-    collection(firestore, 'blogPosts')
-  );
+  const blogPostsCollection = useMemoFirebase(() => collection(firestore, 'blogPosts'), [firestore]);
+  const { data: blogPosts, isLoading } = useCollection<BlogPost>(blogPostsCollection);
   const { translate } = useLanguage();
 
   const [sorting, setSorting] = React.useState<SortingState>([]);

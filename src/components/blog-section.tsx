@@ -1,5 +1,5 @@
 'use client';
-
+import { useMemo } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/language-context';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -14,7 +14,8 @@ import { Skeleton } from './ui/skeleton';
 export function BlogSection() {
   const { translate } = useLanguage();
   const firestore = useFirestore();
-  const { data: posts, isLoading } = useCollection<BlogPost>(collection(firestore, 'blogPosts'));
+  const blogPostsCollection = useMemo(() => collection(firestore, 'blogPosts'), [firestore]);
+  const { data: posts, isLoading } = useCollection<BlogPost>(blogPostsCollection);
   
   const blogTitle = translate('blog.title') as string;
   const readPostText = translate('blog.readPost') as string;
