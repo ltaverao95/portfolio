@@ -109,7 +109,7 @@
     "admin": {
     "login": {
         "title": "Acceso de Administrador",
-        "description": "Por favor, inicia sesión con Google para administrar las entradas del blog.",
+        "description": "Por favor, inicia sesión con Google.",
         "button": "Iniciar sesión con Google"
     },
     "table": {

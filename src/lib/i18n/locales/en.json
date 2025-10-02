@@ -109,7 +109,7 @@
   "admin": {
     "login": {
         "title": "Admin Access",
-        "description": "Please sign in with Google to manage blog posts.",
+        "description": "Please sign in.",
         "button": "Sign in with Google"
     },
     "table": {
