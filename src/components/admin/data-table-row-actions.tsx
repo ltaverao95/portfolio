@@ -1,6 +1,6 @@
 'use client';
 
-import { Row } from '@tanstack/react-table';
+import { Row, Table } from '@tanstack/react-table';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +15,12 @@ import { useLanguage } from '@/context/language-context';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
+  table: Table<TData>;
 }
 
 export function DataTableRowActions<TData>({
   row,
+  table,
 }: DataTableRowActionsProps<TData>) {
     const { translate } = useLanguage();
   const post = row.original as BlogPost;
@@ -36,14 +38,14 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem
-          onClick={() => (row.table.options.meta as any)?.editPost(post)}
+          onClick={() => (table.options.meta as any)?.editPost(post)}
         >
           <Pen className="mr-2 h-4 w-4" />
           {translate('admin.rowActions.edit')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => (row.table.options.meta as any)?.deletePost(post.id)}
+          onClick={() => (table.options.meta as any)?.deletePost(post.id)}
           className="text-red-600 focus:text-red-600 focus:bg-red-50"
         >
           <Trash className="mr-2 h-4 w-4" />
