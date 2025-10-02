@@ -58,20 +58,19 @@ export function BlogDataTable() {
   const [selectedPost, setSelectedPost] = React.useState<BlogPost | undefined>(undefined);
   const [isMutating, setIsMutating] = React.useState(false);
 
-  const handleDeletePost = async (postId: string) => {
+  const handleDeletePost = (postId: string) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
         setIsMutating(true);
         const docRef = doc(firestore, 'blogPosts', postId);
-        try {
-            await deleteDoc(docRef);
-        } catch (error) {
+        deleteDoc(docRef).catch(error => {
             errorEmitter.emit('permission-error', new FirestorePermissionError({
                 path: docRef.path,
                 operation: 'delete',
             }));
-        } finally {
+        }).finally(() => {
+             // We don't control success here, just that the operation is done.
             setIsMutating(false);
-        }
+        });
     }
   };
 
@@ -108,17 +107,16 @@ export function BlogDataTable() {
       table.getFilteredSelectedRowModel().rows.forEach(row => {
         batch.delete(doc(firestore, 'blogPosts', row.original.id));
       });
-      try {
-        await batch.commit()
+      batch.commit().then(() => {
         table.resetRowSelection();
-      } catch(error) {
+      }).catch(error => {
          errorEmitter.emit('permission-error', new FirestorePermissionError({
             path: 'blogPosts',
             operation: 'delete',
         }));
-      } finally {
+      }).finally(() => {
         setIsMutating(false);
-      }
+      });
     }
   };
 
