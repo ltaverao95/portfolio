@@ -5,7 +5,7 @@ import { useLanguage } from '@/context/language-context';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight } from 'lucide-react';
-import { useCollection } from '@/firebase';
+import { useCollection, useMemoFirebase } from '@/firebase';
 import { collection } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { BlogPost } from '@/lib/types';
@@ -14,7 +14,7 @@ import { Skeleton } from './ui/skeleton';
 export function BlogSection() {
   const { language, translate } = useLanguage();
   const firestore = useFirestore();
-  const blogPostsCollection = useMemo(() => collection(firestore, 'blogPosts'), [firestore]);
+  const blogPostsCollection = useMemoFirebase(() => collection(firestore, 'blogPosts'), [firestore]);
   const { data: posts, isLoading } = useCollection<BlogPost>(blogPostsCollection);
   
   const blogTitle = translate('blog.title') as string;
@@ -46,8 +46,8 @@ export function BlogSection() {
              </Card>
           ))}
           {posts?.map((post) => {
-            const title = language === 'es' ? post.title_es : post.title;
-            const content = language === 'es' ? post.content_es : post.content;
+            const title = post.title[language] || post.title[post.defaultLanguage];
+            const content = post.content[language] || post.content[post.defaultLanguage];
             return (
               <a 
                 key={post.id} 

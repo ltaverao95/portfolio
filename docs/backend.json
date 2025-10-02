@@ -7,20 +7,18 @@
       "type": "object",
       "properties": {
         "title": {
-          "type": "string",
-          "description": "The title of the blog post in English."
+          "type": "object",
+          "description": "A map of language codes to the post title in that language.",
+          "additionalProperties": { "type": "string" }
         },
         "content": {
-          "type": "string",
-          "description": "The main body content of the blog post in English."
+          "type": "object",
+          "description": "A map of language codes to the post content in that language.",
+          "additionalProperties": { "type": "string" }
         },
-        "title_es": {
+        "defaultLanguage": {
           "type": "string",
-          "description": "The title of the blog post in Spanish."
-        },
-        "content_es": {
-          "type": "string",
-          "description": "The main body content of the blog post in Spanish."
+          "description": "The language code in which the post was originally created."
         },
         "authorId": {
           "type": "string",
@@ -54,7 +52,7 @@
             "description": "URL of the original blog post (e.g., on Medium)."
         }
       },
-      "required": ["title", "content", "title_es", "content_es", "authorId", "publicationDate", "imageUrl", "url", "tags"]
+      "required": ["title", "content", "defaultLanguage", "authorId", "publicationDate", "imageUrl", "url", "tags"]
     }
   },
   "auth": {

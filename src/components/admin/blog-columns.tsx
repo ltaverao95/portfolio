@@ -39,7 +39,7 @@ export const columns: ColumnDef<BlogPost>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { language } = useLanguage();
       const post = row.original;
-      const title = language === 'es' ? post.title_es : post.title;
+      const title = post.title[language] || post.title[post.defaultLanguage];
       return <div>{title}</div>;
     }
   },

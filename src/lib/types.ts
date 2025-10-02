@@ -1,11 +1,14 @@
 import { Timestamp } from 'firebase/firestore';
 
+export type LocalizedString = {
+  [key: string]: string;
+}
+
 export interface BlogPost {
   id: string;
-  title: string;
-  content: string;
-  title_es: string;
-  content_es: string;
+  title: LocalizedString;
+  content: LocalizedString;
+  defaultLanguage: string;
   authorId: string;
   publicationDate: Timestamp | Date;
   lastModifiedDate: Timestamp | Date;
