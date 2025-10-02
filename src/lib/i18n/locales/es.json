@@ -4,6 +4,7 @@
     "about": "Sobre Mí",
     "experience": "Experiencia",
     "projects": "Proyectos",
+    "blog": "Blog",
     "contact": "Contacto",
     "codeAnalyzer": "Analizador de Código"
   },
@@ -12,6 +13,7 @@
     "about": "/#sobre-mi",
     "experience": "/#experiencia",
     "projects": "/#proyectos",
+    "blog": "/#blog",
     "contact": "/#contacto",
     "codeAnalyzer": "/analyzer"
   },
@@ -67,6 +69,33 @@
       "description": "Un proyecto como parte de un concurso de programación para simular operaciones bancarias."
     },
     "viewOnGithub": "Ver en GitHub"
+  },
+  "blog": {
+    "title": "Entradas de Blog Recientes",
+    "readPost": "Leer entrada",
+    "posts": [
+      {
+        "title": "Arquitectura Limpia en .NET Core",
+        "description": "Una guía práctica para implementar los principios de Arquitectura Limpia en tus aplicaciones .NET, mejorando la mantenibilidad y escalabilidad.",
+        "image": "/images/blog/clean-architecture-net-core.webp",
+        "url": "https://medium.com/@luisfelipetavera/clean-architecture-in-net-a-practical-guide-to-building-scalable-and-maintainable-applications-46e3c154f926",
+        "tags": [".NET", "Architecture", "C#"]
+      },
+      {
+        "title": "Dominando el Renderizado Condicional en React",
+        "description": "Aprende a dominar el renderizado condicional en React con patrones y técnicas avanzadas que harán tu código más limpio y eficiente.",
+        "image": "/images/blog/conditional-rendering-react.webp",
+        "url": "https://medium.com/@luisfelipetavera/mastering-conditional-rendering-in-react-a-guide-to-advanced-techniques-and-best-practices-6473e585633a",
+        "tags": ["React", "JavaScript", "Web Development"]
+      },
+      {
+        "title": "Desmitificando los Hooks de React: Más Allá de useState y useEffect",
+        "description": "Profundiza en los hooks menos comunes pero increíblemente útiles de React, como useReducer, useCallback, useMemo, y useRef.",
+        "image": "/images/blog/demystifying-react-hooks.webp",
+        "url": "https://medium.com/@luisfelipetavera/demystifying-react-hooks-a-deep-dive-beyond-usestate-and-useeffect-f038f4a8e48c",
+        "tags": ["React", "JavaScript", "Hooks"]
+      }
+    ]
   },
   "contact": {
     "title": "Hablemos",
