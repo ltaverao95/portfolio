@@ -130,7 +130,8 @@
         "tagsLabel": "Etiquetas",
         "tagsPlaceholder": "Ej: React, .NET, TypeScript",
         "cancelButton": "Cancelar",
-        "saveButton": "Guardar"
+        "saveButton": "Guardar",
+        "addTranslationButton": "Añadir traducción"
     },
     "columnHeader": {
       "asc": "Asc",

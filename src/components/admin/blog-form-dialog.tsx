@@ -26,6 +26,7 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { PlusCircle, Trash2 } from 'lucide-react';
+import { ScrollArea } from '../ui/scroll-area';
 
 // Representa un par de traducción para el formulario
 type TranslationField = {
@@ -164,70 +165,72 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[725px]">
+      <DialogContent className="sm:max-w-[725px] sm:max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 py-4">
-          
-          <div className="space-y-4">
-            {fields.map((field, index) => (
-              <div key={field.id} className="p-4 border rounded-lg space-y-4 relative">
-                <div className="flex justify-between items-center">
-                  <Label className="text-lg font-semibold">{field.lang === 'es' ? 'Español' : 'English'}</Label>
-                  {fields.length > 1 && (
-                    <Button type="button" variant="ghost" size="icon" onClick={() => remove(index)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  )}
+        <ScrollArea className="pr-6 -mr-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 py-4">
+            
+            <div className="space-y-4">
+                {fields.map((field, index) => (
+                <div key={field.id} className="p-4 border rounded-lg space-y-4 relative">
+                    <div className="flex justify-between items-center">
+                    <Label className="text-lg font-semibold">{field.lang === 'es' ? 'Español' : 'English'}</Label>
+                    {fields.length > 1 && (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => remove(index)}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                    )}
+                    </div>
+                    <div className="grid gap-2">
+                    <Label htmlFor={`translations.${index}.title`}>Title</Label>
+                    <Input {...register(`translations.${index}.title` as const, { required: 'Title is required' })} />
+                    {errors.translations?.[index]?.title && <p className="text-red-500 text-xs">{errors.translations[index]?.title?.message}</p>}
+                    </div>
+                    <div className="grid gap-2">
+                    <Label htmlFor={`translations.${index}.content`}>Content</Label>
+                    <Textarea {...register(`translations.${index}.content` as const, { required: 'Content is required' })} className="min-h-[100px]" />
+                    {errors.translations?.[index]?.content && <p className="text-red-500 text-xs">{errors.translations[index]?.content?.message}</p>}
+                    </div>
+                </div>
+                ))}
+            </div>
+
+            {fields.length < 2 && (
+                <Button type="button" variant="outline" onClick={handleAddLanguage} className="w-full">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    {translate('admin.form.addTranslationButton')}
+                </Button>
+            )}
+
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>
+                <Input id="imageUrl" {...register('imageUrl', { required: 'Image URL is required' })} />
+                {errors.imageUrl && <p className="text-red-500 text-xs">{errors.imageUrl.message}</p>}
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor={`translations.${index}.title`}>Title</Label>
-                  <Input {...register(`translations.${index}.title` as const, { required: 'Title is required' })} />
-                  {errors.translations?.[index]?.title && <p className="text-red-500 text-xs">{errors.translations[index]?.title?.message}</p>}
+                <Label htmlFor="url">URL</Label>
+                <Input id="url" {...register('url', { required: 'Post URL is required' })} />
+                {errors.url && <p className="text-red-500 text-xs">{errors.url.message}</p>}
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor={`translations.${index}.content`}>Content</Label>
-                  <Textarea {...register(`translations.${index}.content` as const, { required: 'Content is required' })} className="min-h-[100px]" />
-                  {errors.translations?.[index]?.content && <p className="text-red-500 text-xs">{errors.translations[index]?.content?.message}</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {fields.length < 2 && (
-             <Button type="button" variant="outline" onClick={handleAddLanguage} className="w-full">
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Añadir traducción
-             </Button>
-          )}
-
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>
-              <Input id="imageUrl" {...register('imageUrl', { required: 'Image URL is required' })} />
-              {errors.imageUrl && <p className="text-red-500 text-xs">{errors.imageUrl.message}</p>}
             </div>
+            
             <div className="grid gap-2">
-              <Label htmlFor="url">URL</Label>
-              <Input id="url" {...register('url', { required: 'Post URL is required' })} />
-              {errors.url && <p className="text-red-500 text-xs">{errors.url.message}</p>}
+                <Label htmlFor="tags">{translate('admin.form.tagsLabel')}</Label>
+                <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder')} />
             </div>
-          </div>
-          
-          <div className="grid gap-2">
-            <Label htmlFor="tags">{translate('admin.form.tagsLabel')}</Label>
-            <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder')} />
-          </div>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">{translate('admin.form.cancelButton')}</Button>
-            </DialogClose>
-            <Button type="submit">{translate('admin.form.saveButton')}</Button>
-          </DialogFooter>
-        </form>
+            <DialogFooter className="mt-4 sticky bottom-0 bg-background pt-4">
+                <DialogClose asChild>
+                <Button type="button" variant="secondary">{translate('admin.form.cancelButton')}</Button>
+                </DialogClose>
+                <Button type="submit">{translate('admin.form.saveButton')}</Button>
+            </DialogFooter>
+            </form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

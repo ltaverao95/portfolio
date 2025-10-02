@@ -130,7 +130,8 @@
         "tagsLabel": "Tags",
         "tagsPlaceholder": "e.g., React, .NET, TypeScript",
         "cancelButton": "Cancel",
-        "saveButton": "Save"
+        "saveButton": "Save",
+        "addTranslationButton": "Add translation"
     },
     "columnHeader": {
       "asc": "Asc",
