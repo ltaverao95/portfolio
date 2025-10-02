@@ -12,20 +12,26 @@ export function ProjectsSection() {
 
   const projects = [
     {
+      title: 'Portfolio',
+      description: translate('projects.items.portfolio.description'),
+      technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Firebase'],
+      link: 'https://github.com/ltaverao95/portfolio'
+    },
+    {
       title: 'FaceRecognition.API',
-      description: translate('projects.project1.description'),
+      description: translate('projects.items.faceRecognitionApi.description'),
       technologies: ['.NET Core', 'ASP.NET Web API', 'Azure Cognitive Services', 'C#'],
       link: 'https://github.com/ltaverao95/FaceRecognition.API'
     },
     {
       title: 'Google Chrome APIs Extension',
-      description: translate('projects.project2.description'),
+      description: translate('projects.items.chromeExtension.description'),
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Chrome Extension APIs'],
       link: 'https://github.com/ltaverao95/Google-Chrome-APIs-Extension'
     },
     {
       title: 'Telegram ChatBot Hackaton - Kodefest',
-      description: translate('projects.project3.description'),
+      description: translate('projects.items.bankSimulator.description'),
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Node.js'],
       link: 'https://github.com/ltaverao95/kodefest8'
     }

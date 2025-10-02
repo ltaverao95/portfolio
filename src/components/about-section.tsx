@@ -8,10 +8,16 @@ import { useLanguage } from '@/context/language-context';
 import { MicrosoftLogoIcon } from './icons/microsoft-logo-icon';
 import React from 'react';
 
+// A mapping from a key to a component
+const iconComponents: {[key: string]: React.FC<React.SVGProps<SVGSVGElement>>} = {
+  'microsoft': MicrosoftLogoIcon
+  // Add other icons here as you create them
+};
+
 export function AboutSection() {
   const { translate } = useLanguage();
   const profileImage = PlaceHolderImages.find(p => p.id === 'profile-picture');
-  
+
   const skills = {
     [translate('about.skills.backend')]: ['.NET Core', 'ASP.NET', 'C#', 'Web API', 'Entity Framework'],
     [translate('about.skills.frontend')]: ['React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
@@ -20,13 +26,8 @@ export function AboutSection() {
     [translate('about.skills.tools')]: ['Git', 'Docker', 'Azure'],
   };
 
-  const certifications: { titleKey: string, issuerKey: string, Icon: React.FC<React.SVGProps<SVGSVGElement>>}[] = [
-    {
-      titleKey: 'about.certifications.0.title',
-      issuerKey: 'about.certifications.0.issuer',
-      Icon: MicrosoftLogoIcon
-    }
-  ];
+  // Dynamically create certifications from the translation files
+  const certificationItems = translate('about.certifications.items') as { title: string; issuer: string; iconKey: string; }[];
 
   return (
     <section id="sobre-mi" className="w-full py-16 md:py-24 lg:py-32">
@@ -36,27 +37,31 @@ export function AboutSection() {
             <div className="space-y-2">
               <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{translate('about.title')}</h2>
               <div className="space-y-4 text-muted-foreground text-lg">
-                <p>
-                  {translate('about.paragraph1')}
-                </p>
-                <p>
-                  {translate('about.paragraph2')}
-                </p>
+                <p>{translate('about.paragraph1')}</p>
+                <p>{translate('about.paragraph2')}</p>
               </div>
             </div>
-             <div className="mt-8 space-y-4">
-              {certifications.map(({titleKey, issuerKey, Icon}, index) => (
-                <Card key={index} className="bg-secondary/50">
-                  <CardContent className="p-6 flex items-center gap-4">
-                    <Icon className="w-10 h-10 shrink-0" />
-                    <div className='flex flex-col'>
-                      <h4 className="font-semibold text-lg text-primary">{translate(titleKey)}</h4>
-                      <p className="text-sm text-muted-foreground">{translate(issuerKey)}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold font-headline text-primary">{translate('about.certifications.title')}</h3>
+              <div className="space-y-4">
+                {certificationItems.map(({ title, issuer, iconKey }, index) => {
+                  const Icon = iconComponents[iconKey];
+                  return (
+                    <Card key={index} className="bg-secondary/50">
+                      <CardContent className="p-6 flex items-center gap-4">
+                        {Icon && <Icon className="w-10 h-10 shrink-0" />}
+                        <div className='flex flex-col'>
+                          <h4 className="font-semibold text-lg text-primary">{title}</h4>
+                          <p className="text-sm text-muted-foreground">{issuer}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
+
           </div>
           <div className="flex items-start justify-center">
             {profileImage && (

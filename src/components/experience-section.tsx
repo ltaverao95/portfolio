@@ -7,32 +7,8 @@ import { useLanguage } from '@/context/language-context';
 export function ExperienceSection() {
   const { translate } = useLanguage();
 
-  const experiences = [
-    {
-      role: translate('experience.job1.role'),
-      company: 'Flyr',
-      dates: translate('experience.job1.dates'),
-      description: translate('experience.job1.description')
-    },
-    {
-      role: translate('experience.job2.role'),
-      company: 'Newshore',
-      dates: '2019 - 2022',
-      description: translate('experience.job2.description')
-    },
-    {
-      role: translate('experience.job3.role'),
-      company: 'Universidad de Manizales',
-      dates: 'Nov 2018 - Dic 2018',
-      description: translate('experience.job3.description')
-    },
-    {
-      role: translate('experience.job4.role'),
-      company: 'IT-ROI Solutions',
-      dates: '2015 - 2018',
-      description: translate('experience.job4.description')
-    }
-  ];
+  // Dynamically create experiences from the translation files
+  const experiences = translate('experience.items') as { role: string; company: string; dates: string; description: string; }[];
 
   return (
     <section id="experiencia" className="w-full py-16 md:py-24 lg:py-32 bg-secondary/50">

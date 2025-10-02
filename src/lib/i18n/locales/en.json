@@ -1,7 +1,7 @@
 {
   "header": {
     "home": "Home",
-    "about": "About Me",
+    "about": "About",
     "experience": "Experience",
     "projects": "Projects",
     "blog": "Blog",
@@ -12,7 +12,7 @@
   },
   "routes": {
     "home": "/#home",
-    "about": "/#about-me",
+    "about": "/#about",
     "experience": "/#experience",
     "projects": "/#projects",
     "blog": "/#blog",
@@ -21,22 +21,26 @@
     "admin": "/admin"
   },
   "hero": {
-    "greeting": "Hello, I'm Luis Felipe Tavera Orozco",
+    "greeting": "Hi, I'm Luis Felipe Tavera Orozco",
     "role": "Senior Software Engineer",
-    "description": "With over 8 years of experience building robust, scalable, and efficient software solutions. My passion is transforming complex ideas into intuitive and powerful applications using technologies like .Net, React, and Angular.",
+    "description": "With over 8 years of experience building robust, scalable, and efficient software solutions. My passion is to transform complex ideas into intuitive and powerful applications using technologies like .Net, React, and Angular.",
     "contactButton": "Contact Me",
     "projectsButton": "See my projects"
   },
   "about": {
     "title": "About Me",
-    "paragraph1": "I am a developer focused on quality and best practices. I firmly believe that good software should not only work, but also be maintainable and scalable. That's why I apply design patterns, clean architectures, and SOLID principles in every project I lead or participate in. My goal is always to deliver real value through clean and well-structured code.",
+    "paragraph1": "I am a developer focused on quality and best practices. I firmly believe that good software should not only work but also be maintainable and scalable. That's why I apply design patterns, clean architectures, and SOLID principles in every project I lead or participate in. My goal is always to deliver real value through clean and well-structured code.",
     "paragraph2": "I consider myself a lifelong learner, always exploring new technologies and methodologies to improve my skills. I enjoy technical challenges and collaborating in dynamic teams to achieve common goals. Currently, I contribute my experience to the Flyr team, where I help develop innovative solutions.",
-    "certifications": [
-      {
-        "title": "Microsoft Certified: Microsoft Developer Associate",
-        "issuer": "Microsoft"
-      }
-    ],
+    "certifications": {
+      "title": "Certifications",
+      "items": [
+        {
+          "title": "Microsoft Certified: Microsoft Developer Associate",
+          "issuer": "Microsoft",
+          "iconKey": "microsoft"
+        }
+      ]
+    },
     "favoriteTools": "My Favorite Tools",
     "skills": {
       "backend": "Backend",
@@ -48,62 +52,69 @@
   },
   "experience": {
     "title": "Professional Experience",
-    "job1": {
-      "role": "Software Engineer",
-      "company": "Flyr",
-      "dates": "Present",
-      "description": "Development and maintenance of critical applications for the aviation sector, using a modern technology stack based on .Net and React. I collaborate in defining architectures and implementing new features, ensuring system performance and scalability."
-    },
-    "job2": {
-      "role": "Software Developer",
-      "company": "Newshore",
-      "dates": "2021 - 2022",
-      "description": "I participated in the development of software solutions for airlines, focusing on reservation and passenger management systems. I implemented complex integrations and worked on optimizing key business processes."
-    },
-    "job3": {
-      "role": "Developer",
-      "company": "Universidad de Manizales",
-      "dates": "2019 - 2021",
-      "description": "I contributed to the development of internal information systems for academic and administrative management, improving the efficiency of university processes through technology."
-    },
-    "job4": {
-      "role": ".Net Developer",
-      "company": "IT-ROI Solutions",
-      "dates": "2018 - 2019",
-      "description": "I was responsible for developing components and features for project management software products, working mainly with .Net technologies in an agile environment."
-    }
+    "items": [
+      {
+        "role": "Software Engineer",
+        "company": "Flyr",
+        "dates": "Present",
+        "description": "Development and maintenance of critical applications for the aviation sector, using a modern tech stack based on .Net and React. I collaborate in defining architectures and implementing new features, ensuring system performance and scalability."
+      },
+      {
+        "role": "Software Developer",
+        "company": "Newshore",
+        "dates": "2021 - 2022",
+        "description": "I participated in the development of software solutions for airlines, focusing on reservation and passenger management systems. I implemented complex integrations and worked on optimizing key business processes."
+      },
+      {
+        "role": "Developer",
+        "company": "Universidad de Manizales",
+        "dates": "Nov 2018 - Dic 2018",
+        "description": "I contributed to the development of internal information systems for academic and administrative management, improving the efficiency of university processes through technology."
+      },
+      {
+        "role": ".Net Developer",
+        "company": "IT-ROI Solutions",
+        "dates": "2018 - 2019",
+        "description": "I was responsible for developing components and features for project management software products, working mainly with .Net technologies in an agile environment."
+      }
+    ]
   },
   "projects": {
     "title": "Projects I'm Proud Of",
-    "project1": {
-      "description": "A RESTful API developed in .NET Core that integrates Microsoft Azure's facial recognition services. It allows managing, training, and recognizing faces through secure and efficient endpoints."
-    },
-    "project2": {
-      "description": "A personal project to explore the power of Google Chrome APIs. This extension demonstrates how to interact with the browser's native functionalities, such as tab management, storage, and notifications."
-    },
-    "project3": {
-      "description": "A project as part of a programming contest to simulate banking operations."
-    },
-    "viewOnGithub": "View on GitHub"
+    "viewOnGithub": "View on GitHub",
+    "items": {
+      "faceRecognitionApi": {
+        "description": "A RESTful API developed in .NET Core that integrates Microsoft Azure's facial recognition services. It allows managing, training, and recognizing faces through secure and efficient endpoints."
+      },
+      "chromeExtension": {
+        "description": "A personal project to explore the power of Google Chrome APIs. This extension demonstrates how to interact with the browser's native features, such as tab management, storage, and notifications."
+      },
+      "bankSimulator": {
+        "description": "A project as part of a programming contest to simulate banking operations."
+      },
+      "portfolio": {
+        "description": "This very portfolio. A modern web application built with Next.js, TypeScript, and Tailwind CSS for a fluid user experience and responsive design. Deployed with Firebase Hosting."
+      }
+    }
   },
   "blog": {
     "title": "Recent Blog Posts",
     "readPost": "Read post",
     "noPosts": {
       "title": "Coming Soon!",
-      "description": "No posts available at the moment, but stay tuned for new content!"
+      "description": "There are no posts available at the moment, but stay tuned for new content!"
     }
   },
   "contact": {
     "title": "Let's Talk",
-    "description": "I am always open to connecting, collaborating on interesting projects, or exploring new professional opportunities. If my profile seems interesting to you, do not hesitate to contact me."
+    "description": "I'm always open to connecting, collaborating on interesting projects, or exploring new professional opportunities. If you find my profile interesting, don't hesitate to contact me."
   },
   "footer": {
     "designedWithPassion": "Designed and developed with passion.",
     "language": "Language"
   },
   "analyzer": {
-    "title": "Code Stylistic Analysis",
+    "title": "Stylistic Code Analysis",
     "description": "Paste your code, select the language, and let the AI give you suggestions to improve its quality and format.",
     "form": {
       "languageLabel": "Programming Language",
@@ -118,31 +129,31 @@
   },
   "admin": {
     "login": {
-        "title": "Admin Access",
-        "description": "Please sign in.",
-        "button": "Sign in with Google"
+      "title": "Admin Access",
+      "description": "Please sign in with Google.",
+      "button": "Sign in with Google"
     },
     "table": {
-        "filterPlaceholder": "Filter posts by title...",
-        "deleteButton": "Delete",
-        "newPostButton": "New Post",
-        "columnsButton": "Columns",
-        "previousButton": "Previous",
-        "nextButton": "Next",
-        "noResults": "No results.",
-        "loading": "Loading posts..."
+      "filterPlaceholder": "Filter posts by title...",
+      "deleteButton": "Delete",
+      "newPostButton": "New Post",
+      "columnsButton": "Columns",
+      "previousButton": "Previous",
+      "nextButton": "Next",
+      "noResults": "No results.",
+      "loading": "Loading posts..."
     },
     "form": {
-        "newTitle": "Create New Post",
-        "editTitle": "Edit Post",
-        "titleLabel": "Title",
-        "contentLabel": "Content (Description)",
-        "imageUrlLabel": "Image URL",
-        "tagsLabel": "Tags",
-        "tagsPlaceholder": "e.g., React, .NET, TypeScript",
-        "cancelButton": "Cancel",
-        "saveButton": "Save",
-        "addTranslationButton": "Add translation"
+      "newTitle": "Create New Post",
+      "editTitle": "Edit Post",
+      "titleLabel": "Title",
+      "contentLabel": "Content (Description)",
+      "imageUrlLabel": "Image URL",
+      "tagsLabel": "Tags",
+      "tagsPlaceholder": "E.g.: React, .NET, TypeScript",
+      "cancelButton": "Cancel",
+      "saveButton": "Save",
+      "addTranslationButton": "Add translation"
     },
     "columnHeader": {
       "asc": "Asc",
