@@ -25,7 +25,6 @@ import { useFirestore, errorEmitter, FirestorePermissionError } from '@/firebase
 import { useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { PlusCircle, Trash2 } from 'lucide-react';
-import { ScrollArea } from '../ui/scroll-area';
 
 // Representa un par de traducción para el formulario
 type TranslationField = {
@@ -182,8 +181,8 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
           <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
         </DialogHeader>
         <form id="blog-post-form" onSubmit={handleSubmit(onSubmit)} className="flex-grow flex flex-col min-h-0">
-          <ScrollArea className="flex-grow pr-6 -mr-6">
-              <div className="grid gap-6 py-4">
+          <div className="flex-grow pr-6 -mr-6 py-4 overflow-y-auto">
+              <div className="grid gap-6">
               
               <div className="space-y-4">
                   {fields.map((field, index) => (
@@ -236,7 +235,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                   <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder')} />
               </div>
               </div>
-          </ScrollArea>
+          </div>
           <DialogFooter className="mt-auto pt-4 border-t">
               <DialogClose asChild>
               <Button type="button" variant="secondary" disabled={isSubmitting}>{translate('admin.form.cancelButton')}</Button>
