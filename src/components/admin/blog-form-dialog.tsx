@@ -28,8 +28,10 @@ import { useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 
 const blogPostSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  content: z.string().min(1, 'Content is required'),
+  title: z.string().min(1, 'Title (English) is required'),
+  content: z.string().min(1, 'Content (English) is required'),
+  title_es: z.string().min(1, 'Title (Spanish) is required'),
+  content_es: z.string().min(1, 'Content (Spanish) is required'),
   imageUrl: z.string().url('Must be a valid URL'),
   url: z.string().url('Must be a valid URL'),
   tags: z.string().transform((val) => val.split(',').map(tag => tag.trim()).filter(Boolean)),
@@ -61,12 +63,14 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
       reset({
         title: post.title,
         content: post.content,
+        title_es: post.title_es,
+        content_es: post.content_es,
         imageUrl: post.imageUrl,
         url: post.url,
         tags: post.tags.join(', '),
       });
     } else {
-      reset({ title: '', content: '', imageUrl: '', url: '', tags: '' });
+      reset({ title: '', content: '', title_es: '', content_es: '', imageUrl: '', url: '', tags: '' });
     }
   }, [post, reset]);
 
@@ -118,15 +122,27 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
           <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
-          <div className="grid gap-2">
-            <Label htmlFor="title">{translate('admin.form.titleLabel')}</Label>
-            <Input id="title" {...register('title')} />
-            {errors.title && <p className="text-red-500 text-xs">{errors.title.message}</p>}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="title">Title (English)</Label>
+              <Input id="title" {...register('title')} />
+              {errors.title && <p className="text-red-500 text-xs">{errors.title.message}</p>}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="title_es">Título (Español)</Label>
+              <Input id="title_es" {...register('title_es')} />
+              {errors.title_es && <p className="text-red-500 text-xs">{errors.title_es.message}</p>}
+            </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="content">{translate('admin.form.contentLabel')}</Label>
-            <Textarea id="content" {...register('content')} className="min-h-[150px]" />
+            <Label htmlFor="content">Content (English)</Label>
+            <Textarea id="content" {...register('content')} className="min-h-[100px]" />
             {errors.content && <p className="text-red-500 text-xs">{errors.content.message}</p>}
+          </div>
+           <div className="grid gap-2">
+            <Label htmlFor="content_es">Contenido (Español)</Label>
+            <Textarea id="content_es" {...register('content_es')} className="min-h-[100px]" />
+            {errors.content_es && <p className="text-red-500 text-xs">{errors.content_es.message}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>

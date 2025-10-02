@@ -12,7 +12,7 @@ import { BlogPost } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 
 export function BlogSection() {
-  const { translate } = useLanguage();
+  const { language, translate } = useLanguage();
   const firestore = useFirestore();
   const blogPostsCollection = useMemo(() => collection(firestore, 'blogPosts'), [firestore]);
   const { data: posts, isLoading } = useCollection<BlogPost>(blogPostsCollection);
@@ -45,45 +45,49 @@ export function BlogSection() {
                </CardFooter>
              </Card>
           ))}
-          {posts?.map((post) => (
-            <a 
-              key={post.id} 
-              href={post.url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="group block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full"
-            >
-              <Card className="flex flex-col h-full bg-card/50 hover:bg-card/90 transition-colors duration-300">
-                <CardHeader className="p-0">
-                  <div className="aspect-[16/9] relative overflow-hidden">
-                    <Image
-                      src={post.imageUrl}
-                      alt={`Image for ${post.title}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-grow p-6">
-                  <CardTitle className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">{post.title}</CardTitle>
-                  <CardDescription className="text-muted-foreground mb-4">
-                    {post.content}
-                  </CardDescription>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map(tag => (
-                      <Badge key={tag} variant="secondary">{tag}</Badge>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-6 pt-0 mt-auto">
-                    <div className="flex items-center text-primary font-semibold">
-                        {readPostText}
-                        <ArrowUpRight className="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+          {posts?.map((post) => {
+            const title = language === 'es' ? post.title_es : post.title;
+            const content = language === 'es' ? post.content_es : post.content;
+            return (
+              <a 
+                key={post.id} 
+                href={post.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full"
+              >
+                <Card className="flex flex-col h-full bg-card/50 hover:bg-card/90 transition-colors duration-300">
+                  <CardHeader className="p-0">
+                    <div className="aspect-[16/9] relative overflow-hidden">
+                      <Image
+                        src={post.imageUrl}
+                        alt={`Image for ${title}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                </CardFooter>
-              </Card>
-            </a>
-          ))}
+                  </CardHeader>
+                  <CardContent className="flex-grow p-6">
+                    <CardTitle className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">{title}</CardTitle>
+                    <CardDescription className="text-muted-foreground mb-4">
+                      {content}
+                    </CardDescription>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.map(tag => (
+                        <Badge key={tag} variant="secondary">{tag}</Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-6 pt-0 mt-auto">
+                      <div className="flex items-center text-primary font-semibold">
+                          {readPostText}
+                          <ArrowUpRight className="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </div>
+                  </CardFooter>
+                </Card>
+              </a>
+            )
+          })}
         </div>
       </div>
     </section>

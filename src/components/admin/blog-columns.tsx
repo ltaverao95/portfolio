@@ -5,6 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { BlogPost } from '@/lib/types';
 import { DataTableColumnHeader } from '@/components/admin/data-table-column-header';
 import { DataTableRowActions } from '@/components/admin/data-table-row-actions';
+import { useLanguage } from '@/context/language-context';
 
 export const columns: ColumnDef<BlogPost>[] = [
   {
@@ -34,6 +35,13 @@ export const columns: ColumnDef<BlogPost>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
+    cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { language } = useLanguage();
+      const post = row.original;
+      const title = language === 'es' ? post.title_es : post.title;
+      return <div>{title}</div>;
+    }
   },
   {
     accessorKey: 'publicationDate',

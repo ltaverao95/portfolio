@@ -8,11 +8,19 @@
       "properties": {
         "title": {
           "type": "string",
-          "description": "The title of the blog post."
+          "description": "The title of the blog post in English."
         },
         "content": {
           "type": "string",
-          "description": "The main body content of the blog post."
+          "description": "The main body content of the blog post in English."
+        },
+        "title_es": {
+          "type": "string",
+          "description": "The title of the blog post in Spanish."
+        },
+        "content_es": {
+          "type": "string",
+          "description": "The main body content of the blog post in Spanish."
         },
         "authorId": {
           "type": "string",
@@ -46,7 +54,7 @@
             "description": "URL of the original blog post (e.g., on Medium)."
         }
       },
-      "required": ["title", "content", "authorId", "publicationDate", "imageUrl", "url", "tags"]
+      "required": ["title", "content", "title_es", "content_es", "authorId", "publicationDate", "imageUrl", "url", "tags"]
     }
   },
   "auth": {
