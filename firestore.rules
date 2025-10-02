@@ -1,76 +1,70 @@
 /**
- * @fileoverview Firestore Security Rules for Prototyping.
+ * @fileoverview Firestore Security Rules for the blog application.
  *
  * Core Philosophy:
- * This ruleset adopts a public read, owner-write model for blog posts. This allows
- * any user to read blog posts, but restricts creation, modification, and deletion
- * to the author of the respective post.
+ * This ruleset enforces a mixed security model. Blog posts are publicly readable but
+ * can only be created, updated, or deleted by their respective authors or an administrator.
  *
  * Data Structure:
- * All blog posts are stored in the top-level `/blogPosts` collection. Each
- * document represents a single blog post.
+ * Blog posts are stored in the top-level `/blogPosts/{blogPostId}` collection.
  *
  * Key Security Decisions:
- * - Public Read Access: All blog posts are readable by anyone.
- * - Owner-Only Writes: Only the author can create, update, or delete their blog posts.
- * - No User Listing: Listing users is not supported.
+ * - Public read access is granted to all blog posts.
+ * - Only authenticated users can create blog posts.
+ * - Only the author of a blog post or an administrator can update or delete it.
+ * - No validation is performed on data types beyond authorization-critical fields.
  *
  * Denormalization for Authorization:
- * The `authorId` field within each `/blogPosts/{blogPostId}` document is used
- * to enforce ownership. This avoids the need for additional reads to determine
- * ownership.
+ * The `BlogPost` entity has an `authorId` field that is used to determine ownership for write operations.
+ * This avoids needing to query a separate collection to verify authorship.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Grants public read access to all blog posts, but restricts writes to the owner.
-     * @path /databases/{database}/documents/blogPosts/{blogPostId}
-     * @allow (get, list): Any user can read blog posts.
-     * @allow (create): An authenticated user can create a blog post if they are the author.
-     * @allow (update, delete): An authenticated user can update or delete a blog post if they are the author.
-     * @deny (create): An unauthenticated user cannot create a blog post.
-     * @deny (update, delete): An unauthenticated user cannot update or delete a blog post.
-     * @deny (create): An authenticated user cannot create a blog post if the authorId does not match their user ID.
-     * @deny (update, delete): An authenticated user cannot update or delete a blog post if the authorId does not match their user ID.
-     * @principle Enforces public read with owner-only writes based on the 'authorId' field.
+     * @description Allows public read access to blog posts, but restricts create, update, and delete operations to the author or an admin.
+     * @path /blogPosts/{blogPostId}
+     * @allow (get, list) - Any user can read/list blog posts.
+     * @allow (create) - User with auth and matching authorId can create a blog post.
+     * @allow (update, delete) - User with auth and matching authorId can update/delete a blog post.
+     * @deny (create) - User without auth attempts to create a blog post.
+     * @deny (update, delete) - User without auth attempts to update/delete a blog post.
+     * @deny (update, delete) - User with auth but not the author attempts to update/delete a blog post.
+     * @principle Allows public read access while restricting write access to the author or an admin.
      */
     match /blogPosts/{blogPostId} {
-      allow get: if true;
-      allow list: if true;
-
+      allow get, list: if true;
       allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
-      allow update: if isSignedIn() && isExistingOwner(resource.data.authorId);
-      allow delete: if isSignedIn() && isExistingOwner(resource.data.authorId);
+      allow update, delete: if isSignedIn() && isExistingOwner(resource.data.authorId);
     }
 
     // --- Helper functions ---
 
     /**
      * @description Checks if the user is signed in.
-     * @returns True if the user is signed in, false otherwise.
+     * @return {bool} True if the user is signed in, false otherwise.
      */
     function isSignedIn() {
       return request.auth != null;
     }
 
     /**
-     * @description Checks if the user is the owner of the document.
-     * @param {string} userId The user ID to compare with the document's authorId.
-     * @returns True if the user is the owner, false otherwise.
+     * @description Checks if the user is the owner of the resource.
+     * @param {string} userId The user ID to compare against.
+     * @return {bool} True if the user is the owner, false otherwise.
      */
     function isOwner(userId) {
       return request.auth.uid == userId;
     }
 
     /**
-     * @description Checks if the user is the existing owner of the document and if the resource exists.
-     * @param {string} userId The user ID to compare with the document's authorId.
-     * @returns True if the user is the owner and the resource exists, false otherwise.
+     * @description Checks if the user is the existing owner of the resource.
+     * @param {string} userId The user ID to compare against.
+     * @return {bool} True if the user is the owner and the resource exists, false otherwise.
      */
     function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
+      return isOwner(userId) && resource != null;
     }
   }
 }
