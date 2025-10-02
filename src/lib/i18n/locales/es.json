@@ -119,7 +119,8 @@
         "columnsButton": "Columnas",
         "previousButton": "Anterior",
         "nextButton": "Siguiente",
-        "noResults": "No hay resultados."
+        "noResults": "No hay resultados.",
+        "loading": "Cargando posts..."
     },
     "form": {
         "newTitle": "Crear Nuevo Post",

@@ -48,13 +48,13 @@ interface BlogFormDialogProps {
   onClose: () => void;
   post?: BlogPost;
   userId?: string | null;
+  onMutation: (isMutating: boolean) => void;
 }
 
-export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialogProps) {
+export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: BlogFormDialogProps) {
   const firestore = useFirestore();
   const { language: currentAppLanguage, translate } = useLanguage();
-  const [selectedLanguage, setSelectedLanguage] = useState(currentAppLanguage);
-
+  
   const {
     register,
     handleSubmit,
@@ -76,28 +76,30 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
   });
 
   useEffect(() => {
-    if (post) {
-      const postTranslations: TranslationField[] = Object.keys(post.title).map(lang => ({
-        lang,
-        title: post.title[lang],
-        content: post.content[lang],
-      }));
-      replace(postTranslations);
-      reset({
-        imageUrl: post.imageUrl,
-        url: post.url,
-        tags: post.tags.join(', '),
-        translations: postTranslations,
-      });
-    } else {
-      const defaultTranslation = [{ lang: currentAppLanguage, title: '', content: '' }];
-      replace(defaultTranslation);
-      reset({
-        imageUrl: '',
-        url: '',
-        tags: '',
-        translations: defaultTranslation,
-      });
+    if (isOpen) {
+        if (post) {
+        const postTranslations: TranslationField[] = Object.keys(post.title).map(lang => ({
+            lang,
+            title: post.title[lang],
+            content: post.content[lang],
+        }));
+        replace(postTranslations);
+        reset({
+            imageUrl: post.imageUrl,
+            url: post.url,
+            tags: post.tags.join(', '),
+            translations: postTranslations,
+        });
+        } else {
+        const defaultTranslation = [{ lang: currentAppLanguage, title: '', content: '' }];
+        replace(defaultTranslation);
+        reset({
+            imageUrl: '',
+            url: '',
+            tags: '',
+            translations: defaultTranslation,
+        });
+        }
     }
   }, [post, isOpen, reset, currentAppLanguage, replace]);
 
@@ -110,12 +112,14 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
     }
   };
 
-  const onSubmit: SubmitHandler<BlogPostFormData> = (data) => {
+  const onSubmit: SubmitHandler<BlogPostFormData> = async (data) => {
     if (!userId) {
       alert('You must be logged in to create or edit a post.');
       return;
     }
     
+    onMutation(true);
+
     const title: LocalizedString = {};
     const content: LocalizedString = {};
     data.translations.forEach(t => {
@@ -134,33 +138,35 @@ export function BlogFormDialog({ isOpen, onClose, post, userId }: BlogFormDialog
       defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
     };
 
-    if (post) {
-      const docRef = doc(firestore, 'blogPosts', post.id);
-      setDoc(docRef, {
-        ...postData,
-        publicationDate: post.publicationDate, // Preserve original publication date
-      }, { merge: true }).catch(error => {
+    try {
+        if (post) {
+            const docRef = doc(firestore, 'blogPosts', post.id);
+            await setDoc(docRef, {
+                ...postData,
+                publicationDate: post.publicationDate, // Preserve original publication date
+            }, { merge: true })
+        } else {
+            const colRef = collection(firestore, 'blogPosts');
+            const newPostData = {
+                ...postData,
+                publicationDate: serverTimestamp(),
+            };
+            await addDoc(colRef, newPostData)
+        }
+        onClose();
+    } catch (error: any) {
+        const isEdit = !!post;
+        const docRef = isEdit ? doc(firestore, 'blogPosts', post.id) : collection(firestore, 'blogPosts');
+        const operation = isEdit ? 'update' : 'create';
+        
         errorEmitter.emit('permission-error', new FirestorePermissionError({
             path: docRef.path,
-            operation: 'update',
+            operation: operation,
             requestResourceData: postData,
         }));
-      });
-    } else {
-      const colRef = collection(firestore, 'blogPosts');
-      const newPostData = {
-        ...postData,
-        publicationDate: serverTimestamp(),
-      };
-      addDoc(colRef, newPostData).catch(error => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-            path: colRef.path,
-            operation: 'create',
-            requestResourceData: newPostData,
-        }));
-      });
+    } finally {
+        onMutation(false);
     }
-    onClose();
   };
 
   return (
