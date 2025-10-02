@@ -3,7 +3,7 @@
     {
       "id": "profile-picture",
       "description": "A portrait of Luis Felipe Tavera Orozco",
-      "imageUrl": "https://i.ibb.co/tQ3dY9Y/profile-photo.jpg",
+      "imageUrl": "/assets/profile-photo.jpeg",
       "imageHint": "professional portrait"
     }
   ]
