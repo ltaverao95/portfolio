@@ -31,7 +31,8 @@ export function FirebaseErrorListener() {
 
   // On re-render, if an error exists in state, throw it.
   if (error) {
-    throw error;
+    alert(error.message);
+    return;
   }
 
   // This component renders nothing.
