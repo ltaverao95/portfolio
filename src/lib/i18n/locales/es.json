@@ -31,6 +31,10 @@
     "title": "Sobre Mí",
     "paragraph1": "Soy un desarrollador enfocado en la calidad y las buenas prácticas. Creo firmemente que un buen software no solo debe funcionar, sino que debe ser mantenible y escalable. Por eso, aplico patrones de diseño, arquitecturas limpias y los principios SOLID en cada proyecto que lidero o en el que participo. Mi objetivo es siempre entregar valor real a través de código limpio y bien estructurado.",
     "paragraph2": "Me considero un eterno aprendiz, siempre explorando nuevas tecnologías y metodologías para mejorar mis habilidades. Disfruto de los desafíos técnicos y de colaborar en equipos dinámicos para alcanzar objetivos comunes. Actualmente, aporto mi experiencia en el equipo de Flyr, donde contribuyo al desarrollo de soluciones innovadoras.",
+    "certification": {
+      "title": "Microsoft Certified: Developer Associate",
+      "issuer": "Microsoft"
+    },
     "favoriteTools": "Mis Herramientas Favoritas",
     "skills": {
       "backend": "Backend",

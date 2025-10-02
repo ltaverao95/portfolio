@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { SkillIcon } from '@/components/skill-icon';
 import { useLanguage } from '@/context/language-context';
+import { MicrosoftLogoIcon } from './icons/microsoft-logo-icon';
 
 export function AboutSection() {
   const { translate } = useLanguage();
@@ -33,6 +34,17 @@ export function AboutSection() {
                   {translate('about.paragraph2')}
                 </p>
               </div>
+            </div>
+             <div className="mt-8">
+              <Card className="bg-secondary/50">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <MicrosoftLogoIcon className="w-10 h-10 shrink-0" />
+                  <div className='flex flex-col'>
+                    <h4 className="font-semibold text-lg text-primary">{translate('about.certification.title')}</h4>
+                    <p className="text-sm text-muted-foreground">{translate('about.certification.issuer')}</p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
           <div className="flex items-start justify-center">

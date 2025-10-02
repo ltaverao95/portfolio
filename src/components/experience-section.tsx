@@ -17,19 +17,19 @@ export function ExperienceSection() {
     {
       role: translate('experience.job2.role'),
       company: 'Newshore',
-      dates: '2021 - 2022',
+      dates: '2019 - 2022',
       description: translate('experience.job2.description')
     },
     {
       role: translate('experience.job3.role'),
       company: 'Universidad de Manizales',
-      dates: '2019 - 2021',
+      dates: 'Nov 2018 - Dic 2018',
       description: translate('experience.job3.description')
     },
     {
       role: translate('experience.job4.role'),
       company: 'IT-ROI Solutions',
-      dates: '2018 - 2019',
+      dates: '2015 - 2018',
       description: translate('experience.job4.description')
     }
   ];
