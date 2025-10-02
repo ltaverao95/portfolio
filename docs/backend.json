@@ -58,7 +58,12 @@
   "auth": {
     "providers": [
       "google.com"
-    ]
+    ],
+    "customClaims": {
+      "admin": {
+        "type": "boolean"
+      }
+    }
   },
   "firestore": {
     "/blogPosts/{blogPostId}": {
