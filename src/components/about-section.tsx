@@ -26,7 +26,6 @@ export function AboutSection() {
       issuerKey: 'about.certifications.0.issuer',
       Icon: MicrosoftLogoIcon
     }
-    // To add more certifications, just add a new object here
   ];
 
   return (
