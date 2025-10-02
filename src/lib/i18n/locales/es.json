@@ -82,7 +82,11 @@
   },
   "blog": {
     "title": "Entradas de Blog Recientes",
-    "readPost": "Leer entrada"
+    "readPost": "Leer entrada",
+    "noPosts": {
+      "title": "¡Próximamente!",
+      "description": "De momento no hay entradas disponibles, ¡pero mantente atento al nuevo contenido!"
+    }
   },
   "contact": {
     "title": "Hablemos",

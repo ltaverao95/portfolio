@@ -82,7 +82,11 @@
   },
   "blog": {
     "title": "Recent Blog Posts",
-    "readPost": "Read post"
+    "readPost": "Read post",
+    "noPosts": {
+      "title": "Coming Soon!",
+      "description": "No posts available at the moment, but stay tuned for new content!"
+    }
   },
   "contact": {
     "title": "Let's Talk",
