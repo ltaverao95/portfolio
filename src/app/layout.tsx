@@ -5,6 +5,7 @@ import { AppHeader } from '@/components/app-header';
 import { AppFooter } from '@/components/app-footer';
 import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/context/theme-context';
+import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: 'Luis Felipe Tavera Orozco - Ingeniero de Software Senior (.Net, React, Angular)',
@@ -28,10 +29,12 @@ export default function RootLayout({
       <body className="font-body antialiased selection:bg-accent selection:text-accent-foreground">
         <ThemeProvider>
           <LanguageProvider>
-            <AppHeader />
-            <main>{children}</main>
-            <AppFooter />
-            <Toaster />
+            <FirebaseClientProvider>
+              <AppHeader />
+              <main>{children}</main>
+              <AppFooter />
+              <Toaster />
+            </FirebaseClientProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

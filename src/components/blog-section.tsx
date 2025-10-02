@@ -5,33 +5,19 @@ import { useLanguage } from '@/context/language-context';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight } from 'lucide-react';
-
-interface BlogPost {
-  title: string;
-  description: string;
-  image: string;
-  url: string;
-  tags: string[];
-}
-
-// Función de validación para asegurar que el objeto es de tipo BlogPost[]
-function isBlogPostArray(data: any): data is BlogPost[] {
-  return Array.isArray(data) && data.every(item => 
-    typeof item.title === 'string' &&
-    typeof item.description === 'string' &&
-    typeof item.image === 'string' &&
-    typeof item.url === 'string' &&
-    Array.isArray(item.tags)
-  );
-}
+import { useCollection } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { BlogPost } from '@/lib/types';
+import { Skeleton } from './ui/skeleton';
 
 export function BlogSection() {
   const { translate } = useLanguage();
+  const firestore = useFirestore();
+  const { data: posts, isLoading } = useCollection<BlogPost>(collection(firestore, 'blogPosts'));
+  
   const blogTitle = translate('blog.title') as string;
   const readPostText = translate('blog.readPost') as string;
-  const postsData = translate('blog.posts');
-
-  const posts = isBlogPostArray(postsData) ? postsData : [];
 
   return (
     <section id="blog" className="pt-0 md:pt-0 lg:pt-0 pb-12 md:pb-24 lg:pb-32">
@@ -40,9 +26,27 @@ export function BlogSection() {
           {blogTitle}
         </h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {isLoading && Array.from({ length: 3 }).map((_, i) => (
+             <Card key={i} className="flex flex-col h-full bg-card/50">
+               <CardHeader className="p-0">
+                 <Skeleton className="aspect-[16/9] w-full" />
+               </CardHeader>
+               <CardContent className="flex-grow p-6">
+                 <Skeleton className="h-6 w-3/4 mb-2" />
+                 <Skeleton className="h-4 w-full mb-4" />
+                 <div className="flex flex-wrap gap-2">
+                   <Skeleton className="h-6 w-16" />
+                   <Skeleton className="h-6 w-20" />
+                 </div>
+               </CardContent>
+               <CardFooter className="p-6 pt-0 mt-auto">
+                 <Skeleton className="h-5 w-24" />
+               </CardFooter>
+             </Card>
+          ))}
+          {posts?.map((post) => (
             <a 
-              key={post.title} 
+              key={post.id} 
               href={post.url} 
               target="_blank" 
               rel="noopener noreferrer" 
@@ -52,7 +56,7 @@ export function BlogSection() {
                 <CardHeader className="p-0">
                   <div className="aspect-[16/9] relative overflow-hidden">
                     <Image
-                      src={post.image}
+                      src={post.imageUrl}
                       alt={`Image for ${post.title}`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -62,7 +66,7 @@ export function BlogSection() {
                 <CardContent className="flex-grow p-6">
                   <CardTitle className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">{post.title}</CardTitle>
                   <CardDescription className="text-muted-foreground mb-4">
-                    {post.description}
+                    {post.content}
                   </CardDescription>
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map(tag => (

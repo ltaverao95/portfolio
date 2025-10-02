@@ -6,7 +6,9 @@
     "projects": "Projects",
     "blog": "Blog",
     "contact": "Contact",
-    "codeAnalyzer": "Code Analyzer"
+    "codeAnalyzer": "Code Analyzer",
+    "admin": "Admin",
+    "logout": "Logout"
   },
   "routes": {
     "home": "/#home",
@@ -15,7 +17,8 @@
     "projects": "/#projects",
     "blog": "/#blog",
     "contact": "/#contact",
-    "codeAnalyzer": "/analyzer"
+    "codeAnalyzer": "/analyzer",
+    "admin": "/admin"
   },
   "hero": {
     "greeting": "Hello, I'm Luis Felipe Tavera Orozco",
@@ -41,19 +44,26 @@
     "title": "Professional Experience",
     "job1": {
       "role": "Software Engineer",
+      "company": "Flyr",
       "dates": "Present",
       "description": "Development and maintenance of critical applications for the aviation sector, using a modern technology stack based on .Net and React. I collaborate in defining architectures and implementing new features, ensuring system performance and scalability."
     },
     "job2": {
       "role": "Software Developer",
+      "company": "Newshore",
+      "dates": "2021 - 2022",
       "description": "I participated in the development of software solutions for airlines, focusing on reservation and passenger management systems. I implemented complex integrations and worked on optimizing key business processes."
     },
     "job3": {
       "role": "Developer",
+      "company": "Universidad de Manizales",
+      "dates": "2019 - 2021",
       "description": "I contributed to the development of internal information systems for academic and administrative management, improving the efficiency of university processes through technology."
     },
     "job4": {
       "role": ".Net Developer",
+      "company": "IT-ROI Solutions",
+      "dates": "2018 - 2019",
       "description": "I was responsible for developing components and features for project management software products, working mainly with .Net technologies in an agile environment."
     }
   },
@@ -72,30 +82,7 @@
   },
   "blog": {
     "title": "Recent Blog Posts",
-    "readPost": "Read post",
-    "posts": [
-      {
-        "title": "Clean Architecture in .NET Core",
-        "description": "A practical guide to implementing Clean Architecture principles in your .NET applications, improving maintainability and scalability.",
-        "image": "/images/blog/clean-architecture-net-core.webp",
-        "url": "https://medium.com/@luisfelipetavera/clean-architecture-in-net-a-practical-guide-to-building-scalable-and-maintainable-applications-46e3c154f926",
-        "tags": [".NET", "Architecture", "C#"]
-      },
-      {
-        "title": "Mastering Conditional Rendering in React",
-        "description": "Learn to master conditional rendering in React with advanced patterns and techniques that will make your code cleaner and more efficient.",
-        "image": "/images/blog/conditional-rendering-react.webp",
-        "url": "https://medium.com/@luisfelipetavera/mastering-conditional-rendering-in-react-a-guide-to-advanced-techniques-and-best-practices-6473e585633a",
-        "tags": ["React", "JavaScript", "Web Development"]
-      },
-      {
-        "title": "Demystifying React Hooks: Beyond useState and useEffect",
-        "description": "Delve into React's less common but incredibly useful hooks, such as useReducer, useCallback, useMemo, and useRef.",
-        "image": "/images/blog/demystifying-react-hooks.webp",
-        "url": "https://medium.com/@luisfelipetavera/demystifying-react-hooks-a-deep-dive-beyond-usestate-and-useeffect-f038f4a8e48c",
-        "tags": ["React", "JavaScript", "Hooks"]
-      }
-    ]
+    "readPost": "Read post"
   },
   "contact": {
     "title": "Let's Talk",
@@ -117,6 +104,43 @@
       "analyzingButton": "Analyzing...",
       "errorTitle": "Error",
       "suggestionsTitle": "AI Suggestions"
+    }
+  },
+  "admin": {
+    "login": {
+        "title": "Admin Access",
+        "description": "Please sign in with Google to manage blog posts.",
+        "button": "Sign in with Google"
+    },
+    "table": {
+        "filterPlaceholder": "Filter posts by title...",
+        "deleteButton": "Delete",
+        "newPostButton": "New Post",
+        "columnsButton": "Columns",
+        "previousButton": "Previous",
+        "nextButton": "Next",
+        "noResults": "No results."
+    },
+    "form": {
+        "newTitle": "Create New Post",
+        "editTitle": "Edit Post",
+        "titleLabel": "Title",
+        "contentLabel": "Content (Description)",
+        "imageUrlLabel": "Image URL",
+        "tagsLabel": "Tags",
+        "tagsPlaceholder": "e.g., React, .NET, TypeScript",
+        "cancelButton": "Cancel",
+        "saveButton": "Save"
+    },
+    "columnHeader": {
+      "asc": "Asc",
+      "desc": "Desc",
+      "hide": "Hide"
+    },
+    "rowActions": {
+      "openMenu": "Open menu",
+      "edit": "Edit",
+      "delete": "Delete"
     }
   }
 }

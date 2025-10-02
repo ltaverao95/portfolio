@@ -2,15 +2,24 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Code2 } from 'lucide-react';
+import { Code2, LogOut, Menu, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
+import { useAuth, useUser } from '@/firebase';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { translate } = useLanguage();
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+  const router = useRouter();
 
   const navLinks = [
     { href: translate('routes.home'), label: translate('header.home') },
@@ -19,11 +28,17 @@ export function AppHeader() {
     { href: translate('routes.projects'), label: translate('header.projects') },
     { href: translate('routes.contact'), label: translate('header.contact') },
     { href: translate('routes.codeAnalyzer'), label: translate('header.codeAnalyzer') },
+    { href: translate('routes.admin'), label: translate('header.admin') },
   ];
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -55,6 +70,39 @@ export function AppHeader() {
               <Link href={translate('routes.codeAnalyzer')}>{navLinks[5].label}</Link>
             </Button>
             <ThemeToggleButton />
+             { !isUserLoading && user && (
+               <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={user.photoURL || ''} alt={user.displayName || 'User'} />
+                        <AvatarFallback>
+                          <User />
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{user.displayName}</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => router.push(translate('routes.admin'))}>
+                      {translate('header.admin')}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>{translate('header.logout')}</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+             )}
           </nav>
           
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -92,6 +140,12 @@ export function AppHeader() {
                       {label}
                     </Link>
                   ))}
+                   { !isUserLoading && user && (
+                     <Button onClick={handleLogout} variant="ghost" className="justify-start text-lg">
+                        <LogOut className="mr-2 h-5 w-5" />
+                        {translate('header.logout')}
+                     </Button>
+                   )}
                 </nav>
               </div>
             </SheetContent>

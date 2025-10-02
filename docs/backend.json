@@ -1,135 +1,65 @@
+
 {
   "entities": {
     "BlogPost": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "BlogPost",
+      "title": "Blog Post",
+      "description": "Represents a single blog post.",
       "type": "object",
-      "description": "Represents a blog post with content, metadata, and associated data.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the blog post."
-        },
         "title": {
           "type": "string",
-          "description": "Title of the blog post."
+          "description": "The title of the blog post."
         },
         "content": {
           "type": "string",
-          "description": "The main content of the blog post, likely in HTML or Markdown format."
+          "description": "The main body content of the blog post."
         },
         "authorId": {
           "type": "string",
-          "description": "Reference to the Author who created the blog post. (Relationship: Author 1:N BlogPost)"
+          "description": "The ID of the user who wrote the post."
         },
         "publicationDate": {
           "type": "string",
-          "description": "Date and time when the blog post was published.",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "The date the post was published."
         },
         "lastModifiedDate": {
-          "type": "string",
-          "description": "Date and time when the blog post was last modified.",
-          "format": "date-time"
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the post was last modified."
         },
         "tags": {
           "type": "array",
-          "description": "Tags associated with the blog post.",
+          "description": "A list of tags for the blog post.",
           "items": {
             "type": "string"
           }
         },
         "imageUrl": {
-          "type": "string",
-          "description": "URL of the image associated with the blog post.",
-          "format": "uri"
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the image associated with the blog post."
+        },
+        "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the original blog post (e.g., on Medium)."
         }
       },
-      "required": [
-        "id",
-        "title",
-        "content",
-        "authorId",
-        "publicationDate"
-      ]
-    },
-    "Author": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Author",
-      "type": "object",
-      "description": "Represents the author of a blog post.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the author."
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the author."
-        },
-        "email": {
-          "type": "string",
-          "description": "Email address of the author.",
-          "format": "email"
-        },
-        "bio": {
-          "type": "string",
-          "description": "Short biography of the author."
-        },
-        "profileImageUrl": {
-          "type": "string",
-          "description": "URL of the author's profile image.",
-          "format": "uri"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email"
-      ]
+      "required": ["title", "content", "authorId", "publicationDate", "imageUrl", "url", "tags"]
     }
   },
   "auth": {
     "providers": [
-      "password",
-      "anonymous"
+      "google.com"
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/blogPosts/{blogPostId}",
-        "definition": {
-          "entityName": "BlogPost",
-          "schema": {
-            "$ref": "#/backend/entities/BlogPost"
-          },
-          "description": "Stores blog post data. Includes standard fields such as title, content, authorId, publicationDate, lastModifiedDate, tags, and imageUrl.",
-          "params": [
-            {
-              "name": "blogPostId",
-              "description": "Unique identifier for the blog post."
-            }
-          ]
-        }
+    "/blogPosts/{blogPostId}": {
+      "schema": {
+        "$ref": "#/entities/BlogPost"
       },
-      {
-        "path": "/roles_admin/{userId}",
-        "definition": {
-          "entityName": "Author",
-          "schema": {
-            "$ref": "#/backend/entities/Author"
-          },
-          "description": "Collection to store admin roles. Presence of a document indicates admin privileges. Authorization relies solely on request.auth.uid.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "User ID of the administrator."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "This design prioritizes security and scalability for the blog post management system. It incorporates an 'admin' role using a dedicated collection for role assignments, enabling efficient role checks. The 'blogPosts' collection stores the blog post data. The denormalization strategy avoids using `get()` calls in security rules, enhancing performance and security. The structure supports QAPs by segregating data based on access needs and employing a membership model for collaborative entities, which is not applicable in this case but it is good for future scalability. Segregation separates standard user blog posts from those managed by administrators, who require batch operation capabilities."
+      "description": "Collection to store all blog posts."
+    }
   }
 }

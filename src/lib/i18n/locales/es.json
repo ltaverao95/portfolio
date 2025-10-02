@@ -6,7 +6,9 @@
     "projects": "Proyectos",
     "blog": "Blog",
     "contact": "Contacto",
-    "codeAnalyzer": "Analizador de Código"
+    "codeAnalyzer": "Analizador de Código",
+    "admin": "Admin",
+    "logout": "Cerrar Sesión"
   },
   "routes": {
     "home": "/#inicio",
@@ -15,7 +17,8 @@
     "projects": "/#proyectos",
     "blog": "/#blog",
     "contact": "/#contacto",
-    "codeAnalyzer": "/analyzer"
+    "codeAnalyzer": "/analyzer",
+    "admin": "/admin"
   },
   "hero": {
     "greeting": "Hola, soy Luis Felipe Tavera Orozco",
@@ -41,19 +44,26 @@
     "title": "Experiencia Profesional",
     "job1": {
       "role": "Ingeniero de Software",
+      "company": "Flyr",
       "dates": "Actualidad",
       "description": "Desarrollo y mantenimiento de aplicaciones críticas para el sector aeronáutico, utilizando un stack tecnológico moderno basado en .Net y React. Colaboro en la definición de arquitecturas y en la implementación de nuevas funcionalidades, asegurando el rendimiento y la escalabilidad del sistema."
     },
     "job2": {
       "role": "Desarrollador de Software",
+      "company": "Newshore",
+      "dates": "2021 - 2022",
       "description": "Participé en el desarrollo de soluciones de software para aerolíneas, enfocado en sistemas de reservas y gestión de pasajeros. Implementé integraciones complejas y trabajé en la optimización de procesos clave del negocio."
     },
     "job3": {
       "role": "Desarrollador",
+      "company": "Universidad de Manizales",
+      "dates": "2019 - 2021",
       "description": "Contribuí al desarrollo de sistemas de información internos para la gestión académica y administrativa, mejorando la eficiencia de los procesos universitarios a través de la tecnología."
     },
     "job4": {
       "role": "Desarrollador .Net",
+      "company": "IT-ROI Solutions",
+      "dates": "2018 - 2019",
       "description": "Fui responsable del desarrollo de componentes y funcionalidades para productos de software de gestión de proyectos, trabajando principalmente con tecnologías .Net en un entorno ágil."
     }
   },
@@ -72,30 +82,7 @@
   },
   "blog": {
     "title": "Entradas de Blog Recientes",
-    "readPost": "Leer entrada",
-    "posts": [
-      {
-        "title": "Arquitectura Limpia en .NET Core",
-        "description": "Una guía práctica para implementar los principios de Arquitectura Limpia en tus aplicaciones .NET, mejorando la mantenibilidad y escalabilidad.",
-        "image": "/images/blog/clean-architecture-net-core.webp",
-        "url": "https://medium.com/@luisfelipetavera/clean-architecture-in-net-a-practical-guide-to-building-scalable-and-maintainable-applications-46e3c154f926",
-        "tags": [".NET", "Architecture", "C#"]
-      },
-      {
-        "title": "Dominando el Renderizado Condicional en React",
-        "description": "Aprende a dominar el renderizado condicional en React con patrones y técnicas avanzadas que harán tu código más limpio y eficiente.",
-        "image": "/images/blog/conditional-rendering-react.webp",
-        "url": "https://medium.com/@luisfelipetavera/mastering-conditional-rendering-in-react-a-guide-to-advanced-techniques-and-best-practices-6473e585633a",
-        "tags": ["React", "JavaScript", "Web Development"]
-      },
-      {
-        "title": "Desmitificando los Hooks de React: Más Allá de useState y useEffect",
-        "description": "Profundiza en los hooks menos comunes pero increíblemente útiles de React, como useReducer, useCallback, useMemo, y useRef.",
-        "image": "/images/blog/demystifying-react-hooks.webp",
-        "url": "https://medium.com/@luisfelipetavera/demystifying-react-hooks-a-deep-dive-beyond-usestate-and-useeffect-f038f4a8e48c",
-        "tags": ["React", "JavaScript", "Hooks"]
-      }
-    ]
+    "readPost": "Leer entrada"
   },
   "contact": {
     "title": "Hablemos",
@@ -117,6 +104,43 @@
       "analyzingButton": "Analizando...",
       "errorTitle": "Error",
       "suggestionsTitle": "Sugerencias de la IA"
+    }
+  },
+    "admin": {
+    "login": {
+        "title": "Acceso de Administrador",
+        "description": "Por favor, inicia sesión con Google para administrar las entradas del blog.",
+        "button": "Iniciar sesión con Google"
+    },
+    "table": {
+        "filterPlaceholder": "Filtrar posts por título...",
+        "deleteButton": "Eliminar",
+        "newPostButton": "Nuevo Post",
+        "columnsButton": "Columnas",
+        "previousButton": "Anterior",
+        "nextButton": "Siguiente",
+        "noResults": "No hay resultados."
+    },
+    "form": {
+        "newTitle": "Crear Nuevo Post",
+        "editTitle": "Editar Post",
+        "titleLabel": "Título",
+        "contentLabel": "Contenido (Descripción)",
+        "imageUrlLabel": "URL de la Imagen",
+        "tagsLabel": "Etiquetas",
+        "tagsPlaceholder": "Ej: React, .NET, TypeScript",
+        "cancelButton": "Cancelar",
+        "saveButton": "Guardar"
+    },
+    "columnHeader": {
+      "asc": "Asc",
+      "desc": "Desc",
+      "hide": "Ocultar"
+    },
+    "rowActions": {
+      "openMenu": "Abrir menú",
+      "edit": "Editar",
+      "delete": "Eliminar"
     }
   }
 }
