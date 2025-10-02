@@ -22,7 +22,7 @@ export function BlogSection() {
   const posts = translate('blog.posts') as BlogPost[];
 
   return (
-    <section id="blog" className="py-12 md:py-24 lg:py-32">
+    <section id="blog" className="pt-0 md:pt-0 lg:pt-0 pb-12 md:pb-24 lg:pb-32">
       <div className="container px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-10">
           {blogTitle}
