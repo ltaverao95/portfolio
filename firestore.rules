@@ -35,8 +35,8 @@ service cloud.firestore {
      */
     match /blogPosts/{blogPostId} {
       allow get, list: if true;
-      allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
-      allow update, delete: if isSignedIn() && isExistingOwner(resource.data.authorId);
+      allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid || isAdmin();
+      allow update, delete: if isSignedIn() && isExistingOwner(resource.data.authorId) || isAdmin();
     }
 
     // --- Helper functions ---
@@ -65,6 +65,14 @@ service cloud.firestore {
      */
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Checks if the user has an 'admin' custom claim.
+     * @returns True if the user is an admin, false otherwise.
+     */
+    function isAdmin() {
+      return request.auth.token.admin == true;
     }
   }
 }
