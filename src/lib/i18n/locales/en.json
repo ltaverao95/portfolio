@@ -152,7 +152,14 @@
       "previousButton": "Previous",
       "nextButton": "Next",
       "noResults": "No results.",
-      "loading": "Loading posts..."
+      "loading": "Loading posts...",
+      "selectAllAria": "Select all",
+      "selectRowAria": "Select row",
+      "columns": {
+        "title": "Title",
+        "publicationDate": "Publication Date",
+        "tags": "Tags"
+      }
     },
     "form": {
       "newTitle": "Create New Post",
@@ -165,7 +172,14 @@
       "tagsPlaceholder": "E.g.: React, .NET, TypeScript",
       "cancelButton": "Cancel",
       "saveButton": "Save",
-      "addTranslationButton": "Add translation"
+      "savingButton": "Saving...",
+      "addTranslationButton": "Add translation",
+      "validation": {
+        "titleRequired": "Title is required",
+        "contentRequired": "Content is required",
+        "imageUrlRequired": "Image URL is required",
+        "urlRequired": "Post URL is required"
+      }
     },
     "columnHeader": {
       "asc": "Asc",
@@ -176,6 +190,40 @@
       "openMenu": "Open menu",
       "edit": "Edit",
       "delete": "Delete"
+    },
+    "toast": {
+      "authError": {
+        "title": "Authentication Error",
+        "description": "You must be logged in to create or edit a post."
+      },
+      "updateSuccess": {
+        "title": "Post Updated",
+        "description": "The blog post has been successfully updated."
+      },
+      "createSuccess": {
+        "title": "Post Created",
+        "description": "The new blog post has been successfully created."
+      },
+      "deleteSuccess": {
+        "title": "Post Deleted",
+        "description": "The blog post has been deleted."
+      },
+      "deleteMultipleSuccess": {
+        "title": "Posts Deleted",
+        "description": "{count} blog posts have been deleted."
+      },
+      "unexpectedError": {
+        "title": "Unexpected Error",
+        "description": "An error occurred while saving the post."
+      },
+      "permissionError": {
+        "title": "Permission Error",
+        "defaultMessage": "You do not have permission to perform this action."
+      }
+    },
+    "confirm": {
+      "deleteSingle": "Are you sure you want to delete this post?",
+      "deleteMultiple": "Are you sure you want to delete {count} posts?"
     }
   }
 }

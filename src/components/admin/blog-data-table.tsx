@@ -71,15 +71,15 @@ export function BlogDataTable() {
   const [isMutating, setIsMutating] = React.useState(false);
 
   const handleDeletePost = (postId: string) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
+    if (window.confirm(translate('admin.confirm.deleteSingle') as string)) {
       setIsMutating(true);
       const docRef = doc(firestore, "blogPosts", postId);
       deleteDoc(docRef)
         .then(() => {
           toast({
             className: "bg-green-500 text-white",
-            title: "Post Eliminado",
-            description: "La entrada del blog ha sido eliminada.",
+            title: translate('admin.toast.deleteSuccess.title') as string,
+            description: translate('admin.toast.deleteSuccess.description') as string,
           });
         })
         .catch((error) => {
@@ -127,7 +127,7 @@ export function BlogDataTable() {
     const selectedRowCount = table.getFilteredSelectedRowModel().rows.length;
     if (
       window.confirm(
-        `Are you sure you want to delete ${selectedRowCount} posts?`
+        (translate('admin.confirm.deleteMultiple') as string).replace('{count}', selectedRowCount.toString())
       )
     ) {
       setIsMutating(true);
@@ -140,8 +140,8 @@ export function BlogDataTable() {
         .then(() => {
           toast({
             className: "bg-green-500 text-white",
-            title: "Posts Eliminados",
-            description: `${selectedRowCount} entradas del blog han sido eliminadas.`,
+            title: translate('admin.toast.deleteMultipleSuccess.title') as string,
+            description: (translate('admin.toast.deleteMultipleSuccess.description') as string).replace('{count}', selectedRowCount.toString()),
           });
           table.resetRowSelection();
         })
@@ -219,7 +219,7 @@ export function BlogDataTable() {
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id}
+                      {column.id === 'publicationDate' ? translate('admin.table.columns.publicationDate') : column.id}
                     </DropdownMenuCheckboxItem>
                   );
                 })}

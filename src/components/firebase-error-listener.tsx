@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/context/language-context';
 
 /**
  * An invisible component that listens for globally emitted 'permission-error' events.
@@ -11,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
  */
 export function FirebaseErrorListener() {
   const { toast } = useToast();
+  const { translate } = useLanguage();
   // Use the specific error type for the state for type safety.
   const [error, setError] = useState<FirestorePermissionError | null>(null);
 
@@ -36,12 +38,12 @@ export function FirebaseErrorListener() {
     if (error) {
         toast({
             variant: 'destructive',
-            title: 'Error de Permiso',
-            description: error.message || 'No tienes permisos para realizar esta acción.',
+            title: translate('admin.toast.permissionError.title') as string,
+            description: error.message || (translate('admin.toast.permissionError.defaultMessage') as string),
         });
         setError(null); // Reset error after showing toast
     }
-  }, [error, toast]);
+  }, [error, toast, translate]);
 
   // This component renders nothing.
   return null;

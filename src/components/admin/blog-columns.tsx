@@ -10,31 +10,41 @@ import { useLanguage } from '@/context/language-context';
 export const columns: ColumnDef<BlogPost>[] = [
   {
     id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { translate } = useLanguage();
+      return (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={translate('admin.table.selectAllAria') as string}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { translate } = useLanguage();
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={translate('admin.table.selectRowAria') as string}
+        />
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'title',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
-    ),
+    header: ({ column }) => {
+       // eslint-disable-next-line react-hooks/rules-of-hooks
+       const { translate } = useLanguage();
+      return <DataTableColumnHeader column={column} title={translate('admin.table.columns.title') as string} />
+    },
     cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { language } = useLanguage();
@@ -45,9 +55,11 @@ export const columns: ColumnDef<BlogPost>[] = [
   },
   {
     accessorKey: 'publicationDate',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Publication Date" />
-    ),
+    header: ({ column }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { translate } = useLanguage();
+      return <DataTableColumnHeader column={column} title={translate('admin.table.columns.publicationDate') as string} />
+    },
     cell: ({ row }) => {
       const date = row.getValue('publicationDate');
       if (date instanceof Date) {
@@ -62,7 +74,11 @@ export const columns: ColumnDef<BlogPost>[] = [
   },
   {
     accessorKey: 'tags',
-    header: 'Tags',
+    header: ({ column }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { translate } = useLanguage();
+      return <DataTableColumnHeader column={column} title={translate('admin.table.columns.tags') as string} />
+    },
     cell: ({ row }) => {
         const tags: string[] = row.getValue('tags') || [];
         return <div className="flex flex-wrap gap-1">{tags.map(tag => <span key={tag} className="text-xs bg-secondary text-secondary-foreground p-1 rounded-md">{tag}</span>)}</div>

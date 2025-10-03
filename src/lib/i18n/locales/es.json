@@ -152,7 +152,14 @@
       "previousButton": "Anterior",
       "nextButton": "Siguiente",
       "noResults": "No hay resultados.",
-      "loading": "Cargando posts..."
+      "loading": "Cargando posts...",
+      "selectAllAria": "Seleccionar todo",
+      "selectRowAria": "Seleccionar fila",
+      "columns": {
+        "title": "Título",
+        "publicationDate": "Fecha de Publicación",
+        "tags": "Etiquetas"
+      }
     },
     "form": {
       "newTitle": "Crear Nuevo Post",
@@ -165,7 +172,14 @@
       "tagsPlaceholder": "Ej: React, .NET, TypeScript",
       "cancelButton": "Cancelar",
       "saveButton": "Guardar",
-      "addTranslationButton": "Añadir traducción"
+      "savingButton": "Guardando...",
+      "addTranslationButton": "Añadir traducción",
+      "validation": {
+        "titleRequired": "El título es obligatorio",
+        "contentRequired": "El contenido es obligatorio",
+        "imageUrlRequired": "La URL de la imagen es obligatoria",
+        "urlRequired": "La URL del post es obligatoria"
+      }
     },
     "columnHeader": {
       "asc": "Asc",
@@ -176,6 +190,40 @@
       "openMenu": "Abrir menú",
       "edit": "Editar",
       "delete": "Eliminar"
+    },
+    "toast": {
+      "authError": {
+        "title": "Error de autenticación",
+        "description": "Debes iniciar sesión para crear o editar un post."
+      },
+      "updateSuccess": {
+        "title": "Post Actualizado",
+        "description": "La entrada del blog ha sido actualizada exitosamente."
+      },
+      "createSuccess": {
+        "title": "Post Creado",
+        "description": "La nueva entrada del blog ha sido creada exitosamente."
+      },
+      "deleteSuccess": {
+        "title": "Post Eliminado",
+        "description": "La entrada del blog ha sido eliminada."
+      },
+      "deleteMultipleSuccess": {
+        "title": "Posts Eliminados",
+        "description": "{count} entradas del blog han sido eliminadas."
+      },
+      "unexpectedError": {
+        "title": "Error Inesperado",
+        "description": "Ocurrió un error al guardar el post."
+      },
+      "permissionError": {
+        "title": "Error de Permiso",
+        "defaultMessage": "No tienes permisos para realizar esta acción."
+      }
+    },
+    "confirm": {
+      "deleteSingle": "¿Estás seguro de que quieres eliminar este post?",
+      "deleteMultiple": "¿Estás seguro de que quieres eliminar {count} posts?"
     }
   }
 }

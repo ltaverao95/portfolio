@@ -117,8 +117,8 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
     if (!userId) {
       toast({
         variant: 'destructive',
-        title: 'Error de autenticación',
-        description: 'Debes iniciar sesión para crear o editar un post.',
+        title: translate('admin.toast.authError.title') as string,
+        description: translate('admin.toast.authError.description') as string,
       })
       return;
     }
@@ -153,8 +153,8 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
             setDoc(docRef, dataToUpdate, { merge: true }).then(() => {
               toast({
                 className: "bg-green-500 text-white",
-                title: "Post Actualizado",
-                description: "La entrada del blog ha sido actualizada exitosamente."
+                title: translate('admin.toast.updateSuccess.title') as string,
+                description: translate('admin.toast.updateSuccess.description') as string,
               });
               onClose();
             }).catch(error => {
@@ -173,8 +173,8 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
             addDoc(colRef, newPostData).then(() => {
               toast({
                 className: "bg-green-500 text-white",
-                title: "Post Creado",
-                description: "La nueva entrada del blog ha sido creada exitosamente."
+                title: translate('admin.toast.createSuccess.title') as string,
+                description: translate('admin.toast.createSuccess.description') as string,
               });
               onClose();
             }).catch(error => {
@@ -189,8 +189,8 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
         console.error("An unexpected error occurred: ", error);
         toast({
           variant: "destructive",
-          title: "Error Inesperado",
-          description: "Ocurrió un error al guardar el post.",
+          title: translate('admin.toast.unexpectedError.title') as string,
+          description: translate('admin.toast.unexpectedError.description') as string,
         });
     } finally {
         onMutation(false);
@@ -204,7 +204,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
           <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
         </DialogHeader>
         <form id="blog-post-form" onSubmit={handleSubmit(onSubmit)} className="flex-grow flex flex-col min-h-0">
-          <ScrollArea className="flex-grow pr-6 -mr-6">
+          <ScrollArea className="flex-grow pr-6 -mr-6 overflow-y-auto">
               <div className="grid gap-6">
               
               <div className="space-y-4">
@@ -220,12 +220,12 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                       </div>
                       <div className="grid gap-2">
                       <Label htmlFor={`translations.${index}.title`}>{translate('admin.form.titleLabel')}</Label>
-                      <Input {...register(`translations.${index}.title` as const, { required: 'Title is required' })} />
+                      <Input {...register(`translations.${index}.title` as const, { required: translate('admin.form.validation.titleRequired') as string })} />
                       {errors.translations?.[index]?.title && <p className="text-red-500 text-xs">{errors.translations[index]?.title?.message}</p>}
                       </div>
                       <div className="grid gap-2">
                       <Label htmlFor={`translations.${index}.content`}>{translate('admin.form.contentLabel')}</Label>
-                      <Textarea {...register(`translations.${index}.content` as const, { required: 'Content is required' })} className="min-h-[100px]" />
+                      <Textarea {...register(`translations.${index}.content` as const, { required: translate('admin.form.validation.contentRequired') as string })} className="min-h-[100px]" />
                       {errors.translations?.[index]?.content && <p className="text-red-500 text-xs">{errors.translations[index]?.content?.message}</p>}
                       </div>
                   </div>
@@ -239,15 +239,15 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                   </Button>
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <div className="grid gap-4 mt-6">
                   <div className="grid gap-2">
                   <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>
-                  <Input id="imageUrl" {...register('imageUrl', { required: 'Image URL is required' })} />
+                  <Input id="imageUrl" {...register('imageUrl', { required: translate('admin.form.validation.imageUrlRequired') as string })} />
                   {errors.imageUrl && <p className="text-red-500 text-xs">{errors.imageUrl.message}</p>}
                   </div>
                   <div className="grid gap-2">
                   <Label htmlFor="url">URL</Label>
-                  <Input id="url" {...register('url', { required: 'Post URL is required' })} />
+                  <Input id="url" {...register('url', { required: translate('admin.form.validation.urlRequired') as string })} />
                   {errors.url && <p className="text-red-500 text-xs">{errors.url.message}</p>}
                   </div>
               </div>
@@ -263,7 +263,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
               <Button type="button" variant="secondary" disabled={isSubmitting}>{translate('admin.form.cancelButton')}</Button>
               </DialogClose>
               <Button type="submit" form="blog-post-form" disabled={isSubmitting}>
-                {isSubmitting ? 'Saving...' : translate('admin.form.saveButton')}
+                {isSubmitting ? translate('admin.form.savingButton') : translate('admin.form.saveButton')}
               </Button>
           </DialogFooter>
         </form>
