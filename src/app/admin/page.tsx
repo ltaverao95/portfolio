@@ -48,18 +48,6 @@ export default function AdminPage() {
       </div>
     );
   }
-  
-  if (user) {
-     return (
-      <div className="flex flex-col justify-center items-center h-screen text-center">
-        <h1 className="text-3xl font-bold mb-4">{translate('admin.login.title')}</h1>
-        <p className="text-muted-foreground mb-8">{translate('admin.login.description')}</p>
-        <Button onClick={handleGoogleSignIn} size="lg">
-          {translate('admin.login.button')}
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto py-10">
