@@ -18,6 +18,3 @@
 - Headline text: 'Space Grotesk', a sans-serif, is used for the website title and section headings to provide a contemporary, techy look.
 - Use simple, professional icons to represent skills, contact information, and project categories.
 - A clean and responsive layout to provide optimal viewing experience across devices. Follows closely the reference image structure.
-
-## Coding Guidelines
-- Every component must have unit tests up and running.
