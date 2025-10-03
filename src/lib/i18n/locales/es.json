@@ -18,7 +18,8 @@
     "blog": "/#blog",
     "contact": "/#contacto",
     "codeAnalyzer": "/analyzer",
-    "admin": "/admin"
+    "admin": "/admin",
+    "login": "/login"
   },
   "hero": {
     "greeting": "Hola, soy Luis Felipe Tavera Orozco",
@@ -127,12 +128,22 @@
       "suggestionsTitle": "Sugerencias de la IA"
     }
   },
+  "login": {
+    "title": "Acceso de Administrador",
+    "description": "Por favor, inicia sesión con tu cuenta de administrador para continuar.",
+    "button": "Iniciar sesión con Google",
+    "toast": {
+      "success": {
+        "title": "¡Bienvenido!",
+        "description": "Has iniciado sesión correctamente."
+      },
+      "error": {
+        "title": "Error de inicio de sesión",
+        "description": "Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo."
+      }
+    }
+  },
   "admin": {
-    "login": {
-      "title": "Acceso de Administrador",
-      "description": "Por favor, inicia sesión con Google.",
-      "button": "Iniciar sesión con Google"
-    },
     "table": {
       "filterPlaceholder": "Filtrar posts por título...",
       "deleteButton": "Eliminar",
@@ -149,6 +160,7 @@
       "titleLabel": "Título",
       "contentLabel": "Contenido (Descripción)",
       "imageUrlLabel": "URL de la Imagen",
+      "url": "URL del Post",
       "tagsLabel": "Etiquetas",
       "tagsPlaceholder": "Ej: React, .NET, TypeScript",
       "cancelButton": "Cancelar",

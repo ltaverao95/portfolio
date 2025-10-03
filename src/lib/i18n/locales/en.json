@@ -18,7 +18,8 @@
     "blog": "/#blog",
     "contact": "/#contact",
     "codeAnalyzer": "/analyzer",
-    "admin": "/admin"
+    "admin": "/admin",
+    "login": "/login"
   },
   "hero": {
     "greeting": "Hi, I'm Luis Felipe Tavera Orozco",
@@ -127,12 +128,22 @@
       "suggestionsTitle": "AI Suggestions"
     }
   },
+  "login": {
+    "title": "Admin Access",
+    "description": "Please sign in with your administrator account to continue.",
+    "button": "Sign in with Google",
+    "toast": {
+      "success": {
+        "title": "Welcome!",
+        "description": "You have successfully logged in."
+      },
+      "error": {
+        "title": "Login Error",
+        "description": "There was a problem signing in. Please try again."
+      }
+    }
+  },
   "admin": {
-    "login": {
-      "title": "Admin Access",
-      "description": "Please sign in with Google.",
-      "button": "Sign in with Google"
-    },
     "table": {
       "filterPlaceholder": "Filter posts by title...",
       "deleteButton": "Delete",
@@ -149,6 +160,7 @@
       "titleLabel": "Title",
       "contentLabel": "Content (Description)",
       "imageUrlLabel": "Image URL",
+      "url": "Post URL",
       "tagsLabel": "Tags",
       "tagsPlaceholder": "E.g.: React, .NET, TypeScript",
       "cancelButton": "Cancel",

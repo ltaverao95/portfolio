@@ -28,7 +28,7 @@ export function AppHeader() {
     { href: translate('routes.projects'), label: translate('header.projects') },
     { href: translate('routes.contact'), label: translate('header.contact') },
     { href: translate('routes.codeAnalyzer'), label: translate('header.codeAnalyzer') },
-    { href: translate('routes.admin'), label: translate('header.admin') },
+    { href: user ? translate('routes.admin') : translate('routes.login'), label: translate('header.admin') },
   ];
 
   const handleLinkClick = () => {
@@ -92,7 +92,7 @@ export function AppHeader() {
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => router.push(translate('routes.admin'))}>
+                    <DropdownMenuItem onClick={() => router.push(translate('routes.admin') as string)}>
                       {translate('header.admin')}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
@@ -102,6 +102,11 @@ export function AppHeader() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
+             )}
+             { !isUserLoading && !user && (
+                <Button asChild variant="outline">
+                    <Link href={translate('routes.login') as string}>{translate('header.admin')}</Link>
+                </Button>
              )}
           </nav>
           
