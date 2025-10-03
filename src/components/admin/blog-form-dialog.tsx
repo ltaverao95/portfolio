@@ -25,6 +25,8 @@ import { useFirestore, errorEmitter, FirestorePermissionError } from '@/firebase
 import { useEffect } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { PlusCircle, Trash2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { ScrollArea } from '../ui/scroll-area';
 
 // Representa un par de traducción para el formulario
 type TranslationField = {
@@ -52,6 +54,7 @@ interface BlogFormDialogProps {
 export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: BlogFormDialogProps) {
   const firestore = useFirestore();
   const { language: currentAppLanguage, translate } = useLanguage();
+  const { toast } = useToast();
   
   const {
     register,
@@ -112,7 +115,11 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
 
   const onSubmit: SubmitHandler<BlogPostFormData> = async (data) => {
     if (!userId) {
-      alert('You must be logged in to create or edit a post.');
+      toast({
+        variant: 'destructive',
+        title: 'Error de autenticación',
+        description: 'Debes iniciar sesión para crear o editar un post.',
+      })
       return;
     }
     
@@ -143,7 +150,13 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                 ...postData,
                 publicationDate: post.publicationDate, // Preserve original publication date
             }
-            setDoc(docRef, dataToUpdate, { merge: true }).catch(error => {
+            setDoc(docRef, dataToUpdate, { merge: true }).then(() => {
+              toast({
+                title: "Post Actualizado",
+                description: "La entrada del blog ha sido actualizada exitosamente."
+              });
+              onClose();
+            }).catch(error => {
                 errorEmitter.emit('permission-error', new FirestorePermissionError({
                     path: docRef.path,
                     operation: 'update',
@@ -156,7 +169,13 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                 ...postData,
                 publicationDate: serverTimestamp(),
             };
-            addDoc(colRef, newPostData).catch(error => {
+            addDoc(colRef, newPostData).then(() => {
+              toast({
+                title: "Post Creado",
+                description: "La nueva entrada del blog ha sido creada exitosamente."
+              });
+              onClose();
+            }).catch(error => {
                 errorEmitter.emit('permission-error', new FirestorePermissionError({
                     path: colRef.path,
                     operation: 'create',
@@ -164,11 +183,13 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                 }));
             });
         }
-        onClose();
     } catch (error: any) {
-        // This catch block might be redundant if the .catch handlers are used,
-        // but can serve as a fallback.
         console.error("An unexpected error occurred: ", error);
+        toast({
+          variant: "destructive",
+          title: "Error Inesperado",
+          description: "Ocurrió un error al guardar el post.",
+        });
     } finally {
         onMutation(false);
     }
@@ -176,12 +197,12 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[725px] max-h-[90vh] flex flex-col">
+      <DialogContent className="sm:max-w-[725px] h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
         </DialogHeader>
         <form id="blog-post-form" onSubmit={handleSubmit(onSubmit)} className="flex-grow flex flex-col min-h-0">
-          <div className="flex-grow pr-6 -mr-6 py-4 overflow-y-auto">
+          <ScrollArea className="flex-grow pr-6 -mr-6">
               <div className="grid gap-6">
               
               <div className="space-y-4">
@@ -216,7 +237,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                   </Button>
               )}
 
-              <div className="grid grid-cols-1 gap-4 mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                   <div className="grid gap-2">
                   <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>
                   <Input id="imageUrl" {...register('imageUrl', { required: 'Image URL is required' })} />
@@ -234,7 +255,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                   <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder')} />
               </div>
               </div>
-          </div>
+          </ScrollArea>
           <DialogFooter className="mt-auto pt-4 border-t">
               <DialogClose asChild>
               <Button type="button" variant="secondary" disabled={isSubmitting}>{translate('admin.form.cancelButton')}</Button>

@@ -42,6 +42,7 @@ import { Loader2, PlusCircle, Trash2 } from 'lucide-react';
 import { BlogFormDialog } from './blog-form-dialog';
 import { useUser } from '@/firebase';
 import { useLanguage } from '@/context/language-context';
+import { useToast } from '@/hooks/use-toast';
 
 export function BlogDataTable() {
   const firestore = useFirestore();
@@ -49,6 +50,7 @@ export function BlogDataTable() {
   const blogPostsCollection = useMemoFirebase(() => collection(firestore, 'blogPosts'), [firestore]);
   const { data: blogPosts, isLoading: isLoadingCollection } = useCollection<BlogPost>(blogPostsCollection);
   const { translate } = useLanguage();
+  const { toast } = useToast();
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -62,13 +64,17 @@ export function BlogDataTable() {
     if (window.confirm('Are you sure you want to delete this post?')) {
         setIsMutating(true);
         const docRef = doc(firestore, 'blogPosts', postId);
-        deleteDoc(docRef).catch(error => {
+        deleteDoc(docRef).then(() => {
+          toast({
+            title: "Post Eliminado",
+            description: "La entrada del blog ha sido eliminada.",
+          });
+        }).catch(error => {
             errorEmitter.emit('permission-error', new FirestorePermissionError({
                 path: docRef.path,
                 operation: 'delete',
             }));
         }).finally(() => {
-             // We don't control success here, just that the operation is done.
             setIsMutating(false);
         });
     }
@@ -101,13 +107,18 @@ export function BlogDataTable() {
   });
 
   const deleteSelectedRows = async () => {
-    if (window.confirm(`Are you sure you want to delete ${table.getFilteredSelectedRowModel().rows.length} posts?`)) {
+    const selectedRowCount = table.getFilteredSelectedRowModel().rows.length;
+    if (window.confirm(`Are you sure you want to delete ${selectedRowCount} posts?`)) {
         setIsMutating(true);
       const batch = writeBatch(firestore);
       table.getFilteredSelectedRowModel().rows.forEach(row => {
         batch.delete(doc(firestore, 'blogPosts', row.original.id));
       });
       batch.commit().then(() => {
+        toast({
+            title: "Posts Eliminados",
+            description: `${selectedRowCount} entradas del blog han sido eliminadas.`,
+          });
         table.resetRowSelection();
       }).catch(error => {
          errorEmitter.emit('permission-error', new FirestorePermissionError({
