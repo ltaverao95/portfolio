@@ -30,9 +30,11 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <FirebaseClientProvider>
-              <AppHeader />
-              <main>{children}</main>
-              <AppFooter />
+              <div className="flex flex-col min-h-screen">
+                <AppHeader />
+                <main className="flex-grow">{children}</main>
+                <AppFooter />
+              </div>
               <Toaster />
             </FirebaseClientProvider>
           </LanguageProvider>
