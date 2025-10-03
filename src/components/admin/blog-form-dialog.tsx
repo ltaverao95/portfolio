@@ -152,6 +152,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
             }
             setDoc(docRef, dataToUpdate, { merge: true }).then(() => {
               toast({
+                className: "bg-green-500 text-white",
                 title: "Post Actualizado",
                 description: "La entrada del blog ha sido actualizada exitosamente."
               });
@@ -171,6 +172,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
             };
             addDoc(colRef, newPostData).then(() => {
               toast({
+                className: "bg-green-500 text-white",
                 title: "Post Creado",
                 description: "La nueva entrada del blog ha sido creada exitosamente."
               });
