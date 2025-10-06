@@ -1,7 +1,6 @@
 "use client";
-import * as React from "react";
+import { useState } from "react";
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -29,14 +28,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { collection, deleteDoc, doc, writeBatch } from "firebase/firestore";
-import {
-  useFirestore,
-  useCollection,
-  useMemoFirebase,
-  errorEmitter,
-  FirestorePermissionError,
-} from "@/firebase";
+import { useFirestore } from "@/firebase";
 import { BlogPost } from "@/lib/types";
 import { columns } from "./blog-columns";
 import { Loader2, PlusCircle, Trash2 } from "lucide-react";
@@ -44,61 +36,78 @@ import { BlogFormDialog } from "./blog-form-dialog";
 import { useUser } from "@/firebase";
 import { useLanguage } from "@/context/language-context";
 import { useToast } from "@/hooks/use-toast";
+import {
+  deletePost,
+  deleteSelectedPosts,
+  useBlogPosts,
+} from "@/services/blog_service";
 
 export function BlogDataTable() {
   const firestore = useFirestore();
   const { user } = useUser();
-  const blogPostsCollection = useMemoFirebase(
-    () => collection(firestore, "blogPosts"),
-    [firestore]
-  );
-  const { data: blogPosts, isLoading: isLoadingCollection } =
-    useCollection<BlogPost>(blogPostsCollection);
+  const { blogPosts, isLoadingCollection } = useBlogPosts();
   const { translate } = useLanguage();
   const { toast } = useToast();
 
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [isFormOpen, setIsFormOpen] = React.useState(false);
-  const [selectedPost, setSelectedPost] = React.useState<BlogPost | undefined>(
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | undefined>(
     undefined
   );
-  const [isMutating, setIsMutating] = React.useState(false);
+  const [isMutating, setIsMutating] = useState(false);
 
-  const handleDeletePost = (postId: string) => {
-    if (!window.confirm(translate("admin.confirm.deleteSingle") as string)) {
+  const handleDeletePost = async (postId: string) => {
+    setIsMutating(true);
+    try {
+      if (!window.confirm(translate("admin.confirm.deleteSingle") as string)) {
+        return;
+      }
+      await deletePost(postId, firestore);
+      toast({
+        className: "bg-green-500 text-white",
+        title: translate("admin.toast.deleteSuccess.title") as string,
+        description: translate(
+          "admin.toast.deleteSuccess.description"
+        ) as string,
+      });
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  const deleteSelectedRows = async () => {
+    if (!window.confirm(translate("admin.confirm.deleteMultiple") as string)) {
       return;
     }
-
     setIsMutating(true);
-    const docRef = doc(firestore, "blogPosts", postId);
-    deleteDoc(docRef)
-      .then(() => {
-        toast({
-          className: "bg-green-500 text-white",
-          title: translate("admin.toast.deleteSuccess.title") as string,
-          description: translate(
-            "admin.toast.deleteSuccess.description"
-          ) as string,
-        });
-      })
-      .catch((error) => {
-        errorEmitter.emit(
-          "permission-error",
-          new FirestorePermissionError({
-            path: docRef.path,
-            operation: "delete",
-          })
-        );
-      })
-      .finally(() => {
-        setIsMutating(false);
+    try {
+      await deleteSelectedPosts(
+        table.getFilteredSelectedRowModel().rows,
+        firestore
+      );
+      toast({
+        className: "bg-green-500 text-white",
+        title: translate("admin.toast.deleteMultipleSuccess.title") as string,
+        description: translate(
+          "admin.toast.deleteMultipleSuccess.description"
+        ) as string,
       });
+      table.resetRowSelection();
+    } catch (error) {
+      // Error is handled by the service
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setSelectedPost(undefined);
   };
 
   const table = useReactTable({
@@ -127,64 +136,13 @@ export function BlogDataTable() {
     },
   });
 
-  const deleteSelectedRows = async () => {
-    const selectedRowCount = table.getFilteredSelectedRowModel().rows.length;
-    if (
-      window.confirm(
-        (translate("admin.confirm.deleteMultiple") as string).replace(
-          "{count}",
-          selectedRowCount.toString()
-        )
-      )
-    ) {
-      setIsMutating(true);
-      const batch = writeBatch(firestore);
-      table.getFilteredSelectedRowModel().rows.forEach((row) => {
-        batch.delete(doc(firestore, "blogPosts", row.original.id));
-      });
-      batch
-        .commit()
-        .then(() => {
-          toast({
-            className: "bg-green-500 text-white",
-            title: translate(
-              "admin.toast.deleteMultipleSuccess.title"
-            ) as string,
-            description: (
-              translate(
-                "admin.toast.deleteMultipleSuccess.description"
-              ) as string
-            ).replace("{count}", selectedRowCount.toString()),
-          });
-          table.resetRowSelection();
-        })
-        .catch((error) => {
-          errorEmitter.emit(
-            "permission-error",
-            new FirestorePermissionError({
-              path: "blogPosts",
-              operation: "delete",
-            })
-          );
-        })
-        .finally(() => {
-          setIsMutating(false);
-        });
-    }
-  };
-
-  const handleFormClose = () => {
-    setIsFormOpen(false);
-    setSelectedPost(undefined);
-  };
-
   const isLoading = isLoadingCollection || isMutating;
 
   return (
     <div>
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder={translate("admin.table.filterPlaceholder")}
+          placeholder={translate("admin.table.filterPlaceholder") as string}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -200,13 +158,13 @@ export function BlogDataTable() {
               disabled={isLoading}
             >
               <Trash2 className="mr-2 h-4 w-4" />
-              {translate("admin.table.deleteButton")} (
+              {translate("admin.table.deleteButton") as string} (
               {table.getFilteredSelectedRowModel().rows.length})
             </Button>
           )}
           <Button onClick={() => setIsFormOpen(true)} disabled={isLoading}>
             <PlusCircle className="mr-2 h-4 w-4" />
-            {translate("admin.table.newPostButton")}
+            {translate("admin.table.newPostButton") as string}
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -215,7 +173,7 @@ export function BlogDataTable() {
                 className="ml-auto"
                 disabled={isLoading}
               >
-                {translate("admin.table.columnsButton")}
+                {translate("admin.table.columnsButton") as string}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -233,7 +191,11 @@ export function BlogDataTable() {
                       }
                     >
                       {column.id === "publicationDate"
-                        ? translate("admin.table.columns.publicationDate")
+                        ? (translate(
+                            "admin.table.columns.publicationDate"
+                          ) as string)
+                        : column.id === "title"
+                        ? (translate("admin.table.columns.title") as string)
                         : column.id}
                     </DropdownMenuCheckboxItem>
                   );
@@ -274,7 +236,7 @@ export function BlogDataTable() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {translate("admin.table.loading")}
+                  {translate("admin.table.loading") as string}
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
@@ -299,7 +261,7 @@ export function BlogDataTable() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {translate("admin.table.noResults")}
+                  {translate("admin.table.noResults") as string}
                 </TableCell>
               </TableRow>
             )}
@@ -313,7 +275,7 @@ export function BlogDataTable() {
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage() || isLoading}
         >
-          {translate("admin.table.previousButton")}
+          {translate("admin.table.previousButton") as string}
         </Button>
         <Button
           variant="outline"
@@ -321,7 +283,7 @@ export function BlogDataTable() {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage() || isLoading}
         >
-          {translate("admin.table.nextButton")}
+          {translate("admin.table.nextButton") as string}
         </Button>
       </div>
       <BlogFormDialog

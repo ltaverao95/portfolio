@@ -9,7 +9,7 @@ type Language = 'es' | 'en';
 const translations = { es, en };
 
 // Definimos un tipo más flexible para el valor de retorno de la traducción
-type TranslationValue = string | object | any[];
+export type TranslationValue = string | object | any[];
 
 interface LanguageContextType {
   language: Language;
