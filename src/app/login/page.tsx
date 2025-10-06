@@ -21,10 +21,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!isUserLoading && user && is_token_validated) {
-      router.push(translate('routes.admin') as string);
+      router.push(translate("routes.admin") as string);
     }
   }, [isUserLoading, user, router, translate, is_token_validated]);
-
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -32,8 +31,8 @@ export default function LoginPage() {
       const credential = await signInWithPopup(auth, provider);
       const token = await credential.user.getIdToken();
 
-      const validation = await validate_token(token);
-      if (!validation.success) {
+      const isValidToken = await validate_token(token);
+      if (!isValidToken) {
         await signOut(auth);
         toast({
           variant: "destructive",

@@ -34,23 +34,27 @@ export const useBlogPosts = () => {
 };
 
 /**
- * Deletes a single blog post.
- * @param firestore - The Firestore instance.
+ * Deletes a single blog post by making an HTTP DELETE request.
  * @param postId - The ID of the post to delete.
  */
-export const deletePost = async (postId: string, firestore: Firestore) => {
-  const docRef = doc(firestore, "blogPosts", postId);
+export const deletePost = async (postId: string) => {
   try {
-    await deleteDoc(docRef);
+    const response = await fetch(`http://localhost:3000/api/blogs/${postId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({})); // Try to parse error, default to empty object
+      throw new Error(
+        errorData.message || `Failed to delete post. Status: ${response.status}`
+      );
+    }
+
+    // The request was successful, no content to return.
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: docRef.path,
-        operation: "delete",
-      })
-    );
-    throw error; // Re-throw to be caught by the caller
+    console.error("Error deleting post:", error);
+    // Re-throw the error so the calling component can handle it (e.g., show a toast notification).
+    throw error;
   }
 };
 

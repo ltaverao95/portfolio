@@ -1,23 +1,26 @@
 /**
  * Validates an authentication token with a third-party service.
  * @param {string} token - The authentication token to validate.
- * @returns {Promise<{ success: boolean }>} A promise that resolves with the validation result.
+ * @returns {Promise<boolean>} A promise that resolves with the validation result.
  */
-export const validate_token = async (token: string): Promise<{ success: boolean }> => {
+export const validate_token = async (token: string): Promise<boolean> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/verify-token`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/verify-token`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
 
     if (!response.ok) {
-        return { success: false };
+      return false;
     }
 
-    return { success: true };
+    return true;
   } catch (error) {
-    console.error('Error validating token:', error);
-    return { success: false };
+    console.error("Error validating token:", error);
+    return false;
   }
 };
