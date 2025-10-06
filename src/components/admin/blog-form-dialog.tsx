@@ -201,7 +201,7 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[725px] h-[90vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>{post ? translate('admin.form.editTitle') : translate('admin.form.newTitle')}</DialogTitle>
+          <DialogTitle>{post ? translate('admin.form.editTitle') as string : translate('admin.form.newTitle') as string}</DialogTitle>
         </DialogHeader>
         <form id="blog-post-form" onSubmit={handleSubmit(onSubmit)} className="flex-grow flex flex-col min-h-0">
           <ScrollArea className="flex-grow pr-6 -mr-6 overflow-y-auto">
@@ -219,12 +219,12 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
                       )}
                       </div>
                       <div className="grid gap-2">
-                      <Label htmlFor={`translations.${index}.title`}>{translate('admin.form.titleLabel')}</Label>
+                      <Label htmlFor={`translations.${index}.title`}>{translate('admin.form.titleLabel') as string}</Label>
                       <Input {...register(`translations.${index}.title` as const, { required: translate('admin.form.validation.titleRequired') as string })} />
                       {errors.translations?.[index]?.title && <p className="text-red-500 text-xs">{errors.translations[index]?.title?.message}</p>}
                       </div>
                       <div className="grid gap-2">
-                      <Label htmlFor={`translations.${index}.content`}>{translate('admin.form.contentLabel')}</Label>
+                      <Label htmlFor={`translations.${index}.content`}>{translate('admin.form.contentLabel') as string}</Label>
                       <Textarea {...register(`translations.${index}.content` as const, { required: translate('admin.form.validation.contentRequired') as string })} className="min-h-[100px]" />
                       {errors.translations?.[index]?.content && <p className="text-red-500 text-xs">{errors.translations[index]?.content?.message}</p>}
                       </div>
@@ -235,13 +235,13 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
               {fields.length < 2 && (
                   <Button type="button" variant="outline" onClick={handleAddLanguage} className="w-full">
                       <PlusCircle className="mr-2 h-4 w-4" />
-                      {translate('admin.form.addTranslationButton')}
+                      {translate('admin.form.addTranslationButton') as string}
                   </Button>
               )}
 
               <div className="grid gap-4 mt-6">
                   <div className="grid gap-2">
-                  <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel')}</Label>
+                  <Label htmlFor="imageUrl">{translate('admin.form.imageUrlLabel') as string}</Label>
                   <Input id="imageUrl" {...register('imageUrl', { required: translate('admin.form.validation.imageUrlRequired') as string })} />
                   {errors.imageUrl && <p className="text-red-500 text-xs">{errors.imageUrl.message}</p>}
                   </div>
@@ -253,17 +253,17 @@ export function BlogFormDialog({ isOpen, onClose, post, userId, onMutation }: Bl
               </div>
               
               <div className="grid gap-2 mt-4">
-                  <Label htmlFor="tags">{translate('admin.form.tagsLabel')}</Label>
-                  <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder')} />
+                  <Label htmlFor="tags">{translate('admin.form.tagsLabel') as string}</Label>
+                  <Input id="tags" {...register('tags')} placeholder={translate('admin.form.tagsPlaceholder') as string} />
               </div>
               </div>
           </ScrollArea>
           <DialogFooter className="mt-auto pt-4 border-t">
               <DialogClose asChild>
-              <Button type="button" variant="secondary" disabled={isSubmitting}>{translate('admin.form.cancelButton')}</Button>
+              <Button type="button" variant="secondary" disabled={isSubmitting}>{translate('admin.form.cancelButton') as string}</Button>
               </DialogClose>
               <Button type="submit" form="blog-post-form" disabled={isSubmitting}>
-                {isSubmitting ? translate('admin.form.savingButton') : translate('admin.form.saveButton')}
+                {isSubmitting ? translate('admin.form.savingButton') as string : translate('admin.form.saveButton') as string}
               </Button>
           </DialogFooter>
         </form>
