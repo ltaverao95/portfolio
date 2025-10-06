@@ -65,7 +65,7 @@ export function BlogDataTable() {
       if (!window.confirm(translate("admin.confirm.deleteSingle") as string)) {
         return;
       }
-      await deletePost(postId, firestore);
+      await deletePost(postId);
       toast({
         className: "bg-green-500 text-white",
         title: translate("admin.toast.deleteSuccess.title") as string,
@@ -86,10 +86,7 @@ export function BlogDataTable() {
     }
     setIsMutating(true);
     try {
-      await deleteSelectedPosts(
-        table.getFilteredSelectedRowModel().rows,
-        firestore
-      );
+      await deleteSelectedPosts(table.getFilteredSelectedRowModel().rows);
       toast({
         className: "bg-green-500 text-white",
         title: translate("admin.toast.deleteMultipleSuccess.title") as string,

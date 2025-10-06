@@ -1,10 +1,4 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  Firestore,
-  writeBatch,
-} from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import {
   useCollection,
   useMemoFirebase,
@@ -12,6 +6,9 @@ import {
   FirestorePermissionError,
   useFirestore,
 } from "@/firebase";
+
+import axiosHttp from "../lib/http/axios-http-handler";
+
 import { BlogPost } from "@/lib/types";
 
 /**
@@ -39,14 +36,12 @@ export const useBlogPosts = () => {
  */
 export const deletePost = async (postId: string) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/blogs/${postId}`, {
-      method: "DELETE",
-    });
+    const response = await axiosHttp.delete(`/blogs/${postId}`);
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({})); // Try to parse error, default to empty object
+    if (response.status !== 204) {
       throw new Error(
-        errorData.message || `Failed to delete post. Status: ${response.status}`
+        response.statusText ||
+          `Failed to delete post. Status: ${response.status}`
       );
     }
 
@@ -65,16 +60,19 @@ export const deletePost = async (postId: string) => {
  * @returns A promise that resolves when the batch operation is complete.
  */
 export const deleteSelectedPosts = async (
-  selectedRows: { original: BlogPost }[],
-  firestore: Firestore
+  selectedRows: { original: BlogPost }[]
 ) => {
-  const batch = writeBatch(firestore);
-  selectedRows.forEach((row) => {
-    batch.delete(doc(firestore, "blogPosts", row.original.id));
-  });
-
   try {
-    await batch.commit();
+    const response = await axiosHttp.post(`/blogs/batch-delete`, {
+      blogIds: selectedRows.map((row) => row.original.id),
+    });
+
+    if (response.status !== 204) {
+      throw new Error(
+        response.statusText ||
+          `Failed to delete post. Status: ${response.status}`
+      );
+    }
   } catch (error) {
     errorEmitter.emit(
       "permission-error",
