@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 /**
  * Validates an authentication token with a third-party service.
  * @param {string} token - The authentication token to validate.
@@ -7,9 +5,7 @@ import axios from 'axios';
  */
 export const validate_token = async (token: string): Promise<{ success: boolean }> => {
   try {
-    
-    const response = await fetch(`http://localhost:3000/api/auth/verify-token`, {
-      method: 'GET',
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/verify-token`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
