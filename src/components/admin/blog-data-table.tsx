@@ -71,30 +71,34 @@ export function BlogDataTable() {
   const [isMutating, setIsMutating] = React.useState(false);
 
   const handleDeletePost = (postId: string) => {
-    if (window.confirm(translate('admin.confirm.deleteSingle') as string)) {
-      setIsMutating(true);
-      const docRef = doc(firestore, "blogPosts", postId);
-      deleteDoc(docRef)
-        .then(() => {
-          toast({
-            className: "bg-green-500 text-white",
-            title: translate('admin.toast.deleteSuccess.title') as string,
-            description: translate('admin.toast.deleteSuccess.description') as string,
-          });
-        })
-        .catch((error) => {
-          errorEmitter.emit(
-            "permission-error",
-            new FirestorePermissionError({
-              path: docRef.path,
-              operation: "delete",
-            })
-          );
-        })
-        .finally(() => {
-          setIsMutating(false);
-        });
+    if (!window.confirm(translate("admin.confirm.deleteSingle") as string)) {
+      return;
     }
+
+    setIsMutating(true);
+    const docRef = doc(firestore, "blogPosts", postId);
+    deleteDoc(docRef)
+      .then(() => {
+        toast({
+          className: "bg-green-500 text-white",
+          title: translate("admin.toast.deleteSuccess.title") as string,
+          description: translate(
+            "admin.toast.deleteSuccess.description"
+          ) as string,
+        });
+      })
+      .catch((error) => {
+        errorEmitter.emit(
+          "permission-error",
+          new FirestorePermissionError({
+            path: docRef.path,
+            operation: "delete",
+          })
+        );
+      })
+      .finally(() => {
+        setIsMutating(false);
+      });
   };
 
   const table = useReactTable({
@@ -127,7 +131,10 @@ export function BlogDataTable() {
     const selectedRowCount = table.getFilteredSelectedRowModel().rows.length;
     if (
       window.confirm(
-        (translate('admin.confirm.deleteMultiple') as string).replace('{count}', selectedRowCount.toString())
+        (translate("admin.confirm.deleteMultiple") as string).replace(
+          "{count}",
+          selectedRowCount.toString()
+        )
       )
     ) {
       setIsMutating(true);
@@ -140,8 +147,14 @@ export function BlogDataTable() {
         .then(() => {
           toast({
             className: "bg-green-500 text-white",
-            title: translate('admin.toast.deleteMultipleSuccess.title') as string,
-            description: (translate('admin.toast.deleteMultipleSuccess.description') as string).replace('{count}', selectedRowCount.toString()),
+            title: translate(
+              "admin.toast.deleteMultipleSuccess.title"
+            ) as string,
+            description: (
+              translate(
+                "admin.toast.deleteMultipleSuccess.description"
+              ) as string
+            ).replace("{count}", selectedRowCount.toString()),
           });
           table.resetRowSelection();
         })
@@ -219,7 +232,9 @@ export function BlogDataTable() {
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id === 'publicationDate' ? translate('admin.table.columns.publicationDate') : column.id}
+                      {column.id === "publicationDate"
+                        ? translate("admin.table.columns.publicationDate")
+                        : column.id}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
