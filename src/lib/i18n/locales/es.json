@@ -139,7 +139,8 @@
       },
       "error": {
         "title": "Error de inicio de sesión",
-        "description": "Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo."
+        "description": "Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo.",
+        "validation_failed": "La validación del token ha fallado. Por favor, inténtalo de nuevo."
       }
     }
   },

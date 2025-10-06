@@ -40,7 +40,7 @@ export function getSdks(firebaseApp: FirebaseApp) {
   };
 }
 
-export * from './provider';
+export * from './firebase-provider';
 export * from './client-provider';
 export * from './firestore/use-collection';
 export * from './firestore/use-doc';
@@ -48,3 +48,9 @@ export * from './non-blocking-updates';
 export * from './non-blocking-login';
 export * from './errors';
 export * from './error-emitter';
+export * from './hooks/use_auth';
+export * from './hooks/use_firebase';
+export * from './hooks/use_firebase_app';
+export * from './hooks/use_firestore';
+export * from './hooks/use_memo_firebase';
+export * from './hooks/use_user';

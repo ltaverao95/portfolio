@@ -139,7 +139,8 @@
       },
       "error": {
         "title": "Login Error",
-        "description": "There was a problem signing in. Please try again."
+        "description": "There was a problem signing in. Please try again.",
+        "validation_failed": "Token validation failed. Please try again."
       }
     }
   },
