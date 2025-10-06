@@ -3,7 +3,7 @@
  * @param {string} token - The authentication token to validate.
  * @returns {Promise<boolean>} A promise that resolves with the validation result.
  */
-export const validate_token = async (token: string): Promise<boolean> => {
+export const verify_auth_token = async (token: string): Promise<boolean> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/verify-token`,

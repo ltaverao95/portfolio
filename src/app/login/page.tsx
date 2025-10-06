@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { validate_token } from "@/services/auth_service";
+import { verify_auth_token } from "@/services/auth_service";
 
 export default function LoginPage() {
   const auth = useAuth();
@@ -31,7 +31,7 @@ export default function LoginPage() {
       const credential = await signInWithPopup(auth, provider);
       const token = await credential.user.getIdToken();
 
-      const isValidToken = await validate_token(token);
+      const isValidToken = await verify_auth_token(token);
       if (!isValidToken) {
         await signOut(auth);
         toast({
