@@ -6,8 +6,8 @@
     "projects": "Proyectos",
     "blog": "Blog",
     "contact": "Contacto",
-    "codeAnalyzer": "Analizador de Código",
-    "login": "Admin",
+    "admin": "Admin",
+    "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión"
   },
   "routes": {
@@ -113,20 +113,6 @@
   "footer": {
     "designedWithPassion": "Diseñado y desarrollado con pasión.",
     "language": "Idioma"
-  },
-  "analyzer": {
-    "title": "Análisis Estilístico de Código",
-    "description": "Pega tu código, selecciona el lenguaje y deja que la IA te dé sugerencias para mejorar su calidad y formato.",
-    "form": {
-      "languageLabel": "Lenguaje de Programación",
-      "languagePlaceholder": "Selecciona un lenguaje",
-      "snippetLabel": "Fragmento de Código",
-      "snippetPlaceholder": "Pega tu código aquí...",
-      "analyzeButton": "Analizar Código",
-      "analyzingButton": "Analizando...",
-      "errorTitle": "Error",
-      "suggestionsTitle": "Sugerencias de la IA"
-    }
   },
   "login": {
     "title": "Acceso de Administrador",

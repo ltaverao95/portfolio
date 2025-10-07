@@ -6,8 +6,8 @@
     "projects": "Projects",
     "blog": "Blog",
     "contact": "Contact",
-    "codeAnalyzer": "Code Analyzer",
-    "login": "Admin",
+    "admin": "Admin",
+    "login": "Login",
     "logout": "Logout"
   },
   "routes": {
@@ -113,20 +113,6 @@
   "footer": {
     "designedWithPassion": "Designed and developed with passion.",
     "language": "Language"
-  },
-  "analyzer": {
-    "title": "Stylistic Code Analysis",
-    "description": "Paste your code, select the language, and let the AI give you suggestions to improve its quality and format.",
-    "form": {
-      "languageLabel": "Programming Language",
-      "languagePlaceholder": "Select a language",
-      "snippetLabel": "Code Snippet",
-      "snippetPlaceholder": "Paste your code here...",
-      "analyzeButton": "Analyze Code",
-      "analyzingButton": "Analyzing...",
-      "errorTitle": "Error",
-      "suggestionsTitle": "AI Suggestions"
-    }
   },
   "login": {
     "title": "Admin Access",

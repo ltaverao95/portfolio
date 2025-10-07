@@ -78,7 +78,9 @@ export const columns: ColumnDef<BlogPost>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue("publicationDate");
+      const dateIso = row.getValue("publicationDate");
+      const date = dateIso ? new Date(dateIso as string) : null;
+
       if (date instanceof Date) {
         return <div>{date.toLocaleDateString()}</div>;
       }
