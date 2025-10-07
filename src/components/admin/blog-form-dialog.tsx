@@ -12,12 +12,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { BlogPost, LocalizedString } from "@/lib/types";
+import {
+  BlogPost,
+  CreateBlogPostDto,
+  LocalizedString,
+  UpdateBlogPostDto,
+} from "@/lib/types";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { createBlogPost, updateBlogPost } from "@/services/blog_service";
-import {
-  useFirestore
-} from "@/firebase";
+import { useFirestore } from "@/firebase";
 import { useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
 import { PlusCircle, Trash2 } from "lucide-react";
@@ -123,23 +126,20 @@ export function BlogFormDialog({
       content[translation.lang] = translation.content;
     });
 
-    const postData: Omit<BlogPost, "id" | "publicationDate"> = {
-      title,
-      content,
-      imageUrl: data.imageUrl,
-      url: data.url,
-      tags: data.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
-      authorId: userId,
-      lastModifiedDate: new Date(),
-      defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
-    };
-
     try {
       if (post) {
-        await updateBlogPost(firestore, post, postData);
+        const updateBlogPostDto: UpdateBlogPostDto = {
+          title,
+          content,
+          imageUrl: data.imageUrl,
+          url: data.url,
+          tags: data.tags
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter(Boolean),
+          defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
+        };
+        await updateBlogPost(post.id, updateBlogPostDto);
         toast({
           className: "bg-green-500 text-white",
           title: translate("admin.toast.updateSuccess.title") as string,
@@ -151,7 +151,18 @@ export function BlogFormDialog({
         return;
       }
 
-      await createBlogPost(firestore, postData);
+      const createBlogPostDto: CreateBlogPostDto = {
+        title,
+        content,
+        imageUrl: data.imageUrl,
+        url: data.url,
+        tags: data.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
+      };
+      await createBlogPost(createBlogPostDto);
       toast({
         className: "bg-green-500 text-white",
         title: translate("admin.toast.createSuccess.title") as string,
