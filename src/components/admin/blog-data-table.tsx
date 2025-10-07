@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -38,12 +38,15 @@ import { useToast } from "@/hooks/use-toast";
 import {
   deletePost,
   deleteSelectedPosts,
+  getBlogs,
   useBlogPosts,
 } from "@/services/blog_service";
 
 export function BlogDataTable() {
   const { user } = useUser();
-  const { blogPosts, isLoadingCollection } = useBlogPosts();
+  // const { blogPosts, isLoadingCollection } = useBlogPosts();
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const { translate } = useLanguage();
   const { toast } = useToast();
 
@@ -56,6 +59,29 @@ export function BlogDataTable() {
     undefined
   );
   const [isMutating, setIsMutating] = useState(false);
+
+  useEffect(() => {
+    const getBlogsData = async () => {
+      setIsMutating(true);
+      setIsLoadingCollection(true);
+      try {
+        const blogs = await getBlogs();
+        setBlogPosts(blogs);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: translate("admin.toast.unexpectedErrorFetchingPosts.title") as string,
+          description: translate(
+            "admin.toast.unexpectedErrorFetchingPosts.description"
+          ) as string,
+        });
+      } finally {
+        setIsMutating(false);
+        setIsLoadingCollection(false);
+      }
+    };
+    getBlogsData();
+  }, []);
 
   const handleDeletePost = async (postId: string) => {
     setIsMutating(true);

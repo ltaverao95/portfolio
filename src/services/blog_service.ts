@@ -1,9 +1,5 @@
 import { collection } from "firebase/firestore";
-import {
-  useCollection,
-  useMemoFirebase,
-  useFirestore,
-} from "@/firebase";
+import { useCollection, useMemoFirebase, useFirestore } from "@/firebase";
 
 import axiosHttp from "../lib/http/axios-http-handler";
 
