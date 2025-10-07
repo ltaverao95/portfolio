@@ -39,12 +39,10 @@ import {
   deletePost,
   deleteSelectedPosts,
   getBlogs,
-  useBlogPosts,
 } from "@/services/blog_service";
 
 export function BlogDataTable() {
   const { user } = useUser();
-  // const { blogPosts, isLoadingCollection } = useBlogPosts();
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const { translate } = useLanguage();
@@ -62,7 +60,6 @@ export function BlogDataTable() {
 
   useEffect(() => {
     const getBlogsData = async () => {
-      setIsMutating(true);
       setIsLoadingCollection(true);
       try {
         const blogs = await getBlogs();
@@ -70,25 +67,28 @@ export function BlogDataTable() {
       } catch (error) {
         toast({
           variant: "destructive",
-          title: translate("admin.toast.unexpectedErrorFetchingPosts.title") as string,
+          title: translate(
+            "admin.toast.unexpectedErrorFetchingPosts.title"
+          ) as string,
           description: translate(
             "admin.toast.unexpectedErrorFetchingPosts.description"
           ) as string,
         });
       } finally {
-        setIsMutating(false);
         setIsLoadingCollection(false);
       }
     };
     getBlogsData();
-  }, []);
+  }, [isMutating]);
 
   const handleDeletePost = async (postId: string) => {
-    setIsMutating(true);
     try {
       if (!window.confirm(translate("admin.confirm.deleteSingle") as string)) {
         return;
       }
+
+      setIsMutating(true);
+      setIsLoadingCollection(true);
       await deletePost(postId);
       toast({
         className: "bg-green-500 text-white",
@@ -100,13 +100,16 @@ export function BlogDataTable() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: translate("admin.toast.unexpectedErrorDeletingPost.title") as string,
+        title: translate(
+          "admin.toast.unexpectedErrorDeletingPost.title"
+        ) as string,
         description: translate(
           "admin.toast.unexpectedErrorDeletingPost.description"
         ) as string,
       });
     } finally {
       setIsMutating(false);
+      setIsLoadingCollection(false);
     }
   };
 
@@ -128,7 +131,9 @@ export function BlogDataTable() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: translate("admin.toast.unexpectedErrorDeletingBatchPost.title") as string,
+        title: translate(
+          "admin.toast.unexpectedErrorDeletingBatchPost.title"
+        ) as string,
         description: translate(
           "admin.toast.unexpectedErrorDeletingBatchPost.description"
         ) as string,

@@ -157,6 +157,7 @@ export function BlogFormDialog({
         });
       }
 
+      onMutation(false);
       return;
     }
 
@@ -238,7 +239,7 @@ export function BlogFormDialog({
                         {translate("admin.form.titleLabel") as string}
                       </Label>
                       <Input
-                        {...register(`translations.${index}.title` as const, {
+                        {...register(`translations.${index}.title`, {
                           required: translate(
                             "admin.form.validation.titleRequired"
                           ) as string,
