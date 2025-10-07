@@ -22,7 +22,6 @@ export const verify_auth_token = async (token: string): Promise<boolean> => {
 
     return true;
   } catch (error) {
-    console.error("Error validating token:", error);
     return false;
   }
 };

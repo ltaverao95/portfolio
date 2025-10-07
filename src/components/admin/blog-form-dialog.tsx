@@ -123,32 +123,8 @@ export function BlogFormDialog({
       content[translation.lang] = translation.content;
     });
 
-    try {
-      if (post) {
-        const updateBlogPostDto: UpdateBlogPostDto = {
-          title,
-          content,
-          imageUrl: data.imageUrl,
-          url: data.url,
-          tags: data.tags
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter(Boolean),
-          defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
-        };
-        await updateBlogPost(post.id, updateBlogPostDto);
-        toast({
-          className: "bg-green-500 text-white",
-          title: translate("admin.toast.updateSuccess.title") as string,
-          description: translate(
-            "admin.toast.updateSuccess.description"
-          ) as string,
-        });
-        onClose();
-        return;
-      }
-
-      const createBlogPostDto: CreateBlogPostDto = {
+    if (post) {
+      const updateBlogPostDto: UpdateBlogPostDto = {
         title,
         content,
         imageUrl: data.imageUrl,
@@ -159,6 +135,43 @@ export function BlogFormDialog({
           .filter(Boolean),
         defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
       };
+      try {
+        await updateBlogPost(post.id, updateBlogPostDto);
+        toast({
+          className: "bg-green-500 text-white",
+          title: translate("admin.toast.updateSuccess.title") as string,
+          description: translate(
+            "admin.toast.updateSuccess.description"
+          ) as string,
+        });
+        onClose();
+      } catch (e) {
+        toast({
+          variant: "destructive",
+          title: translate(
+            "admin.toast.unexpectedErrorUpdatingPost.title"
+          ) as string,
+          description: translate(
+            "admin.toast.unexpectedErrorUpdatingPost.description"
+          ) as string,
+        });
+      }
+
+      return;
+    }
+
+    const createBlogPostDto: CreateBlogPostDto = {
+      title,
+      content,
+      imageUrl: data.imageUrl,
+      url: data.url,
+      tags: data.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+      defaultLanguage: data.translations[0]?.lang || currentAppLanguage,
+    };
+    try {
       await createBlogPost(createBlogPostDto);
       toast({
         className: "bg-green-500 text-white",
@@ -168,18 +181,18 @@ export function BlogFormDialog({
         ) as string,
       });
       onClose();
-    } catch (error: any) {
-      console.error("An unexpected error occurred: ", error);
+    } catch (e) {
       toast({
         variant: "destructive",
-        title: translate("admin.toast.unexpectedError.title") as string,
+        title: translate(
+          "admin.toast.unexpectedErrorCreatingPost.title"
+        ) as string,
         description: translate(
-          "admin.toast.unexpectedError.description"
+          "admin.toast.unexpectedErrorCreatingPost.description"
         ) as string,
       });
-    } finally {
-      onMutation(false);
     }
+    onMutation(false);
   };
 
   return (

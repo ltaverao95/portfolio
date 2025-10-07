@@ -2,8 +2,6 @@ import { collection } from "firebase/firestore";
 import {
   useCollection,
   useMemoFirebase,
-  errorEmitter,
-  FirestorePermissionError,
   useFirestore,
 } from "@/firebase";
 
@@ -46,13 +44,7 @@ export const getBlogs = async () => {
     }
     return response.data;
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: `blogPost`,
-        operation: "get"
-      })
-    );
+    throw error;
   }
 };
 
@@ -72,14 +64,7 @@ export const createBlogPost = async (createBlogDto: CreateBlogPostDto) => {
       );
     }
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: `blogPost`,
-        operation: "create",
-        requestResourceData: createBlogDto,
-      })
-    );
+    throw error;
   }
 };
 
@@ -103,14 +88,7 @@ export const updateBlogPost = async (
       );
     }
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: `blogPost/${postId}`,
-        operation: "update",
-        requestResourceData: updateBlogPostDto,
-      })
-    );
+    throw error;
   }
 };
 
@@ -129,14 +107,7 @@ export const deletePost = async (postId: string) => {
       );
     }
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: `blogPost/${postId}`,
-        operation: "delete",
-        requestResourceData: postId,
-      })
-    );
+    throw error;
   }
 };
 
@@ -161,13 +132,6 @@ export const deleteSelectedPosts = async (
       );
     }
   } catch (error) {
-    errorEmitter.emit(
-      "permission-error",
-      new FirestorePermissionError({
-        path: `blogPost/batch-delete`,
-        operation: "delete",
-        requestResourceData: selectedRows.map((row) => row.original.id),
-      })
-    );
+    throw error;
   }
 };

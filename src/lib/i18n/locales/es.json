@@ -213,9 +213,21 @@
         "title": "Posts Eliminados",
         "description": "{count} entradas del blog han sido eliminadas."
       },
-      "unexpectedError": {
+      "unexpectedErrorCreatingPost": {
         "title": "Error Inesperado",
         "description": "Ocurrió un error al guardar el post."
+      },
+      "unexpectedErrorUpdatingPost": {
+        "title": "Error Inesperado",
+        "description": "Ocurrió un error al actualizar el post."
+      },
+      "unexpectedErrorDeletingPost": {
+        "title": "Error Inesperado",
+        "description": "Ocurrió un error al eliminar el post."
+      },
+      "unexpectedErrorDeletingBatchPost": {
+        "title": "Error Inesperado",
+        "description": "Ocurrió un error al eliminar los posts."
       },
       "permissionError": {
         "title": "Error de Permiso",

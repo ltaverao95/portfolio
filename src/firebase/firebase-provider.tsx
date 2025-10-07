@@ -2,7 +2,6 @@
 
 import React, { useMemo, useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { FirebaseErrorListener } from '@/components/firebase-error-listener';
 import { FirebaseProviderProps } from './props/firebase_provider_props';
 import { UserAuthState } from './states/user_auth_state';
 import { FirebaseContextState } from './states/firebase_context_state';
@@ -56,7 +55,6 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   return (
     <FirebaseContext.Provider value={contextValue}>
-      <FirebaseErrorListener />
       {children}
     </FirebaseContext.Provider>
   );

@@ -35,7 +35,6 @@ export * from './firebase-provider';
 export * from './client-provider';
 export * from './firestore/use-collection';
 export * from './firestore/use-doc';
-export * from './errors';
 export * from './error-emitter';
 export * from './hooks/use_auth';
 export * from './hooks/use_firebase';

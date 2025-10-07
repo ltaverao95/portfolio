@@ -72,7 +72,13 @@ export function BlogDataTable() {
         ) as string,
       });
     } catch (error) {
-      console.error("Failed to delete post:", error);
+      toast({
+        variant: "destructive",
+        title: translate("admin.toast.unexpectedErrorDeletingPost.title") as string,
+        description: translate(
+          "admin.toast.unexpectedErrorDeletingPost.description"
+        ) as string,
+      });
     } finally {
       setIsMutating(false);
     }
@@ -94,7 +100,13 @@ export function BlogDataTable() {
       });
       table.resetRowSelection();
     } catch (error) {
-      // Error is handled by the service
+      toast({
+        variant: "destructive",
+        title: translate("admin.toast.unexpectedErrorDeletingBatchPost.title") as string,
+        description: translate(
+          "admin.toast.unexpectedErrorDeletingBatchPost.description"
+        ) as string,
+      });
     } finally {
       setIsMutating(false);
     }

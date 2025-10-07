@@ -213,9 +213,21 @@
         "title": "Posts Deleted",
         "description": "{count} blog posts have been deleted."
       },
-      "unexpectedError": {
+      "unexpectedErrorCreatingPost": {
         "title": "Unexpected Error",
         "description": "An error occurred while saving the post."
+      },
+      "unexpectedErrorUpdatingPost": {
+        "title": "Unexpected Error",
+        "description": "An error occurred while updating the post."
+      },
+      "unexpectedErrorDeletingPost": {
+        "title": "Unexpected Error",
+        "description": "An error occurred while deleting the post."
+      },
+      "unexpectedErrorDeletingBatchPost": {
+        "title": "Unexpected Error",
+        "description": "An error occurred while deleting the posts."
       },
       "permissionError": {
         "title": "Permission Error",
