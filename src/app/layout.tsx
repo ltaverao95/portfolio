@@ -7,6 +7,7 @@ import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/context/theme-context';
 import { FirebaseClientProvider } from '@/firebase';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: 'Luis Felipe Tavera Orozco - Ingeniero de Software Senior (.Net, React, Angular)',
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased selection:bg-accent selection:text-accent-foreground">
         <SpeedInsights />
+        <Analytics />
         <ThemeProvider>
           <LanguageProvider>
             <FirebaseClientProvider>

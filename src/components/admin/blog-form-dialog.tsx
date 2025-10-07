@@ -97,9 +97,9 @@ export function BlogFormDialog({
 
   const handleAddLanguage = () => {
     const existingLangs = fields.map((f) => f.lang);
-    if (!existingLangs.includes("en") && "en" !== currentAppLanguage) {
+    if (!existingLangs.includes("en")) {
       append({ lang: "en", title: "", content: "" });
-    } else if (!existingLangs.includes("es") && "es" !== currentAppLanguage) {
+    } else if (!existingLangs.includes("es")) {
       append({ lang: "es", title: "", content: "" });
     }
   };
@@ -221,7 +221,7 @@ export function BlogFormDialog({
                   >
                     <div className="flex justify-between items-center">
                       <Label className="text-lg font-semibold">
-                        {field.lang === "es" ? "Español" : "English"}
+                        {field.lang}
                       </Label>
                       {fields.length > 1 && (
                         <Button
@@ -256,7 +256,7 @@ export function BlogFormDialog({
                         {translate("admin.form.contentLabel") as string}
                       </Label>
                       <Textarea
-                        {...register(`translations.${index}.content` as const, {
+                        {...register(`translations.${index}.content`, {
                           required: translate(
                             "admin.form.validation.contentRequired"
                           ) as string,
