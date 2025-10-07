@@ -66,9 +66,6 @@ export function AppHeader() {
 
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex items-center space-x-2">
-            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href={translate('routes.codeAnalyzer') as string}>{navLinks[5].label as string}</Link>
-            </Button>
             <ThemeToggleButton />
              { !isUserLoading && user && (
                <DropdownMenu>

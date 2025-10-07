@@ -3,7 +3,7 @@
 import React from 'react';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { handleCodeAnalysis, FormState } from '@/lib/actions';
+import { handleCodeAnalysis, FormState } from '../lib/actions';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
