@@ -1,4 +1,10 @@
-import { collection } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import {
   useCollection,
   useMemoFirebase,
@@ -10,6 +16,8 @@ import {
 import axiosHttp from "../lib/http/axios-http-handler";
 
 import { BlogPost } from "@/lib/types";
+
+type BlogPostData = Omit<BlogPost, "id" | "publicationDate">;
 
 /**
  * Custom hook to fetch blog posts from Firestore.
@@ -28,6 +36,68 @@ export const useBlogPosts = () => {
   } = useCollection<BlogPost>(blogPostsCollection);
 
   return { blogPosts, isLoadingCollection, error };
+};
+
+/**
+ * Creates a new blog post in Firestore.
+ * @param firestore - The Firestore instance.
+ * @param postData - The data for the new blog post.
+ * @returns A promise that resolves when the post is created.
+ */
+export const createBlogPost = async (
+  firestore: any,
+  postData: BlogPostData
+) => {
+  const colRef = collection(firestore, "blogPosts");
+  const newPostData = {
+    ...postData,
+    publicationDate: serverTimestamp(),
+  };
+  try {
+    await addDoc(colRef, newPostData);
+  } catch (error) {
+    errorEmitter.emit(
+      "permission-error",
+      new FirestorePermissionError({
+        path: colRef.path,
+        operation: "create",
+        requestResourceData: newPostData,
+      })
+    );
+    throw error; // Re-throw to be caught by the caller
+  }
+};
+
+/**
+ * Updates an existing blog post in Firestore.
+ * @param firestore - The Firestore instance.
+ * @param post - The original blog post object.
+ * @param postData - The updated blog post data.
+ * @returns A promise that resolves when the post is updated.
+ */
+export const updateBlogPost = async (
+  firestore: any,
+  post: BlogPost,
+  postData: BlogPostData
+) => {
+  const docRef = doc(firestore, "blogPosts", post.id);
+  const dataToUpdate = {
+    ...postData,
+    publicationDate: post.publicationDate, // Preserve original publication date
+  };
+  try {
+    await setDoc(docRef, dataToUpdate, { merge: true });
+  } catch (error) {
+    errorEmitter.emit(
+      "permission-error",
+      new FirestorePermissionError({
+        path: docRef.path,
+        operation: "update",
+        requestResourceData: dataToUpdate,
+      })
+    );
+    throw error; // Re-throw to be caught by the caller
+  }
 };
 
 /**

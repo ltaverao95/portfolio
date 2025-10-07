@@ -1,5 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
-
 export type LocalizedString = {
   [key: string]: string;
 }
@@ -10,8 +8,8 @@ export interface BlogPost {
   content: LocalizedString;
   defaultLanguage: string;
   authorId: string;
-  publicationDate: Timestamp | Date;
-  lastModifiedDate: Timestamp | Date;
+  publicationDate: Date;
+  lastModifiedDate: Date;
   tags: string[];
   imageUrl: string;
   url: string;
