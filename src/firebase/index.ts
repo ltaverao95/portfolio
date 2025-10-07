@@ -2,7 +2,6 @@
 
 import { firebaseConfig } from '@/firebase/config';
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore'
 
@@ -27,7 +26,6 @@ export function initializeFirebase() {
 export function getSdks(firebaseApp: FirebaseApp) {
   return {
     firebaseApp,
-    analytics: getAnalytics(firebaseApp),
     auth: getAuth(firebaseApp),
     firestore: getFirestore(firebaseApp)
   };

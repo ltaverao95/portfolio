@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, addDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import {
   useCollection,
   useMemoFirebase,
@@ -31,6 +31,32 @@ export const useBlogPosts = () => {
 };
 
 /**
+ * Fetches all blog posts by making an HTTP GET request.
+ * @returns A promise that resolves to an array of blog posts.
+ */
+export const getBlogs = async () => {
+  try {
+    const response = await axiosHttp.get<BlogPost[]>(`/blogs`);
+
+    if (response.status !== 200) {
+      throw new Error(
+        response.statusText ||
+          `Failed to fetch posts. Status: ${response.status}`
+      );
+    }
+    return response.data;
+  } catch (error) {
+    errorEmitter.emit(
+      "permission-error",
+      new FirestorePermissionError({
+        path: `blogPost`,
+        operation: "get"
+      })
+    );
+  }
+};
+
+/**
  * Creates a new blog post by making an HTTP POST request.
  * @param createBlogDto - The data for the new blog post.
  * @returns A promise that resolves when the post is created.
@@ -46,8 +72,14 @@ export const createBlogPost = async (createBlogDto: CreateBlogPostDto) => {
       );
     }
   } catch (error) {
-    console.error("Error creating post:", error);
-    throw error; // Re-throw to be caught by the caller
+    errorEmitter.emit(
+      "permission-error",
+      new FirestorePermissionError({
+        path: `blogPost`,
+        operation: "create",
+        requestResourceData: createBlogDto,
+      })
+    );
   }
 };
 
@@ -79,7 +111,6 @@ export const updateBlogPost = async (
         requestResourceData: updateBlogPostDto,
       })
     );
-    throw error; // Re-throw to be caught by the caller
   }
 };
 
@@ -97,12 +128,15 @@ export const deletePost = async (postId: string) => {
           `Failed to delete post. Status: ${response.status}`
       );
     }
-
-    // The request was successful, no content to return.
   } catch (error) {
-    console.error("Error deleting post:", error);
-    // Re-throw the error so the calling component can handle it (e.g., show a toast notification).
-    throw error;
+    errorEmitter.emit(
+      "permission-error",
+      new FirestorePermissionError({
+        path: `blogPost/${postId}`,
+        operation: "delete",
+        requestResourceData: postId,
+      })
+    );
   }
 };
 
@@ -130,10 +164,10 @@ export const deleteSelectedPosts = async (
     errorEmitter.emit(
       "permission-error",
       new FirestorePermissionError({
-        path: "blogPosts",
+        path: `blogPost/batch-delete`,
         operation: "delete",
+        requestResourceData: selectedRows.map((row) => row.original.id),
       })
     );
-    throw error; // Re-throw to be caught by the caller
   }
 };

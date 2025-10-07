@@ -22,13 +22,13 @@ export function AppHeader() {
   const router = useRouter();
 
   const navLinks = [
-    { href: translate('routes.home'), label: translate('header.home') },
-    { href: translate('routes.about'), label: translate('header.about') },
-    { href: translate('routes.experience'), label: translate('header.experience') },
-    { href: translate('routes.projects'), label: translate('header.projects') },
-    { href: translate('routes.contact'), label: translate('header.contact') },
-    { href: translate('routes.codeAnalyzer'), label: translate('header.codeAnalyzer') },
-    { href: user ? translate('routes.admin') : translate('routes.login'), label: translate('header.admin') },
+    { href: translate('routes.home') as string, label: translate('header.home') as string },
+    { href: translate('routes.about') as string, label: translate('header.about') as string },
+    { href: translate('routes.experience') as string, label: translate('header.experience') as string },
+    { href: translate('routes.projects') as string, label: translate('header.projects') as string },
+    { href: translate('routes.contact') as string, label: translate('header.contact') as string },
+    { href: translate('routes.codeAnalyzer') as string, label: translate('header.codeAnalyzer') as string },
+    { href: user ? translate('routes.admin') as string : translate('routes.login') as string, label: translate('header.admin') as string },
   ];
 
   const handleLinkClick = () => {
@@ -44,7 +44,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
-          <Link href={translate('routes.home')} className="mr-6 flex items-center space-x-2">
+          <Link href={translate('routes.home') as string} className="mr-6 flex items-center space-x-2">
             <Code2 className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline sm:inline-block">
               Luis Felipe Tavera
@@ -67,7 +67,7 @@ export function AppHeader() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex items-center space-x-2">
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href={translate('routes.codeAnalyzer')}>{navLinks[5].label}</Link>
+              <Link href={translate('routes.codeAnalyzer') as string}>{navLinks[5].label as string}</Link>
             </Button>
             <ThemeToggleButton />
              { !isUserLoading && user && (
@@ -93,19 +93,19 @@ export function AppHeader() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => router.push(translate('routes.admin') as string)}>
-                      {translate('header.admin')}
+                      {translate('header.admin') as string}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout}>
                       <LogOut className="mr-2 h-4 w-4" />
-                      <span>{translate('header.logout')}</span>
+                      <span>{translate('header.logout') as string}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
              )}
              { !isUserLoading && !user && (
                 <Button asChild variant="outline">
-                    <Link href={translate('routes.login') as string}>{translate('header.admin')}</Link>
+                    <Link href={translate('routes.login') as string}>{translate('header.login') as string}</Link>
                 </Button>
              )}
           </nav>
@@ -128,7 +128,7 @@ export function AppHeader() {
                 </SheetHeader>
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between pb-4 border-b">
-                    <Link href={translate('routes.home')} className="flex items-center space-x-2" onClick={handleLinkClick}>
+                    <Link href={translate('routes.home') as string} className="flex items-center space-x-2" onClick={handleLinkClick}>
                         <Code2 className="h-6 w-6 text-primary" />
                         <span className="font-bold font-headline">Luis Felipe Tavera</span>
                     </Link>
@@ -148,7 +148,7 @@ export function AppHeader() {
                    { !isUserLoading && user && (
                      <Button onClick={handleLogout} variant="ghost" className="justify-start text-lg">
                         <LogOut className="mr-2 h-5 w-5" />
-                        {translate('header.logout')}
+                        {translate('header.logout') as string}
                      </Button>
                    )}
                 </nav>
