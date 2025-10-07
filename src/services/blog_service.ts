@@ -1,28 +1,6 @@
-import { collection } from "firebase/firestore";
-import { useCollection, useMemoFirebase, useFirestore } from "@/firebase";
-
 import axiosHttp from "../lib/http/axios-http-handler";
 
 import { BlogPost, CreateBlogPostDto, UpdateBlogPostDto } from "@/lib/types";
-
-/**
- * Custom hook to fetch blog posts from Firestore.
- * @returns An object containing the blog posts, loading state, and any errors.
- */
-export const useBlogPosts = () => {
-  const firestore = useFirestore();
-  const blogPostsCollection = useMemoFirebase(
-    () => collection(firestore, "blogPosts"),
-    [firestore]
-  );
-  const {
-    data: blogPosts,
-    isLoading: isLoadingCollection,
-    error,
-  } = useCollection<BlogPost>(blogPostsCollection);
-
-  return { blogPosts, isLoadingCollection, error };
-};
 
 /**
  * Fetches all blog posts by making an HTTP GET request.

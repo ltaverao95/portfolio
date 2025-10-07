@@ -6,6 +6,7 @@ import { AppFooter } from '@/components/app-footer';
 import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/context/theme-context';
 import { FirebaseClientProvider } from '@/firebase';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: 'Luis Felipe Tavera Orozco - Ingeniero de Software Senior (.Net, React, Angular)',
@@ -27,6 +28,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-accent selection:text-accent-foreground">
+        <SpeedInsights />
         <ThemeProvider>
           <LanguageProvider>
             <FirebaseClientProvider>
