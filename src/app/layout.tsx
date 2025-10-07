@@ -10,10 +10,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
-  title: 'Luis Felipe Tavera Orozco - Ingeniero de Software Senior (.Net, React, Angular)',
+  title: 'Luis Felipe Tavera Orozco - Software Engineer',
   description: 'Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.',
   keywords: 'Software Engineer, .Net, React, Angular, Freelance, Portfolio, Luis Felipe Tavera Orozco',
-  authors: [{ name: 'Luis Felipe Tavera Orozco' }],
+  authors: [{ name: 'Luis Felipe Tavera Orozco' }]
 };
 
 export default function RootLayout({
