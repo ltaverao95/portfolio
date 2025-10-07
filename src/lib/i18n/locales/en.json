@@ -17,7 +17,6 @@
     "projects": "/#projects",
     "blog": "/#blog",
     "contact": "/#contact",
-    "codeAnalyzer": "/analyzer",
     "admin": "/admin",
     "login": "/login"
   },
