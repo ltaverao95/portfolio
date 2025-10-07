@@ -28,7 +28,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useFirestore } from "@/firebase";
 import { BlogPost } from "@/lib/types";
 import { columns } from "./blog-columns";
 import { Loader2, PlusCircle, Trash2 } from "lucide-react";
@@ -43,7 +42,6 @@ import {
 } from "@/services/blog_service";
 
 export function BlogDataTable() {
-  const firestore = useFirestore();
   const { user } = useUser();
   const { blogPosts, isLoadingCollection } = useBlogPosts();
   const { translate } = useLanguage();

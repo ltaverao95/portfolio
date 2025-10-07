@@ -40,6 +40,13 @@ export const columns: ColumnDef<BlogPost>[] = [
   },
   {
     accessorKey: "title",
+    accessorFn: (row) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { language } = useLanguage();
+      const title =
+        row.title[language] || row.title[row.defaultLanguage];
+      return title;
+    },
     header: ({ column }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { translate } = useLanguage();
@@ -51,12 +58,12 @@ export const columns: ColumnDef<BlogPost>[] = [
       );
     },
     cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { language } = useLanguage();
       const post = row.original;
       const title = post.title[language] || post.title[post.defaultLanguage];
       return <div>{title}</div>;
     },
+    filterFn: "includesString",
   },
   {
     accessorKey: "publicationDate",
@@ -75,7 +82,6 @@ export const columns: ColumnDef<BlogPost>[] = [
       if (date instanceof Date) {
         return <div>{date.toLocaleDateString()}</div>;
       }
-      // Handle Firestore Timestamp
       if (date && typeof date === "object" && "toDate" in date) {
         return <div>{(date as any).toDate().toLocaleDateString()}</div>;
       }

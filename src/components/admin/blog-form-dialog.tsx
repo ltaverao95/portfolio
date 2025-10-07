@@ -13,14 +13,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  BlogPost,
   CreateBlogPostDto,
   LocalizedString,
   UpdateBlogPostDto,
 } from "@/lib/types";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { createBlogPost, updateBlogPost } from "@/services/blog_service";
-import { useFirestore } from "@/firebase";
 import { useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
 import { PlusCircle, Trash2 } from "lucide-react";
@@ -39,7 +37,6 @@ export function BlogFormDialog({
   userId,
   onMutation,
 }: BlogFormDialogProps) {
-  const firestore = useFirestore();
   const { language: currentAppLanguage, translate } = useLanguage();
   const { toast } = useToast();
 
