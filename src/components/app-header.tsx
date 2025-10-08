@@ -27,7 +27,6 @@ export function AppHeader() {
     { href: translate('routes.experience') as string, label: translate('header.experience') as string },
     { href: translate('routes.projects') as string, label: translate('header.projects') as string },
     { href: translate('routes.contact') as string, label: translate('header.contact') as string },
-    { href: user ? translate('routes.admin') as string : translate('routes.login') as string, label: translate('header.admin') as string },
   ];
 
   const handleLinkClick = () => {
@@ -98,11 +97,6 @@ export function AppHeader() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-             )}
-             { !isUserLoading && !user && (
-                <Button asChild variant="outline">
-                    <Link href={translate('routes.login') as string}>{translate('header.login') as string}</Link>
-                </Button>
              )}
           </nav>
           
