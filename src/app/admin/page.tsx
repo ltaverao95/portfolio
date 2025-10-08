@@ -1,6 +1,5 @@
 'use client';
 
-import ReactGA from 'react-ga4';
 import { useUser } from '@/firebase';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -18,13 +17,6 @@ export default function AdminPage() {
       router.push(translate('routes.login') as string);
     }
   }, [isUserLoading, user, router, translate]);
-
-  useEffect(() => {
-    ReactGA.send({
-      hitType: "pageview",
-      page: window.location.pathname + window.location.search,
-    });
-  }, []);
 
   if (isUserLoading || !user) {
     return (

@@ -1,8 +1,8 @@
 
-import ReactGA from "react-ga4";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
@@ -26,8 +26,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  ReactGA.initialize("G-RSSX1R6KTR");
-
   return (
     <html lang="es">
       <head>
@@ -57,6 +55,8 @@ export default function RootLayout({
             </FirebaseClientProvider>
           </LanguageProvider>
         </ThemeProvider>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
       </body>
     </html>
   );

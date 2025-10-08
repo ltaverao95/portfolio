@@ -16,6 +16,7 @@ import { ArrowUpRight, Inbox } from "lucide-react";
 import { BlogPost } from "@/lib/types";
 import { Skeleton } from "./ui/skeleton";
 import axiosHttp from "@/lib/http/axios-http-handler";
+import { sendGAEvent, sendGTMEvent } from "@next/third-parties/google";
 
 export function BlogSection() {
   const { language, translate } = useLanguage();
@@ -72,6 +73,15 @@ export function BlogSection() {
                   key={post.id}
                   href={post.url}
                   target="_blank"
+                  onClick={() => {
+                    sendGAEvent("event", "blogPostClicked", {
+                      postId: post.id,
+                    });
+                    sendGTMEvent({
+                      event: "blogPostClicked",
+                      value: post.id,
+                    });
+                  }}
                   rel="noopener noreferrer"
                   className="group block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full"
                 >

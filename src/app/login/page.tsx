@@ -1,6 +1,5 @@
 "use client";
 
-import ReactGA from 'react-ga4';
 import { useAuth, useUser } from "@/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { verify_auth_token } from "@/services/auth_service";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function LoginPage() {
   const auth = useAuth();
@@ -26,16 +26,10 @@ export default function LoginPage() {
     }
   }, [isUserLoading, user, router, translate, is_token_validated]);
 
-  useEffect(() => {
-    ReactGA.send({
-      hitType: "pageview",
-      page: window.location.pathname + window.location.search,
-    });
-  }, []);
-
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
+      sendGAEvent('event', 'buttonClicked', { value: 'google_sign_in' })
       const credential = await signInWithPopup(auth, provider);
       const token = await credential.user.getIdToken();
 
