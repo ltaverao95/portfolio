@@ -1,5 +1,6 @@
 "use client";
 
+import ReactGA from 'react-ga4';
 import { useAuth, useUser } from "@/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,13 @@ export default function LoginPage() {
       router.push(translate("routes.admin") as string);
     }
   }, [isUserLoading, user, router, translate, is_token_validated]);
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname + window.location.search,
+    });
+  }, []);
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();

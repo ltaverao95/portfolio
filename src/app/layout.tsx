@@ -1,19 +1,24 @@
-import type { Metadata } from 'next';
-import './globals.css';
+
+import ReactGA from "react-ga4";
+import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+
 import { Toaster } from "@/components/ui/toaster";
-import { AppHeader } from '@/components/app-header';
-import { AppFooter } from '@/components/app-footer';
-import { LanguageProvider } from '@/context/language-context';
-import { ThemeProvider } from '@/context/theme-context';
-import { FirebaseClientProvider } from '@/firebase';
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
+import { AppHeader } from "@/components/app-header";
+import { AppFooter } from "@/components/app-footer";
+import { LanguageProvider } from "@/context/language-context";
+import { ThemeProvider } from "@/context/theme-context";
+import { FirebaseClientProvider } from "@/firebase";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Luis Felipe Tavera Orozco - Software Engineer',
-  description: 'Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.',
-  keywords: 'Software Engineer, .Net, React, Angular, Freelance, Portfolio, Luis Felipe Tavera Orozco',
-  authors: [{ name: 'Luis Felipe Tavera Orozco' }]
+  title: "Luis Felipe Tavera Orozco - Software Engineer",
+  description:
+    "Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.",
+  keywords:
+    "Software Engineer, .Net, React, Angular, Freelance, Portfolio, Luis Felipe Tavera Orozco",
+  authors: [{ name: "Luis Felipe Tavera Orozco" }],
 };
 
 export default function RootLayout({
@@ -21,12 +26,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ReactGA.initialize("G-RSSX1R6KTR");
+
   return (
     <html lang="es">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300..700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className="font-body antialiased selection:bg-accent selection:text-accent-foreground">
         <SpeedInsights />
