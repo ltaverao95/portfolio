@@ -13,7 +13,10 @@ import { FirebaseClientProvider } from "@/firebase";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Luis Felipe Tavera Orozco - Software Engineer",
+  title: {
+      template: '%s | Luis Felipe Tavera Orozco',
+      default: 'Home | Luis Felipe Tavera Orozco', // Fallback title
+    },
   description:
     "Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.",
   keywords:
