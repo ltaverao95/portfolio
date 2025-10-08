@@ -47,25 +47,8 @@ export function BlogSection() {
         </h2>
 
         {isLoading ? (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="flex flex-col h-full bg-card/50">
-                <CardHeader className="p-0">
-                  <Skeleton className="aspect-[16/9] w-full" />
-                </CardHeader>
-                <CardContent className="flex-grow p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-full mb-4" />
-                  <div className="flex flex-wrap gap-2">
-                    <Skeleton className="h-6 w-16" />
-                    <Skeleton className="h-6 w-20" />
-                  </div>
-                </CardContent>
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  <Skeleton className="h-5 w-24" />
-                </CardFooter>
-              </Card>
-            ))}
+          <div className="flex justify-center items-center py-16">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : !blogPosts || blogPosts.length === 0 ? (
           <div className="text-center text-muted-foreground py-16">
