@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 import es from '@/lib/i18n/locales/es.json';
 import en from '@/lib/i18n/locales/en.json';
 
@@ -22,6 +22,18 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('es');
 
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage && (storedLanguage === 'es' || storedLanguage === 'en')) {
+      setLanguage(storedLanguage as Language);
+    }
+  }, []);
+
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
+
   const translate = useMemo(() => (key: string): TranslationValue => {
     const keys = key.split('.');
     let result: any = translations[language];
@@ -35,7 +47,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, translate }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, translate }}>
       {children}
     </LanguageContext.Provider>
   );
