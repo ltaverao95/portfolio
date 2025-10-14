@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
-import { sendGAEvent, sendGTMEvent } from "@next/third-parties/google";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 export function ProjectsSection() {
   const { translate } = useLanguage();
@@ -95,10 +95,6 @@ export function ProjectsSection() {
                     href={project.link}
                     target="_blank"
                     onClick={() => {
-                      sendGAEvent("event", "buttonProjectClicked", {
-                        value: "view_on_github",
-                        project: project.title,
-                      });
                       sendGTMEvent({
                         event: "buttonProjectClicked",
                         value: "view_on_github",

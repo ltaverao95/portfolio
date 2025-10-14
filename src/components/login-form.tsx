@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { verify_auth_token } from "@/services/auth_service";
-import { sendGAEvent, sendGTMEvent } from "@next/third-parties/google";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 export function LoginForm() {
   const auth = useAuth();
@@ -29,7 +29,6 @@ export function LoginForm() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      sendGAEvent("event", "buttonGoogleSignInClicked", { value: "google_sign_in" });
       sendGTMEvent({ event: "buttonGoogleSignInClicked", value: "google_sign_in" });
       const credential = await signInWithPopup(auth, provider);
       const token = await credential.user.getIdToken();
