@@ -18,7 +18,9 @@
     "blog": "/#blog",
     "contact": "/#contacto",
     "admin": "/admin",
-    "login": "/login"
+    "login": "/login",
+    "privacy": "/privacidad",
+    "termsAndConditions": "/terminos-y-condiciones"
   },
   "hero": {
     "greeting": "Hola, soy Luis Felipe Tavera Orozco",
@@ -227,5 +229,30 @@
       "deleteSingle": "¿Estás seguro de que quieres eliminar este post?",
       "deleteMultiple": "¿Estás seguro de que quieres eliminar {count} posts?"
     }
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "p1": "Este sitio web es un portafolio personal y no recopila datos personales de los usuarios. Sin embargo, utiliza servicios de terceros que pueden recopilar información.",
+    "p2": "Este sitio tiene fines informativos y de demostración del trabajo y las habilidades del autor. No tiene un propósito comercial.",
+    "subtitle1": "Información que Recopilamos",
+    "p3": "No recopilamos directamente ninguna información personal. Las tecnologías utilizadas son:",
+    "l1": "Firebase Authentication: Para el inicio de sesión del administrador.",
+    "l2": "Firebase Hosting: Para alojar el sitio web.",
+    "l3": "Google Analytics: Para analizar el tráfico del sitio web y mejorar la experiencia del usuario.",
+    "subtitle2": "Cómo Usamos la Información",
+    "p4": "La información recopilada por los servicios de terceros se utiliza para garantizar el correcto funcionamiento del sitio y para comprender cómo los usuarios interactúan con él.",
+    "subtitle3": "Contacto",
+    "p5": "Si tiene alguna pregunta sobre esta política de privacidad, puede ponerse en contacto con el administrador del sitio."
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "p1": "Al acceder a este sitio web, usted acepta estar sujeto a estos términos y condiciones de uso, a todas las leyes y regulaciones aplicables, y acepta que es responsable del cumplimiento de las leyes locales aplicables.",
+    "p2": "Los materiales contenidos en este sitio web están protegidos por la ley de derechos de autor y marcas registradas aplicable.",
+    "subtitle1": "Licencia de Uso",
+    "p3": "Se concede permiso para descargar temporalmente una copia de los materiales (información o software) en este sitio web para visualización transitoria personal y no comercial únicamente. Esta es la concesión de una licencia, no una transferencia de título.",
+    "subtitle2": "Descargo de Responsabilidad",
+    "p4": "Los materiales de este sitio web se proporcionan 'tal cual'. El propietario de este sitio web no ofrece ninguna garantía, expresa o implícita, y por la presente renuncia y niega todas las demás garantías, incluidas, entre otras, las garantías o condiciones implícitas de comerciabilidad, idoneidad para un propósito particular o no infracción de la propiedad intelectual u otra violación de derechos.",
+    "subtitle3": "Limitaciones",
+    "p5": "En ningún caso el propietario de este sitio web o sus proveedores serán responsables de los daños (incluidos, entre otros, los daños por pérdida de datos o ganancias, o por interrupción del negocio) que surjan del uso o la imposibilidad de usar los materiales de este sitio web, incluso si el propietario de este sitio web o un representante autorizado han sido notificados oralmente o por escrito de la posibilidad de dicho daño."
   }
 }
