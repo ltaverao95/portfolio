@@ -30,10 +30,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { translate } = useLanguage();
 
   const handle_login_callback = useCallback(() => {
-    const token = new URLSearchParams(window.location.search).get("token");
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const token = urlSearchParams.get("token");
     if (token) {
+      set_is_loading(true);
       localStorage.setItem("auth_token", token);
       set_is_authenticated(true);
+      set_is_loading(false);
       router.push(translate("routes.admin") as string);
     }
   }, [router, translate]);
@@ -72,7 +75,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ is_authenticated, is_loading, login, logout }}>
+    <AuthContext.Provider
+      value={{ is_authenticated, is_loading, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,17 +1,29 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { Code2, LogOut, Menu, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { useLanguage } from '@/context/language-context';
-import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/auth-context';
-
+import React, { useState } from "react";
+import Link from "next/link";
+import { Code2, LogOut, Menu, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { useLanguage } from "@/context/language-context";
+import { ThemeToggleButton } from "@/components/ui/theme-toggle-button";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth-context";
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,11 +32,26 @@ export function AppHeader() {
   const { is_authenticated, is_loading, logout } = useAuth();
 
   const navLinks = [
-    { href: translate('routes.home') as string, label: translate('header.home') as string },
-    { href: translate('routes.about') as string, label: translate('header.about') as string },
-    { href: translate('routes.experience') as string, label: translate('header.experience') as string },
-    { href: translate('routes.projects') as string, label: translate('header.projects') as string },
-    { href: translate('routes.contact') as string, label: translate('header.contact') as string },
+    {
+      href: translate("routes.home") as string,
+      label: translate("header.home") as string,
+    },
+    {
+      href: translate("routes.about") as string,
+      label: translate("header.about") as string,
+    },
+    {
+      href: translate("routes.experience") as string,
+      label: translate("header.experience") as string,
+    },
+    {
+      href: translate("routes.projects") as string,
+      label: translate("header.projects") as string,
+    },
+    {
+      href: translate("routes.contact") as string,
+      label: translate("header.contact") as string,
+    },
   ];
 
   const handleLinkClick = () => {
@@ -35,7 +62,10 @@ export function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
-          <Link href={translate('routes.home') as string} className="mr-6 flex items-center space-x-2">
+          <Link
+            href={translate("routes.home") as string}
+            className="mr-6 flex items-center space-x-2"
+          >
             <Code2 className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline sm:inline-block">
               Luis Felipe Tavera
@@ -58,31 +88,38 @@ export function AppHeader() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex items-center space-x-2">
             <ThemeToggleButton />
-             { !is_loading && is_authenticated && (
-               <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback>
-                          <User />
-                        </AvatarFallback>
-                      </Avatar>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <DropdownMenuItem onClick={() => router.push(translate('routes.admin') as string)}>
-                      {translate('header.admin') as string}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>{translate('header.logout') as string}</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-             )}
+            {!is_loading && is_authenticated && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback>
+                        <User />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuItem
+                    onClick={() =>
+                      router.push(translate("routes.admin") as string)
+                    }
+                  >
+                    {translate("header.admin") as string}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>{translate("header.logout") as string}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
-          
+
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button
@@ -95,17 +132,25 @@ export function AppHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-                <SheetHeader>
-                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                    <SheetDescription className="sr-only">A mobile menu with navigation links.</SheetDescription>
-                </SheetHeader>
+              <SheetHeader>
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  A mobile menu with navigation links.
+                </SheetDescription>
+              </SheetHeader>
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between pb-4 border-b">
-                    <Link href={translate('routes.home') as string} className="flex items-center space-x-2" onClick={handleLinkClick}>
-                        <Code2 className="h-6 w-6 text-primary" />
-                        <span className="font-bold font-headline">Luis Felipe Tavera</span>
-                    </Link>
-                    <ThemeToggleButton />
+                  <Link
+                    href={translate("routes.home") as string}
+                    className="flex items-center space-x-2"
+                    onClick={handleLinkClick}
+                  >
+                    <Code2 className="h-6 w-6 text-primary" />
+                    <span className="font-bold font-headline">
+                      Luis Felipe Tavera
+                    </span>
+                  </Link>
+                  <ThemeToggleButton />
                 </div>
                 <nav className="flex flex-col space-y-4 mt-6">
                   {navLinks.map(({ href, label }) => (
@@ -118,12 +163,16 @@ export function AppHeader() {
                       {label}
                     </Link>
                   ))}
-                   { !is_loading && is_authenticated && (
-                     <Button onClick={logout} variant="ghost" className="justify-start text-lg">
-                        <LogOut className="mr-2 h-5 w-5" />
-                        {translate('header.logout') as string}
-                     </Button>
-                   )}
+                  {!is_loading && is_authenticated && (
+                    <Button
+                      onClick={logout}
+                      variant="ghost"
+                      className="justify-start text-lg"
+                    >
+                      <LogOut className="mr-2 h-5 w-5" />
+                      {translate("header.logout") as string}
+                    </Button>
+                  )}
                 </nav>
               </div>
             </SheetContent>
