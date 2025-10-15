@@ -11,12 +11,12 @@
     "logout": "Logout"
   },
   "routes": {
-    "home": "#home",
-    "about": "#about",
-    "experience": "#experience",
-    "projects": "#projects",
-    "blog": "#blog",
-    "contact": "#contact",
+    "home": "/#home",
+    "about": "/#about",
+    "experience": "/#experience",
+    "projects": "/#projects",
+    "blog": "/#blog",
+    "contact": "/#contact",
     "admin": "/admin",
     "login": "/login",
     "privacy": "/privacy",
