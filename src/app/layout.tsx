@@ -8,6 +8,7 @@ import { AppHeader } from "@/components/app-header";
 import { AppFooter } from "@/components/app-footer";
 import { LanguageProvider } from "@/context/language-context";
 import { ThemeProvider } from "@/context/theme-context";
+import { AuthProvider } from "@/context/auth-context";
 
 import "./globals.css";
 
@@ -47,12 +48,14 @@ export default function RootLayout({
         <Analytics />
         <ThemeProvider>
           <LanguageProvider>
-            <div className="flex flex-col min-h-screen">
-              <AppHeader />
-              <main className="flex-grow">{children}</main>
-              <AppFooter />
-            </div>
-            <Toaster />
+            <AuthProvider>
+              <div className="flex flex-col min-h-screen">
+                <AppHeader />
+                <main className="flex-grow">{children}</main>
+                <AppFooter />
+              </div>
+              <Toaster />
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />

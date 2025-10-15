@@ -10,14 +10,14 @@ import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/auth-context';
 
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  const [isUserLoading, setIsUserLoading] = useState(true);
   const { translate } = useLanguage();
   const router = useRouter();
+  const { is_authenticated, is_loading, logout } = useAuth();
 
   const navLinks = [
     { href: translate('routes.home') as string, label: translate('header.home') as string },
@@ -30,10 +30,6 @@ export function AppHeader() {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
-
-  const handleLogout = async () => {
-    router.push('/');
-  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -62,12 +58,11 @@ export function AppHeader() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex items-center space-x-2">
             <ThemeToggleButton />
-             { !isUserLoading && user && (
+             { !is_loading && is_authenticated && (
                <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
-                        <AvatarImage src={user.photoURL || ''} alt={user.displayName || 'User'} />
                         <AvatarFallback>
                           <User />
                         </AvatarFallback>
@@ -75,20 +70,11 @@ export function AppHeader() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <DropdownMenuLabel className="font-normal">
-                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{user.displayName}</p>
-                        <p className="text-xs leading-none text-muted-foreground">
-                          {user.email}
-                        </p>
-                      </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => router.push(translate('routes.admin') as string)}>
                       {translate('header.admin') as string}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout}>
+                    <DropdownMenuItem onClick={logout}>
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>{translate('header.logout') as string}</span>
                     </DropdownMenuItem>
@@ -132,8 +118,8 @@ export function AppHeader() {
                       {label}
                     </Link>
                   ))}
-                   { !isUserLoading && user && (
-                     <Button onClick={handleLogout} variant="ghost" className="justify-start text-lg">
+                   { !is_loading && is_authenticated && (
+                     <Button onClick={logout} variant="ghost" className="justify-start text-lg">
                         <LogOut className="mr-2 h-5 w-5" />
                         {translate('header.logout') as string}
                      </Button>
