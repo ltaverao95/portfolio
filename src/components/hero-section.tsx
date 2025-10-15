@@ -9,7 +9,7 @@ export function HeroSection() {
   const { translate } = useLanguage();
 
   return (
-    <section id="inicio" className="w-full py-20 md:py-32 lg:py-40 bg-secondary/50">
+    <section id="home" className="w-full py-20 md:py-32 lg:py-40 bg-secondary/50">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-1 lg:gap-12 xl:grid-cols-1">
           <div className="flex flex-col justify-center space-y-4 text-center">

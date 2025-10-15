@@ -35,8 +35,8 @@ service cloud.firestore {
      */
     match /blogPosts/{blogPostId} {
       allow get, list: if true;
-      allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
-      allow update, delete: if isSignedIn() && isExistingOwner(resource.data.authorId);
+      allow create: if isSignedIn() && (request.resource.data.authorId == request.auth.uid || isAdmin());
+      allow update, delete: if isSignedIn() && (isExistingOwner(resource.data.authorId) || isAdmin());
     }
 
     // --- Helper functions ---
@@ -47,6 +47,14 @@ service cloud.firestore {
      */
     function isSignedIn() {
       return request.auth != null;
+    }
+    
+    /**
+     * @description Checks if the user is signed in.
+     * @return {bool} True if the user is signed in, false otherwise.
+     */
+    function isAdmin() {
+      return request.auth.uid == "112875705097306149241";
     }
 
     /**

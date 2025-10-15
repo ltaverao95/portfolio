@@ -11,12 +11,12 @@
     "logout": "Cerrar Sesión"
   },
   "routes": {
-    "home": "/#inicio",
-    "about": "/#sobre-mi",
-    "experience": "/#experiencia",
-    "projects": "/#proyectos",
-    "blog": "/#blog",
-    "contact": "/#contacto",
+    "home": "#home",
+    "about": "#about",
+    "experience": "#experience",
+    "projects": "#projects",
+    "blog": "#blog",
+    "contact": "#contact",
     "admin": "/admin",
     "login": "/login",
     "privacy": "/privacidad",

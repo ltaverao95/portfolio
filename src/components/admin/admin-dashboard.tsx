@@ -7,7 +7,6 @@ import { BlogDataTable } from "@/components/admin/blog-data-table";
 import { useLanguage } from "@/context/language-context";
 
 export function AdminDashboard() {
-  const localStorage = window.localStorage;
   const router = useRouter();
   const { translate } = useLanguage();
 

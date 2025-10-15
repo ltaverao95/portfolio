@@ -11,7 +11,7 @@ export function ExperienceSection() {
   const experiences = translate('experience.items') as { role: string; company: string; dates: string; description: string; }[];
 
   return (
-    <section id="experiencia" className="w-full py-16 md:py-24 lg:py-32 bg-secondary/50">
+    <section id="experience" className="w-full py-16 md:py-24 lg:py-32 bg-secondary/50">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-12">
             <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl text-primary">{translate('experience.title')}</h2>
