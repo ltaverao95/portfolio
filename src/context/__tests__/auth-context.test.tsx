@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import { AuthProvider, useAuth } from "../auth-context";
 import { LanguageProvider } from "../language-context";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
