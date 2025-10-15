@@ -25,10 +25,10 @@ import { PlusCircle, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from "../ui/scroll-area";
 import {
-  BlogPostFormData,
   BlogFormDialogProps,
-  TranslationField,
 } from "./props/blog-form-dialog.props";
+import { TranslationField } from "./models/translation-field.model";
+import { BlogPostFormData } from "./props/blog-post-form-data.props";
 
 export function BlogFormDialog({
   isOpen,

@@ -1,22 +1,21 @@
-
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { AppFooter } from "@/components/app-footer";
 import { LanguageProvider } from "@/context/language-context";
 import { ThemeProvider } from "@/context/theme-context";
-import { FirebaseClientProvider } from "@/firebase";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-      template: '%s | Luis Felipe Tavera Orozco',
-      default: 'Home | Luis Felipe Tavera Orozco', // Fallback title
-    },
+    template: "%s | Luis Felipe Tavera Orozco",
+    default: "Home | Luis Felipe Tavera Orozco", // Fallback title
+  },
   description:
     "Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.",
   keywords:
@@ -48,14 +47,12 @@ export default function RootLayout({
         <Analytics />
         <ThemeProvider>
           <LanguageProvider>
-            <FirebaseClientProvider>
-              <div className="flex flex-col min-h-screen">
-                <AppHeader />
-                <main className="flex-grow">{children}</main>
-                <AppFooter />
-              </div>
-              <Toaster />
-            </FirebaseClientProvider>
+            <div className="flex flex-col min-h-screen">
+              <AppHeader />
+              <main className="flex-grow">{children}</main>
+              <AppFooter />
+            </div>
+            <Toaster />
           </LanguageProvider>
         </ThemeProvider>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />

@@ -17,7 +17,6 @@
     "lib": "@/lib",
     "hooks": "@/hooks",
     "services": "@/services",
-    "firebase": "@/firebase",
     "context": "@/context"
   },
   "iconLibrary": "lucide"

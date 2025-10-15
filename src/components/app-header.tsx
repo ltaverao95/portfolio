@@ -7,18 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
-import { useAuth, useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
 
 export function AppHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
   const { translate } = useLanguage();
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
   const router = useRouter();
 
   const navLinks = [
@@ -34,7 +32,6 @@ export function AppHeader() {
   };
 
   const handleLogout = async () => {
-    await signOut(auth);
     router.push('/');
   }
 

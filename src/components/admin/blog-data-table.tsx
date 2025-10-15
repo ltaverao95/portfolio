@@ -32,7 +32,6 @@ import { BlogPost } from "@/lib/types";
 import { columns } from "./blog-columns";
 import { Loader2, PlusCircle, Trash2 } from "lucide-react";
 import { BlogFormDialog } from "./blog-form-dialog";
-import { useUser } from "@/firebase";
 import { useLanguage } from "@/context/language-context";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -42,7 +41,6 @@ import {
 } from "@/services/blog_service";
 
 export function BlogDataTable() {
-  const { user } = useUser();
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const { translate } = useLanguage();
@@ -328,7 +326,7 @@ export function BlogDataTable() {
         isOpen={isFormOpen}
         onClose={handleFormClose}
         post={selectedPost}
-        userId={user?.uid}
+        userId={"user?.uid"}
         onMutation={setIsMutating}
       />
     </div>

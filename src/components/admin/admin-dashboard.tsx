@@ -1,15 +1,12 @@
 "use client";
 
-import { useUser } from "@/firebase";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { BlogDataTable } from "@/components/admin/blog-data-table";
 import { useLanguage } from "@/context/language-context";
-import axiosHttp from "@/lib/http/axios-http-handler";
 
 export function AdminDashboard() {
-  // const { user, isUserLoading } = useUser();
   const localStorage = window.localStorage;
   const router = useRouter();
   const { translate } = useLanguage();
