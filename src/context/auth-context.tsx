@@ -33,10 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const token = urlSearchParams.get("token");
     if (token) {
-      set_is_loading(true);
       localStorage.setItem("auth_token", token);
       set_is_authenticated(true);
-      set_is_loading(false);
       router.push(translate("routes.admin") as string);
     }
   }, [router, translate]);
