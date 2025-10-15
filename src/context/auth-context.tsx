@@ -12,6 +12,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "./language-context";
 import { Loader2 } from "lucide-react";
 import { sendGTMEvent } from "@next/third-parties/google";
+import axiosHttp from "@/lib/http/axios-http-handler";
 
 interface AuthContextType {
   is_authenticated: boolean;
@@ -29,14 +30,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { translate } = useLanguage();
 
-  const handle_login_callback = useCallback(() => {
+  useEffect(() => {
+    set_is_loading(true);
     const urlSearchParams = new URLSearchParams(window.location.search);
     const token = urlSearchParams.get("token");
     if (token) {
       localStorage.setItem("auth_token", token);
       set_is_authenticated(true);
+      set_is_loading(false);
       router.push(translate("routes.admin") as string);
+      return;
     }
+
+    set_is_loading(false);
   }, [router, translate]);
 
   useEffect(() => {
@@ -44,11 +50,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem("auth_token");
     if (token) {
       set_is_authenticated(true);
-    } else {
-      handle_login_callback();
     }
     set_is_loading(false);
-  }, [pathname, handle_login_callback]);
+  }, [pathname]);
 
   const login = () => {
     sendGTMEvent({
@@ -58,7 +62,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     window.location.href = `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/google`;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await axiosHttp.post("/auth/google/signout");
     localStorage.removeItem("auth_token");
     set_is_authenticated(false);
     router.push(translate("routes.login") as string);
