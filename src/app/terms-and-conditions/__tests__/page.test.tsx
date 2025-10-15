@@ -11,6 +11,6 @@ describe('TermsAndConditionsPage', () => {
       </LanguageProvider>
     );
 
-    expect(screen.getByText('Terms and Conditions')).toBeInTheDocument();
+    expect(screen.getByText('Términos y Condiciones')).toBeInTheDocument();
   });
 });

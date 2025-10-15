@@ -103,9 +103,6 @@ export function AboutSection() {
                 src={profileImage.imageUrl}
                 alt={profileImage.description}
                 data-ai-hint={profileImage.imageHint}
-                onClick={() =>
-                  (window.location.href = `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/google`)
-                }
                 width={300}
                 height={300}
                 className="rounded-full aspect-square object-cover shadow-lg border-4 border-card"

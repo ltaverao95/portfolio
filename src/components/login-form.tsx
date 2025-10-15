@@ -1,7 +1,5 @@
 "use client";
 
-import { useAuth, useUser } from "@/firebase";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
@@ -9,43 +7,45 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { verify_auth_token } from "@/services/auth_service";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { set } from "date-fns";
 
 export function LoginForm() {
-  const auth = useAuth();
-  const { user, isUserLoading } = useUser();
+  // const { user, isUserLoading } = useUser();
   const { translate } = useLanguage();
   const { toast } = useToast();
   const router = useRouter();
   const [is_token_validated, set_is_token_validated] = useState(false);
+  const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    if (!isUserLoading && user && is_token_validated) {
+    if (window.location.search) {
+      setIsUserLoading(true);
+      const token = window.location.search.split("token=")[1];
+      window.localStorage.setItem("auth_token", token);
+      setIsUserLoading(false);
+      set_is_token_validated(true);
+
+      return;
+    }
+
+    setIsUserLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isUserLoading && is_token_validated) {
       router.push(translate("routes.admin") as string);
     }
-  }, [isUserLoading, user, router, translate, is_token_validated]);
+  }, [isUserLoading, router, translate, is_token_validated]);
 
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      sendGTMEvent({ event: "buttonGoogleSignInClicked", value: "google_sign_in" });
-      const credential = await signInWithPopup(auth, provider);
-      const token = await credential.user.getIdToken();
+      sendGTMEvent({
+        event: "buttonGoogleSignInClicked",
+        value: "google_sign_in",
+      });
 
-      const isValidToken = await verify_auth_token(token);
-      if (!isValidToken) {
-        await signOut(auth);
-        toast({
-          variant: "destructive",
-          title: translate("login.toast.error.title") as string,
-          description: translate(
-            "login.toast.error.validation_failed"
-          ) as string,
-        });
-
-        return;
-      }
+      window.location.href = `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/api/auth/google`;
 
       toast({
         title: translate("login.toast.success.title") as string,
@@ -63,7 +63,7 @@ export function LoginForm() {
     }
   };
 
-  if (isUserLoading || user) {
+  if (isUserLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-16 w-16 animate-spin" />

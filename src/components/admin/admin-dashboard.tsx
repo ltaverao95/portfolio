@@ -6,19 +6,22 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { BlogDataTable } from "@/components/admin/blog-data-table";
 import { useLanguage } from "@/context/language-context";
+import axiosHttp from "@/lib/http/axios-http-handler";
 
 export function AdminDashboard() {
-  const { user, isUserLoading } = useUser();
+  // const { user, isUserLoading } = useUser();
+  const localStorage = window.localStorage;
   const router = useRouter();
   const { translate } = useLanguage();
 
   useEffect(() => {
-    if (!isUserLoading && !user) {
+    if (!localStorage.getItem("auth_token")) {
       router.push(translate("routes.login") as string);
+      return;
     }
-  }, [isUserLoading, user, router, translate]);
+  }, [router, translate]);
 
-  if (isUserLoading || !user) {
+  if (!localStorage.getItem("auth_token")) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-16 w-16 animate-spin" />

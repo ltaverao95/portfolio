@@ -11,6 +11,6 @@ describe('PrivacyPolicyPage', () => {
       </LanguageProvider>
     );
 
-    expect(screen.getByText('Privacy Policy')).toBeInTheDocument();
+    expect(screen.getByText('Política de Privacidad')).toBeInTheDocument();
   });
 });

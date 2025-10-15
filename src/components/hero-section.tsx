@@ -15,22 +15,22 @@ export function HeroSection() {
           <div className="flex flex-col justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h1 className="font-headline text-4xl font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl">
-                {translate('hero.greeting')}
+                {translate('hero.greeting') as string}
               </h1>
               <h2 className="font-headline text-2xl font-semibold text-accent md:text-3xl">
-                {translate('hero.role')}
+                {translate('hero.role') as string}
               </h2>
               <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-                {translate('hero.description')}
+                {translate('hero.description') as string}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
               <Button asChild size="lg">
-                <Link href="#contacto">{translate('hero.contactButton')}</Link>
+                <Link href="#contacto">{translate('hero.contactButton') as string}</Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
                 <Link href="#proyectos">
-                  {translate('hero.projectsButton')} <MoveRight className="ml-2 h-5 w-5" />
+                  {translate('hero.projectsButton') as string} <MoveRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </div>
