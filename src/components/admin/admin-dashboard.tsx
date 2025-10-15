@@ -15,9 +15,10 @@ export function AdminDashboard() {
     const token = localStorage.getItem("auth_token");
     if (!token) {
       router.push(translate("routes.login") as string);
-    } else {
-      setIsAuthenticated(true);
+      return;
     }
+
+    setIsAuthenticated(true);
   }, [router, translate]);
 
   if (!isAuthenticated) {
