@@ -2,22 +2,25 @@
 
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BlogDataTable } from "@/components/admin/blog-data-table";
 import { useLanguage } from "@/context/language-context";
 
 export function AdminDashboard() {
   const router = useRouter();
   const { translate } = useLanguage();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("auth_token")) {
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
       router.push(translate("routes.login") as string);
-      return;
+    } else {
+      setIsAuthenticated(true);
     }
   }, [router, translate]);
 
-  if (!localStorage.getItem("auth_token")) {
+  if (!isAuthenticated) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-16 w-16 animate-spin" />
