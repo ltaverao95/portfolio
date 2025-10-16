@@ -17,11 +17,20 @@ export const metadata: Metadata = {
     template: "%s | Luis Felipe Tavera Orozco",
     default: "Home | Luis Felipe Tavera Orozco", // Fallback title
   },
+
   description:
-    "Portfolio de Luis Felipe Tavera Orozco, Ingeniero de Software con más de 8 años de experiencia. Experto en desarrollo de aplicaciones escalables con .Net, React, Angular, arquitecturas limpias y principios SOLID.",
+    "Luis Felipe Tavera Orozco portfolio, Software Engineer with more than 8 years of experience. Expert in developing scalable applications with .Net, React, Angular, clean architectures, and SOLID principles.",
   keywords:
     "Software Engineer, .Net, React, Angular, Freelance, Portfolio, Luis Felipe Tavera Orozco",
   authors: [{ name: "Luis Felipe Tavera Orozco" }],
+  openGraph: {
+    title: "Luis Felipe Tavera Orozco - Software Engineer",
+    description: "Luis Felipe Tavera Orozco portfolio, Software Engineer with more than 8 years of experience. Expert in developing scalable applications with .Net, React, Angular, clean architectures, and SOLID principles.",
+    url: "https://taveralabs.com",
+    siteName: "Luis Felipe Tavera Orozco",
+    images: [{ url: "/assets/Logo.png" }],
+    type: "website"
+  }
 };
 
 export default function RootLayout({
@@ -42,6 +51,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300..700&display=swap"
           rel="stylesheet"
         />
+        <link rel="canonical" href="https://taveralabs.com" />
       </head>
       <body className="font-body antialiased selection:bg-accent selection:text-accent-foreground">
         <SpeedInsights />
