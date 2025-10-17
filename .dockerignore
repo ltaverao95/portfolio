@@ -1,0 +1,75 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js
+.next
+out
+dist
+
+# Build outputs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+AGENTS.md
+*.md
+docs
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+coverage
+jest.config.ts
+jest.setup.ts
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# IDX files
+.idx
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Modified tracking
+.modified
+
+# SWC
+.swc
+
+# Other
+.editorconfig
+.prettierrc
+.eslintrc
