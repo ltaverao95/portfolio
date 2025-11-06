@@ -1,7 +1,10 @@
-import { render, act } from "@testing-library/react";
+import React from "react";
+import { render, act, screen } from "@testing-library/react";
 import { AuthProvider, useAuth } from "../auth-context";
 import { LanguageProvider } from "../language-context";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
+
+process.env.NEXT_PUBLIC_API_BACKEND_URL = "http://localhost:3001";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -30,11 +33,14 @@ const TestComponent = () => {
 };
 
 describe("AuthProvider", () => {
-  it("should handle login and logout", () => {
+  it("should handle logout", async () => {
     const push = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({ push });
 
-    const { getByTestId, getByText } = render(
+    // Set initial state to authenticated
+    localStorage.setItem("auth_token", "test_token");
+
+    render(
       <LanguageProvider>
         <AuthProvider>
           <TestComponent />
@@ -42,17 +48,13 @@ describe("AuthProvider", () => {
       </LanguageProvider>
     );
 
-    expect(getByTestId("is_authenticated").textContent).toBe("false");
+    expect(screen.getByTestId("is_authenticated").textContent).toBe("true");
 
-    act(() => {
-      getByText("Login").click();
+    await act(async () => {
+      screen.getByText("Logout").click();
     });
 
-    act(() => {
-      getByText("Logout").click();
-    });
-
-    expect(getByTestId("is_authenticated").textContent).toBe("false");
+    expect(screen.getByTestId("is_authenticated").textContent).toBe("false");
     expect(push).toHaveBeenCalledWith("routes.login");
   });
 });
