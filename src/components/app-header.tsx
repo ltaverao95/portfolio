@@ -49,6 +49,10 @@ export function AppHeader() {
       label: translate("header.projects") as string,
     },
     {
+      href: translate("routes.blog") as string,
+      label: translate("header.blog") as string,
+    },
+    {
       href: translate("routes.contact") as string,
       label: translate("header.contact") as string,
     },
@@ -74,7 +78,7 @@ export function AppHeader() {
         </div>
 
         <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
-          {navLinks.slice(0, 5).map(({ href, label }) => (
+          {navLinks.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
